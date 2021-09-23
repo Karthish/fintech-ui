@@ -10,8 +10,8 @@ import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from
 export class UserAuthenticationComponent implements OnInit {
   AadharAuthenticateModal!: boolean;
   AadharSuccessModal!: boolean;
-  selectedValue: string = 'val1';
-  checked: boolean = false;
+  selectedValue: string = 'salaried';
+  consent_value!: boolean;
   aadhar_verification: boolean = true;
   pan_verification: boolean = false;
   cust_detail_verification: boolean = false;
@@ -21,6 +21,9 @@ export class UserAuthenticationComponent implements OnInit {
   pan_submitted: boolean = false;
   user_details_form!: FormGroup;
   user_details_submitted: boolean = false;
+  myFiles: string [] = [];
+  file_exceeded: boolean= false;
+  file_count_less: boolean = false;
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder) { }
 
@@ -55,12 +58,15 @@ export class UserAuthenticationComponent implements OnInit {
 
     this.user_details_form = this.formBuilder.group(
       {
+        profession: ['selectedValue', Validators.required],
         organization: ['', Validators.required],
         income: ['', Validators.required],
         funding_amt: ['', Validators.required],
         tenure: ['', Validators.required],
         mothers_maiden_name:['', Validators.required],
-        salary_slips:['', Validators.required],
+        salary_slips:['', 
+          [Validators.required]
+        ],
         accept_terms: [false, Validators.requiredTrue]
       }
     )
@@ -81,6 +87,21 @@ export class UserAuthenticationComponent implements OnInit {
   get user_detail(): { [key: string]: AbstractControl } {
     return this.user_details_form.controls;
   }
+
+  onFileChange(event: any) {
+    if(event.target.files.length == 3) {
+      for (var i = 0; i < event.target.files.length;i++) {
+        this.myFiles.push(event.target.files[i]);
+      }
+    } else if(event.target.files.length > 3) {
+      this.file_count_less = false;
+      this.file_exceeded = true;
+    } else if(event.target.files.length < 3) {
+      this.file_exceeded = false;
+      this.file_count_less = true;
+    } 
+  }
+
 
   SubmitAadhar(): void {
     this.aadhar_submitted = true;
@@ -106,13 +127,26 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
   SubmitUserDetail(): void {
+    console.log('user_details_form',this.user_details_form);
     this.user_details_submitted = true;
-    debugger;
     if(this.user_details_form.invalid) {
-      return
-    } else {
-      console.log(JSON.stringify(this.user_details_form.value, null, 2))
+      return;
     }
+    
+    if(this.myFiles.length == 3) {
+      const formData = new FormData();
+      for (var i = 0; i < this.myFiles.length;i++) {
+        formData.append("salary_slips", this.myFiles[i]);
+      }
+      this.user_details_submitted = true;
+    } else {
+      this.user_details_submitted = false;
+      console.log("invalid form");
+      this.file_exceeded = false;
+      this.file_count_less = true;
+      return;
+    }
+    
   }
 
   

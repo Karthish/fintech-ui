@@ -1,52 +1,27 @@
-import { Directive, HostListener } from '@angular/core';
-
+import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 @Directive({
   selector: '[numbersOnly]',
 })
 export class NumberOnlyDirective {
-  private static readonly allowedKeyCodes = [
-    "Backspace",
-    "Delete",
-    "Insert",
-    "ArrowUp",
-    "ArrowRight",
-    "ArrowDown",
-    "ArrowLeft",
-    "Tab",
-    "Home",
-    "End",
-    "Enter",
-    "Digit1",
-    "Digit2",
-    "Digit3",
-    "Digit4",
-    "Digit5",
-    "Digit6",
-    "Digit7",
-    "Digit8",
-    "Digit9",
-    "Digit0",
-    "Numpad0",
-    "Numpad1",
-    "Numpad2",
-    "Numpad3",
-    "Numpad4",
-    "Numpad5",
-    "Numpad6",
-    "Numpad7",
-    "Numpad8",
-    "Numpad9",
-  ];
+  regexStr = '^[0-9]*$';
+  @Input() isAlphaNumeric!: boolean;
 
-  @HostListener('keydown', ['$event'])
-  onKeyDown(e: KeyboardEvent) {
+  constructor(private el: ElementRef) {}
 
-    const isCommandExecution = e.ctrlKey || e.metaKey || e.shiftKey || e.altKey;
-    const isKeyAllowed = NumberOnlyDirective.allowedKeyCodes.indexOf(e.code) !== -1;
+  @HostListener('keypress', ['$event']) onKeyPress(event: any) {
+    return new RegExp(this.regexStr).test(event.key);
+  }
 
-    if (!isCommandExecution && !isKeyAllowed) {
-      e.preventDefault();
-      return;
-    }
+  @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
+    this.validateFields(event);
+  }
+
+  validateFields(event: any) {
+    setTimeout(() => {
+      this.el.nativeElement.value = this.el.nativeElement.value
+        .replace(/[^A-Za-z ]/g, '')
+        .replace(/\s/g, '');
+      event.preventDefault();
+    }, 100);
   }
 }

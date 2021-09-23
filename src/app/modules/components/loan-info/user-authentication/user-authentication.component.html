@@ -65,61 +65,77 @@
               </p>
             </form>
           </div>
-        </div>
+        </div> 
 
         <div class="choose-profession-con" *ngIf="aadhar_verification === false && pan_verification === false && cust_detail_verification === true">
           <h4 class="mt-5 p-relative">
             <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
             Almost done, just a few more details
           </h4>
-          <div class="form-header-con">
-            <p class="p-dialog-title">Choose your Profession</p>
-            <div class="d-flex">
-              <div class="p-field-radiobutton d-flex align-items-center">
-                <p-radioButton name="groupname" value="val1"  [(ngModel)]="selectedValue"></p-radioButton>
-                <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
-              </div>
-              <div class="p-field-radiobutton d-flex align-items-center mx-5">
-                <p-radioButton name="groupname" value="val2"  [(ngModel)]="selectedValue"></p-radioButton>
-                <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
+          
+          <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()"  autocomplete="off">
+            <div class="form-header-con">
+              <p class="p-dialog-title">Choose your Profession</p>
+              <div class="d-flex">
+                <div class="p-field-radiobutton d-flex align-items-center">
+                  <p-radioButton name="profession" formControlName="profession" value="salaried"  [(ngModel)]="selectedValue"></p-radioButton>
+                  <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
+                </div>
+                <div class="p-field-radiobutton d-flex align-items-center mx-5">
+                  <p-radioButton name="profession" formControlName="profession" value="self employed"  [(ngModel)]="selectedValue"></p-radioButton>
+                  <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
+                </div>
               </div>
             </div>
-          </div>
-          <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()"  autocomplete="off">
             <div class="form-body">
               <div class="row form-elements-con">
                 <div class="col-6 col-md-6">
                   <div class="form-group p-relative">
                     <label for="">Name your Organization</label>
-                    <input type="text" class="main-input" formControlName="organization">
+                    <input type="text" class="main-input" name="organization" formControlName="organization" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization.errors }">
+                    <div *ngIf="user_details_submitted && user_detail.organization.errors" class="invalid-feedback">
+                      <div *ngIf="user_detail.organization.errors.required">Organization is required</div>
+                    </div>
                     <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div class="col-6 col-md-6">
                   <div class="form-group p-relative">
                     <label for="">Monthly Income (In-Hand)</label>
-                    <input type="text" class="main-input" formControlName="income">
+                    <input type="text" class="main-input" name="income" formControlName="income" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.income.errors }">
+                    <div *ngIf="user_details_submitted && user_detail.income.errors" class="invalid-feedback">
+                      <div *ngIf="user_detail.income.errors.required">Income is required</div>
+                    </div>
                     <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div class="col-6 col-md-6">
                   <div class="form-group p-relative">
                     <label for="">Desired Funding Amount</label>
-                    <input type="text" class="main-input" formControlName="funding_amt">
+                    <input type="text" class="main-input" name="funding_amt" formControlName="funding_amt" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.funding_amt.errors }">
+                    <div *ngIf="user_details_submitted && user_detail.funding_amt.errors" class="invalid-feedback">
+                      <div *ngIf="user_detail.funding_amt.errors.required">Funding Amount is required</div>
+                    </div>
                     <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div class="col-6 col-md-6">
                   <div class="form-group p-relative">
                     <label for="">Loan Tenure</label>
-                    <input type="text" class="main-input" formControlName="tenure">
+                    <input type="text" class="main-input" name="tenure" formControlName="tenure" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.tenure.errors }">
+                    <div *ngIf="user_details_submitted && user_detail.tenure.errors" class="invalid-feedback">
+                      <div *ngIf="user_detail.tenure.errors.required">Tenure is required</div>
+                    </div>
                     <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div class="col-6 col-md-6">
                   <div class="form-group p-relative">
                     <label for="">Mother's Maiden Name</label>
-                    <input type="text" class="main-input" formControlName="mothers_maiden_name">
+                    <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
+                    <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors" class="invalid-feedback">
+                      <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
+                    </div>
                     <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -129,14 +145,24 @@
             <div class="form-upload-con mt-4">
               <div class="col-12 col-md-12">
                 <div class="form-group d-flex justify-content-between align-items-center p-relative">
-                  <label for="">Upload your last 3 months salary slips</label>
-                  <input type="file" class="hidden-file-input" formControlName="salary_slips">
+                  <label for="">Upload your last 3 months salary slips <br> <i style="font-size: 0.8rem;color: #b0adad;">(Accepts pdf format only)</i></label>
+                  <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips" formControlName="salary_slips" (change)="onFileChange($event)" multiple>
                   <div class="upload-btn d-flex align-items-center">
                     <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
                     <span>Upload</span>
                   </div>
                 </div>
+                <div *ngIf="user_details_submitted && user_detail.salary_slips.invalid" class="invalid-feedback">
+                  Salary Slips are required
+                </div>
+                <div class="error-message text-end" *ngIf="file_exceeded">
+                  You can upload only three payslips
+                </div>
+                <div class="error-message text-end" *ngIf="file_count_less">
+                  You must upload 3 payslips
+                </div>
               </div>
+
             </div>
 
             <h4 class="mt-5 p-relative">
@@ -144,11 +170,14 @@
               Please provide consent
             </h4>
             <div class="p-field-checkbox d-flex align-items-center terms-conditions-con mt-4 mb-4">
-              <p-checkbox [(ngModel)]="checked" binary1="true" formControlName="accept_terms" inputId="binary1"></p-checkbox>
-              <label for="binary1" class="conditions-text">
+              <p-checkbox [(ngModel)]="consent_value" [binary]="true" name="accept_terms" formControlName="accept_terms" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.accept_terms.errors }"></p-checkbox>
+              <label class="conditions-text">
                 I hereby provide consent to use PAN details mentioned above to fetch Credit Bureau
                 and I agree to <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a>
               </label>
+              <div *ngIf="user_details_submitted && user_detail.accept_terms.errors" class="invalid-feedback">
+                <div *ngIf="user_detail.accept_terms.errors.required">Please provide consent</div>
+              </div>
             </div>
             <div class="submit-btn-con d-flex align-items-center mb-5"> 
               <button class="btn action-confirm-btn" type="submit">Submit 
@@ -213,7 +242,7 @@
   </div>
 </div>
 
-<p-dialog header="Authenticate your AADHAR" [(visible)]="AadharAuthenticateModal" [modal]="true" [style]="{width: '30vw'}"
+<p-dialog header="Authenticate your AADHAR" [(visible)]="AadharAuthenticateModal" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
     [draggable]="false" [resizable]="false">
     <form action="">
       <div class="form-group">
@@ -229,7 +258,7 @@
     </form>
 </p-dialog>
 
-<p-dialog header="Aadhar Verified Successfully" [(visible)]="AadharSuccessModal" [modal]="true" [style]="{width: '30vw'}"
+<p-dialog header="Aadhar Verified Successfully" [(visible)]="AadharSuccessModal" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
     [draggable]="false" [resizable]="false">
     <div class="mt-4 text-center">
       <button class="btn action-confirm-btn" (click)="AadharSuccessModal=false;aadhar_verification = false;this.pan_verification = true;">Close</button>
