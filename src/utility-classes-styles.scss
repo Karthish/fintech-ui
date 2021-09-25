@@ -29,6 +29,13 @@ b {
     font-size: 1.2rem;
     border-radius: 30px;
     background-color: $stepper-active-font-color;
+    &:hover {
+        background-color: #faa714;
+    }
+    &:active {
+        transform: scale(0.98);
+        box-shadow: 3px 2px 22px 1px $stepper-bar-color;
+    }
 }
 
 .main-input{
@@ -44,6 +51,28 @@ b {
     }
 }
 
+p-inputmask {
+    border-bottom: none!important;
+    input.p-inputmask {
+        @extend .main-input;
+        font-size: 1.2rem!important;
+        border-bottom-color: $shade-grey;
+        &:focus {
+            box-shadow: none!important;
+        }
+        &:hover {
+            border-color: $shade-grey!important;
+        }
+    }
+}
+
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+    border-color: $shade-grey;   
+}
+
+.p-inputtext:enabled:hover {
+    border-color: $shade-grey!important;
+}
 .error-message {
     color: #ff0a0a;
     font-size: 1rem;

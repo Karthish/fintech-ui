@@ -16,7 +16,7 @@ import { NumberOnlyDirective } from '../../../shared/directives/onlynumber.direc
 import { floatingnumberDirective} from '../../../shared/directives/floatingvalue.directive';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import {InputMaskModule} from 'primeng/inputmask';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     FormsModule,
     TooltipModule,
     RadioButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    InputMaskModule
   ],
   entryComponents: [UserNeedsComponent]
 })

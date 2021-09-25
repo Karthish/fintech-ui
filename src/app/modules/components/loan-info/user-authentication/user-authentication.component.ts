@@ -8,15 +8,10 @@ import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from
   styleUrls: ['./user-authentication.component.scss']
 })
 export class UserAuthenticationComponent implements OnInit {
-  AadharAuthenticateModal!: boolean;
-  AadharSuccessModal!: boolean;
   selectedValue: string = 'salaried';
   consent_value!: boolean;
-  aadhar_verification: boolean = true;
-  pan_verification: boolean = false;
+  pan_verification: boolean = true;
   cust_detail_verification: boolean = false;
-  aadhar_form!: FormGroup;
-  aadhar_submitted: boolean = false;
   pan_form!: FormGroup;
   pan_submitted: boolean = false;
   user_details_form!: FormGroup;
@@ -29,20 +24,6 @@ export class UserAuthenticationComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    
-    this.aadhar_form = this.formBuilder.group(
-      {
-        aadhar_number: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(12),
-            Validators.maxLength(12)
-            // Validators.pattern("^[0-9]*$")
-          ]
-        ]
-      }
-    )
 
     this.pan_form = this.formBuilder.group(
       {
@@ -73,11 +54,6 @@ export class UserAuthenticationComponent implements OnInit {
 
   }
 
-  // getter function for aadhar form
-  get aadhar(): { [key: string]: AbstractControl } {
-    return this.aadhar_form.controls;
-  }
-
   // getter function for pan form
   get pan(): { [key: string]: AbstractControl } {
     return this.pan_form.controls;
@@ -102,17 +78,6 @@ export class UserAuthenticationComponent implements OnInit {
     } 
   }
 
-
-  SubmitAadhar(): void {
-    this.aadhar_submitted = true;
-
-    if (this.aadhar_form.invalid) {
-      return;
-    } else {
-      console.log(JSON.stringify(this.aadhar_form.value, null, 2));
-      this.AadharAuthenticateModal = true;
-    }
-  }
 
   SubmitPan(): void {
     this.pan_submitted = true;
@@ -154,11 +119,6 @@ export class UserAuthenticationComponent implements OnInit {
   // showAuthenticateModalDialog() {
   //   this.AadharAuthenticateModal = true;
   // }
-
-  showAadharSuccessModal() {
-    this.AadharAuthenticateModal = false;
-    this.AadharSuccessModal = true;
-  }
   
 
 }
