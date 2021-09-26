@@ -8,12 +8,13 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoaderService } from '../services/loader.service';
+import { HandleErrorService } from './HandleErrorService';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
   private requests: HttpRequest<any>[] = [];
 
-  constructor(private loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService, private error: HandleErrorService) { }
 
   removeRequest(req: HttpRequest<any>) {
     const i = this.requests.indexOf(req);
@@ -40,7 +41,8 @@ export class LoaderInterceptor implements HttpInterceptor {
             }
           },
           err => {
-            alert('error' + err);
+            // alert('error' + err);
+            this.error.handleError(err);
             this.removeRequest(req);
             observer.error(err);
           },
