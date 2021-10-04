@@ -4,16 +4,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CrudService {
     http;
+    baseurl: string = "https://ec2-35-154-162-207.ap-south-1.compute.amazonaws.com/api/v1"; 
 
     constructor(http: HttpClient) {
         this.http = http;
     }
 
-    getCust(id?: number) {
+    post(postData: any) {
+        return this.http.post(this.baseurl+'/aadhar/generate/accesskey',postData)
+    }
+
+    get(id?: number) {
         if(id) {
-            return this.http.get('http://ec2-35-154-162-207.ap-south-1.compute.amazonaws.com/api/v1/loan/list' + id);
+            return this.http.get(this.baseurl+'/loan/list' + id);
         } else {
-            return this.http.get('http://ec2-35-154-162-207.ap-south-1.compute.amazonaws.com/api/v1/loan/list');
+            return this.http.get(this.baseurl+'/loan/list');
         }
     }
 

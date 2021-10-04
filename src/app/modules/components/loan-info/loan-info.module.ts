@@ -17,6 +17,7 @@ import { floatingnumberDirective} from '../../../shared/directives/floatingvalue
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {InputMaskModule} from 'primeng/inputmask';
     TooltipModule,
     RadioButtonModule,
     CheckboxModule,
-    InputMaskModule
+    InputMaskModule,
+    NgCircleProgressModule.forRoot()
   ],
   entryComponents: [UserNeedsComponent]
 })

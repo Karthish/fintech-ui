@@ -34,7 +34,7 @@ export class UserNeedsComponent implements OnInit {
     this.primengConfig.ripple = true;
 
     // get loan options
-    this.CrudService.getCust().subscribe(
+    this.CrudService.get().subscribe(
       (response) => {
           console.log('loanoptions',response);
           this.loan_options = response;
@@ -42,11 +42,11 @@ export class UserNeedsComponent implements OnInit {
 
     this.aadhar_form = this.formBuilder.group(
       {
-        aadhar_number: [
+        name: ['',Validators.required],
+        aadhaarNo: [
           '',
           [
             Validators.required,
-            // Validators.pattern("^[0-9]*$")
           ]
         ]
       }
@@ -68,7 +68,9 @@ export class UserNeedsComponent implements OnInit {
 
   SubmitAadhar(): void {
     this.aadhar_submitted = true;
-    this.aadhar_length = this.aadhar_form.value.aadhar_number.replace(/ +/g, "").split("").length;
+    this.aadhar_length = this.aadhar_form.value.aadhaarNo.replace(/ +/g, "").split("").length;
+    let aadhar_rm_space = this.aadhar_form.value.aadhaarNo.replace(/ +/g, "");
+    this.aadhar_form.value.aadhaarNo = aadhar_rm_space;
 
     if(this.aadhar_length != 12) {
       this.invalid_aadhar = true;
@@ -82,9 +84,15 @@ export class UserNeedsComponent implements OnInit {
       return;
     } else {
       this.aadhar_form.setErrors(null);
-      console.log(this.aadhar_form);
+      console.log(this.aadhar_form.value);
       this.invalid_aadhar = false;
-      this.AadharAuthenticateModal = true;
+
+      this.CrudService.post(this.aadhar_form.value).subscribe(
+        (response) => {
+            console.log('Aadhar verification',response);
+            
+      })
+      // this.AadharAuthenticateModal = true;
     }
   }
 
@@ -103,23 +111,6 @@ export class UserNeedsComponent implements OnInit {
   showModalDialog() {
     this.displayModal = true;
   }
-
-  // loan_options = [
-  //   { text: 'Holiday Loan', isClicked: false },
-  //   { text: 'Vacation Loan', isClicked: false },
-  //   { text: 'Home Repairs', isClicked: false },
-  //   { text: 'Lifestyle product purchases', isClicked: false },
-  //   { text: 'Big Purchase', isClicked: false },
-  //   { text: 'Wedding', isClicked: false },
-  //   { text: 'Business expansion', isClicked: false },
-  //   { text: 'Cash against existing owned property', isClicked: false },
-  //   { text: 'New Home purchase', isClicked: false },
-  //   { text: 'Auto / Motor purchase', isClicked: false },
-  //   { text: 'New Home purchase', isClicked: false },
-  //   { text: 'Special Occasion need', isClicked: false },
-  //   { text: 'Education Loan', isClicked: false },
-  //   { text: 'Dept Consolidation', isClicked: false },
-  // ]
 
 
   selectLoan(loan: any): void {

@@ -233,6 +233,60 @@
                 width: 45vw!important;
             }
         }
+    
+    .funding-options-level {
+        .funding-options-box {
+            padding: 0.5rem!important;
+        }
+        .option-detail-heading {
+            font-size: 0.6rem!important;
+        }
+        .option-detail-value {
+            font-size: 0.6rem!important;
+        }
+        .img-con.option-detail-heading {
+            width: 60px!important;
+            height: auto!important;
+        }
+        .btn.action-confirm-btn {
+            font-size: 0.5rem;
+            padding: 8px 15px;
+        }
+        .circle-progressbar-con circle-progress {
+            height: 60px!important;
+            top: -33px!important;
+            left: 22px!important;
+            width: 60px!important;
+        }
+    }
         
+    }
+  }
+
+  @media only screen and (min-width: 576px) and (max-width: 768px) { 
+    .funding-options-level {
+        .funding-options-box {
+            padding: 0.5rem!important;
+        }
+        .option-detail-heading {
+            font-size: 0.6rem!important;
+        }
+        .option-detail-value {
+            font-size: 0.6rem!important;
+        }
+        .img-con.option-detail-heading {
+            width: 60px!important;
+            height: auto!important;
+        }
+        .btn.action-confirm-btn {
+            font-size: 0.5rem;
+            padding: 8px 15px;
+        }
+        .circle-progressbar-con circle-progress {
+            height: 60px!important;
+            top: -33px!important;
+            left: 22px!important;
+            width: 60px!important;
+        }
     }
   }
