@@ -18,17 +18,20 @@ export class UserNeedsComponent implements OnInit {
   tenure: number = 12;
   interest_rate: number = 11;
   interest_payable: number = 6056;
-  total_payment : number = 106056;
+  total_payment: number = 106056;
   monthly_emi: number = 8838;
   showNextBtn = false;
   AadharAuthenticateModal!: boolean;
   AadharSuccessModal!: boolean;
   aadhar_verification_con: boolean = false;
   loan_options_con: boolean = true;
-  loan_options: any; 
+  loan_options: any;
   aadhar_form!: FormGroup;
   aadhar_submitted: boolean = false;
-  constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder, 
+  otp_form!: FormGroup;
+  otp_submitted: boolean = false;
+
+  constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService) { }
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -36,19 +39,25 @@ export class UserNeedsComponent implements OnInit {
     // get loan options
     this.CrudService.get().subscribe(
       (response) => {
-          console.log('loanoptions',response);
-          this.loan_options = response;
-    })
+        console.log('loanoptions', response);
+        this.loan_options = response;
+      })
 
     this.aadhar_form = this.formBuilder.group(
       {
-        name: ['',Validators.required],
+        name: ['', Validators.required],
         aadhaarNo: [
           '',
           [
             Validators.required,
           ]
         ]
+      }
+    )
+
+    this.otp_form = this.formBuilder.group(
+      {
+        otp: ['', Validators.required]
       }
     )
 
@@ -59,11 +68,15 @@ export class UserNeedsComponent implements OnInit {
   //   this.loan_options_con = false;
   //   this.aadhar_verification_con = true;
   // }
-  
+
 
   // getter function for aadhar form
   get aadhar(): { [key: string]: AbstractControl } {
     return this.aadhar_form.controls;
+  }
+
+  get otp(): { [key: string]: AbstractControl } {
+    return this.otp_form.controls;
   }
 
   SubmitAadhar(): void {
@@ -72,7 +85,7 @@ export class UserNeedsComponent implements OnInit {
     let aadhar_rm_space = this.aadhar_form.value.aadhaarNo.replace(/ +/g, "");
     this.aadhar_form.value.aadhaarNo = aadhar_rm_space;
 
-    if(this.aadhar_length != 12) {
+    if (this.aadhar_length != 12) {
       this.invalid_aadhar = true;
       console.log(this.aadhar_form);
       this.aadhar_form.setErrors({ 'invalid': true });
@@ -87,23 +100,35 @@ export class UserNeedsComponent implements OnInit {
       console.log(this.aadhar_form.value);
       this.invalid_aadhar = false;
 
-      this.CrudService.post(this.aadhar_form.value).subscribe(
-        (response) => {
-            console.log('Aadhar verification',response);
-            
-      })
-      // this.AadharAuthenticateModal = true;
+      // this.CrudService.post(this.aadhar_form.value).subscribe(
+      //   (response) => {
+      //       console.log('Aadhar verification',response);
+
+      // })
+      this.AadharAuthenticateModal = true;
     }
   }
 
-  showAadharSuccessModal() {
-    this.AadharAuthenticateModal = false;
-    this.AadharSuccessModal = true;
+  // showAadharSuccessModal() {
+  //   this.AadharAuthenticateModal = false;
+  //   this.AadharSuccessModal = true;
+  // }
+
+  SubmitOtp(): void {
+    this.otp_submitted = true;
+    if (this.otp_form.invalid) {
+      console.log(this.otp_form);
+      return;
+    } else {
+      this.AadharAuthenticateModal = false;
+      this.AadharSuccessModal = true;
+    }
+
   }
 
   calculate_emi() {
-    this.monthly_emi = (this.amt_need * (this.interest_rate/ 1200)) / (1 - (Math.pow(1/(1 + (this.interest_rate/ 1200)), this.tenure)));
-    this.interest_payable =  Math.ceil((this.tenure * this.monthly_emi)  - this.amt_need);
+    this.monthly_emi = (this.amt_need * (this.interest_rate / 1200)) / (1 - (Math.pow(1 / (1 + (this.interest_rate / 1200)), this.tenure)));
+    this.interest_payable = Math.ceil((this.tenure * this.monthly_emi) - this.amt_need);
     this.total_payment = this.interest_payable + this.amt_need;
     this.monthly_emi = Math.ceil(this.monthly_emi);
   }
@@ -114,7 +139,7 @@ export class UserNeedsComponent implements OnInit {
 
 
   selectLoan(loan: any): void {
-    for(let loan of this.loan_options.data) {
+    for (let loan of this.loan_options.data) {
       loan.isClicked = false;
     }
     loan.isClicked = true;

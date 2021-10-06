@@ -1,254 +1,269 @@
-
 <div class="container">
-    <div class="header-row row p-2">
-        <div class="img-con" style="width: 100px;">
-          <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
-        </div>
+  <div class="header-row row p-2">
+    <div class="img-con" style="width: 100px;">
+      <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
     </div>
+  </div>
 </div>
 <hr class="m-0">
 <div class="container">
-    <div *ngIf="loan_options_con" class="body-row row">
-        <div class="col-12 col-md-6">
-          <div *ngIf="loan_options_con" class="loan-options-con">
-            <div>
-              <h4 class="mt-5 p-relative">
-                <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-                Let's get to know your financing needs
-              </h4>
-              <a id="calculate_funding_req_btn" (click)="showModalDialog()">Calculate your funding needs</a>
-            </div>
-            <div class="funding-options-con mt-3">
-              <button type="button" class="btn" *ngFor="let loan of loan_options?.data"  pTooltip="{{loan.description}}"  tooltipPosition="top"  [ngClass]="{'active': loan.isClicked}" (click)="selectLoan(loan)">{{ loan.type }}</button>
-            </div>
-          </div>
-          
-          
-          <div class="mt-4 text-end">
-            <button *ngIf="showNextBtn" class="btn action-confirm-btn" (click)="loan_options_con = false;aadhar_verification_con = true;showNextBtn = false;">Next</button>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="stepper-con mt-4">
-            <div class="stepper-horizontal" id="stepper1">
-              <div class="step editing">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">1</div>
-                  <div class="step-optional">Specify Your Needs</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-              <div class="step">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">2</div>
-                  <div class="step-optional">User Authentication</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-              <div class="step">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">3</div>
-                  <div class="step-optional">Loan Offers</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-              <div class="step">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">4</div>
-                  <div class="step-optional">Loan Approval</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-            </div>
-
-          </div>
-          <div class="img-con" style="width: 31vw;margin: 0 auto;">
-              <img class="img-fluid" src="./../../../../../assets/images/screen1.png" alt="">
-          </div>
-        </div>
-    </div>
-
-    <div *ngIf="aadhar_verification_con" class="body-row row" >
-      <div class="col-12 col-md-6">
-        <!-- aadhar verification con -->
-        <div  class="aadhar-verification-con">
+  <div *ngIf="loan_options_con" class="body-row row">
+    <div class="col-12 col-md-6">
+      <div *ngIf="loan_options_con" class="loan-options-con">
+        <div>
           <h4 class="mt-5 p-relative">
-            Let's quickly verify your identity
+            <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
+            Let's get to know your financing needs
           </h4>
-          <div class="aadhar-con">
-            <form [formGroup]="aadhar_form" (ngSubmit)="SubmitAadhar()" autocomplete="off">
-              <div class="p-relative" style="font-size: 20px;">
-                <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-                Enter your Name
+          <a id="calculate_funding_req_btn" (click)="showModalDialog()">Calculate your funding needs</a>
+        </div>
+        <div class="funding-options-con mt-3">
+          <button type="button" class="btn" *ngFor="let loan of loan_options?.data" pTooltip="{{loan.description}}"
+            tooltipPosition="top" [ngClass]="{'active': loan.isClicked}"
+            (click)="selectLoan(loan)">{{ loan.type }}</button>
+        </div>
+      </div>
+
+
+      <div class="mt-4 text-end">
+        <button *ngIf="showNextBtn" class="btn action-confirm-btn"
+          (click)="loan_options_con = false;aadhar_verification_con = true;showNextBtn = false;">Next</button>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="stepper-con mt-4">
+        <div class="stepper-horizontal" id="stepper1">
+          <div class="step editing">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">1</div>
+              <div class="step-optional">Specify Your Needs</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">2</div>
+              <div class="step-optional">User Authentication</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">3</div>
+              <div class="step-optional">Loan Offers</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">4</div>
+              <div class="step-optional">Loan Approval</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="img-con" style="width: 31vw;margin: 0 auto;">
+        <img class="img-fluid" src="./../../../../../assets/images/screen1.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="aadhar_verification_con" class="body-row row">
+    <div class="col-12 col-md-6">
+      <!-- aadhar verification con -->
+      <div class="aadhar-verification-con">
+        <h4 class="mt-5 p-relative">
+          Let's quickly verify your identity
+        </h4>
+        <div class="aadhar-con">
+          <form [formGroup]="aadhar_form" (ngSubmit)="SubmitAadhar()" autocomplete="off">
+            <div class="p-relative" style="font-size: 20px;">
+              <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
+              Enter your Name
+            </div>
+            <div class="mt-3 mb-4">
+              <input type="text" class="main-input" name="name" formControlName="name"
+                [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.name.errors }">
+              <div *ngIf="aadhar_submitted && aadhar.name.errors" class="invalid-feedback">
+                <div *ngIf="aadhar.name.errors.required">Name is required</div>
               </div>
-              <div class="mt-3 mb-4">
-                <input type="text" class="main-input" name="name" formControlName="name" [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.name.errors }">
-                <div *ngIf="aadhar_submitted && aadhar.name.errors" class="invalid-feedback">
-                  <div *ngIf="aadhar.name.errors.required">Name is required</div>
-                </div>  
-              </div>
+            </div>
             <div class="p-relative" style="font-size: 20px;">
               <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
               Enter your AADHAR Number
             </div>
             <div class="mt-3 mb-4">
-              <p-inputMask formControlName="aadhaarNo" class="main-input" [(ngModel)]="aadhar_id" slotChar=" "  mask="9999 9999 9999"  [autoClear]="false" placeholder="xxxx xxxx xxxx" [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.aadhaarNo.errors || invalid_aadhar }"></p-inputMask>
+              <p-inputMask formControlName="aadhaarNo" class="main-input" [(ngModel)]="aadhar_id" slotChar=" "
+                mask="9999 9999 9999" [autoClear]="false" placeholder="xxxx xxxx xxxx"
+                [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.aadhaarNo.errors || invalid_aadhar }">
+              </p-inputMask>
               <div *ngIf="aadhar_submitted && aadhar.aadhaarNo.errors || invalid_aadhar" class="invalid-feedback">
                 <div *ngIf="aadhar.aadhaarNo.errors?.required">Aadhar ID is required</div>
                 <div *ngIf="invalid_aadhar">
                   Aadhar must be 12 digits number
                 </div>
-        
+
                 <!-- <div *ngIf="aadhar.aadhar_number.errors.pattern">
                   Aadhar ID contains only numbers
                 </div> -->
-              </div>              
+              </div>
             </div>
-            
+
             <button class="btn action-confirm-btn" type="submit">Authenticate</button>
             <p class="mt-3" style="color: #b0adad;font-size: 13px;">
-              <b style="color: #615f5a;">Aadhaar</b> Card gives you easy access to numerous <b style="color: #615f5a;">loans</b> and other financial services. <br>
-              The loan applicants are asked to provide Know Your Customer (KYC) documents and <br> <b style="color: #615f5a;">Aadhaar</b> Card is a solid proof
+              <b style="color: #615f5a;">Aadhaar</b> Card gives you easy access to numerous <b
+                style="color: #615f5a;">loans</b> and other financial services. <br>
+              The loan applicants are asked to provide Know Your Customer (KYC) documents and <br> <b
+                style="color: #615f5a;">Aadhaar</b> Card is a solid proof
               of your citizenship and identity.
             </p>
           </form>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="stepper-con mt-4">
+        <div class="stepper-horizontal" id="stepper1">
+          <div class="step done">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">1</div>
+              <div class="step-optional">Specify Your Needs</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step editing">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">2</div>
+              <div class="step-optional">User Authentication</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">3</div>
+              <div class="step-optional">Loan Offers</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">4</div>
+              <div class="step-optional">Loan Approval</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
           </div>
         </div>
 
-        
       </div>
-      <div class="col-12 col-md-6">
-        <div class="stepper-con mt-4">
-          <div class="stepper-horizontal" id="stepper1">
-            <div class="step done">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">1</div>
-                <div class="step-optional">Specify Your Needs</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step editing">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">2</div>
-                <div class="step-optional">User Authentication</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">3</div>
-                <div class="step-optional">Loan Offers</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">4</div>
-                <div class="step-optional">Loan Approval</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-          </div>
-
-        </div>
-        <div class="img-con" style="width: 31vw;margin: 0 auto;">
-            <img class="img-fluid" src="./../../../../../assets/images/screen2.png" alt="">
-        </div>
+      <div class="img-con" style="width: 31vw;margin: 0 auto;">
+        <img class="img-fluid" src="./../../../../../assets/images/screen2.png" alt="">
       </div>
+    </div>
   </div>
 </div>
 
-  <p-dialog header="Calculate your funding needs" [(visible)]="displayModal" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '60vw'}"
-    [draggable]="false" [resizable]="false">
-    <div class="row slider-con">
-      <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
-        <div class="d-flex justify-content-between align-items-center header-txt mb-2">
-          <span>Amount you need:</span>
-          <div class="value-con">
-            <span class="value-label" style="top: 4px;left: 5px;">INR</span>
-            <input type="number" class="slider-value" numbersOnly [(ngModel)]="amt_need" floatingValue style="padding-left: 40px;">
-          </div>
+<p-dialog header="Calculate your funding needs" [(visible)]="displayModal"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '60vw'}" [draggable]="false"
+  [resizable]="false">
+  <div class="row slider-con">
+    <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
+      <div class="d-flex justify-content-between align-items-center header-txt mb-2">
+        <span>Amount you need:</span>
+        <div class="value-con">
+          <span class="value-label" style="top: 4px;left: 5px;">INR</span>
+          <input type="number" class="slider-value" numbersOnly [(ngModel)]="amt_need" floatingValue
+            style="padding-left: 40px;">
         </div>
-        <p-slider [min]="10000" [max]="10000000" [(ngModel)]="amt_need"></p-slider>
       </div>
-      <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
-        <div class="d-flex justify-content-between align-items-center header-txt mb-2">
-          <span>Tenure:</span>
-          <div class="value-con" style="width: 26%;">
-            <input type="number" class="slider-value" numbersOnly [(ngModel)]="tenure" style="padding-right: 30px;">
-            <span class="value-label" style="top: 4px;right: 5px;">Mo</span>
-          </div>
+      <p-slider [min]="10000" [max]="10000000" [(ngModel)]="amt_need"></p-slider>
+    </div>
+    <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
+      <div class="d-flex justify-content-between align-items-center header-txt mb-2">
+        <span>Tenure:</span>
+        <div class="value-con" style="width: 26%;">
+          <input type="number" class="slider-value" numbersOnly [(ngModel)]="tenure" style="padding-right: 30px;">
+          <span class="value-label" style="top: 4px;right: 5px;">Mo</span>
         </div>
-        <p-slider [min]="12" [max]="120" [(ngModel)]="tenure"></p-slider>
       </div>
-      <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
-        <div class="d-flex justify-content-between align-items-center header-txt mb-2">
-          <span>Interest Rate:</span>
-          <div class="value-con" style="width: 20%;">
-            <input type="text" class="slider-value" [(ngModel)]="interest_rate" floatingValue style="padding-right: 20px;">
-            <span class="value-label" style="top: 4px;right: 5px;">%</span>
-          </div>
+      <p-slider [min]="12" [max]="120" [(ngModel)]="tenure"></p-slider>
+    </div>
+    <div class="col-12 col-md-4 slider-area mb-3 mb-md-0">
+      <div class="d-flex justify-content-between align-items-center header-txt mb-2">
+        <span>Interest Rate:</span>
+        <div class="value-con" style="width: 20%;">
+          <input type="text" class="slider-value" [(ngModel)]="interest_rate" floatingValue
+            style="padding-right: 20px;">
+          <span class="value-label" style="top: 4px;right: 5px;">%</span>
         </div>
-        <p-slider [min]="1" [max]="20" [(ngModel)]="interest_rate"></p-slider>
       </div>
+      <p-slider [min]="1" [max]="20" [(ngModel)]="interest_rate"></p-slider>
     </div>
-    <div class="row">
-      <div class="col text-end mt-4 mb-4">
-        <button class="btn action-confirm-btn" (click)="calculate_emi()">Calculate</button>
-      </div>
+  </div>
+  <div class="row">
+    <div class="col text-end mt-4 mb-4">
+      <button class="btn action-confirm-btn" (click)="calculate_emi()">Calculate</button>
     </div>
-    <div class="row">
-      <div class="col-4 col-md-2 d-flex flex-column">
-        <div class="value-label">Loan EMI</div>
-        <div><b>INR {{monthly_emi}}</b></div>
-      </div>
-      <div class="col-4 col-md-3 d-flex flex-column">
-        <div class="value-label">Total Interest Payable</div>
-        <div><b>INR {{interest_payable}}</b></div>
-      </div>
-      <div class="col-4 col-md-4 d-flex flex-column">
-        <div class="value-label">Total Payment (Principal + Interest)</div>
-        <div><b>INR {{total_payment}}</b></div>
-      </div>
+  </div>
+  <div class="row">
+    <div class="col-4 col-md-2 d-flex flex-column">
+      <div class="value-label">Loan EMI</div>
+      <div><b>INR {{monthly_emi}}</b></div>
     </div>
+    <div class="col-4 col-md-3 d-flex flex-column">
+      <div class="value-label">Total Interest Payable</div>
+      <div><b>INR {{interest_payable}}</b></div>
+    </div>
+    <div class="col-4 col-md-4 d-flex flex-column">
+      <div class="value-label">Total Payment (Principal + Interest)</div>
+      <div><b>INR {{total_payment}}</b></div>
+    </div>
+  </div>
 </p-dialog>
 
-<p-dialog header="Authenticate your AADHAR" [(visible)]="AadharAuthenticateModal" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
-    [draggable]="false" [resizable]="false">
-    <form action="">
-      <div class="form-group">
-        <label for="">Enter OTP</label>
-        <input type="text" class="main-input form-control">
+<p-dialog header="Authenticate your AADHAR" [(visible)]="AadharAuthenticateModal" [modal]="true"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="otp_form" (ngSubmit)="SubmitOtp()" autocomplete="off">
+    <div class="form-group">
+      <label for="">Enter OTP</label>
+      <input type="text" name="otp" formControlName="otp" class="main-input form-control"
+        [ngClass]="{ 'is-invalid': otp_submitted && otp.otp.errors }">
+      <div *ngIf="otp_submitted && otp.otp.errors" class="invalid-feedback">
+        <div *ngIf="otp.otp.errors.required">OTP is required</div>
       </div>
-      <div class="text-end mt-2">
-        <a class="resend-btn" href="">Resend OTP</a>
-      </div>
-      <div class="mt-4">
-        <button class="btn action-confirm-btn" (click)="showAadharSuccessModal()" style="width: 100%;">Confirm</button>
-      </div>
-    </form>
-</p-dialog>
-
-<p-dialog header="Aadhar Verified Successfully" [(visible)]="AadharSuccessModal" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
-    [draggable]="false" [resizable]="false">
-    <div class="mt-4 text-center">
-      <button class="btn action-confirm-btn" (click)="AadharSuccessModal=false;" [routerLink]="['/user-authentication']">Close</button>
     </div>
+    <div class="text-end mt-2">
+      <a class="resend-btn" href="">Resend OTP</a>
+    </div>
+    <div class="mt-4">
+      <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Confirm</button>
+    </div>
+  </form>
 </p-dialog>
 
+<p-dialog header="Aadhar Verified Successfully" [(visible)]="AadharSuccessModal" [modal]="true"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false">
+  <div class="mt-4 text-center">
+    <button class="btn action-confirm-btn" (click)="AadharSuccessModal=false;"
+      [routerLink]="['/user-authentication']">Close</button>
+  </div>
+</p-dialog>

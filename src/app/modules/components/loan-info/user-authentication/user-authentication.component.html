@@ -1,216 +1,228 @@
-
-
 <div class="container">
   <div class="header-row row p-2">
-      <div class="img-con" style="width: 100px;">
-        <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
-      </div>
+    <div class="img-con" style="width: 100px;">
+      <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
+    </div>
   </div>
 </div>
 <hr class="m-0">
 <div class="container user-authentication-con">
   <div class="body-row row">
-      <div class="col-12 col-md-6">
-        <div class="">
-          <h4 class="mt-5 p-relative">
-            Let's quickly verify your identity
-          </h4>
-        
-          <div *ngIf="pan_verification === true && cust_detail_verification === false" class="pan-con">
-            <form [formGroup]="pan_form" (ngSubmit)="SubmitPan()" autocomplete="off">
-              <div class="p-relative" style="font-size: 20px;">
-                <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-                Enter your PAN Number
-              </div>
-              <div class="mt-3 mb-4">
-                <input type="text" class="main-input" name="pan_number" formControlName="pan_number" [ngClass]="{ 'is-invalid': pan_submitted && pan.pan_number.errors }">
-                <div *ngIf="pan_submitted && pan.pan_number.errors" class="invalid-feedback">
-                  <div *ngIf="pan.pan_number.errors.required">PAN Number is required</div>
-                  <div *ngIf="pan.pan_number.errors.pattern">
-                    Not a Valid PAN Number
-                  </div>
-                </div>  
-              </div>
-              <button class="btn action-confirm-btn" type="submit">Continue</button>
-              <p class="mt-3" style="color: #b0adad;font-size: 13px;">
-                When applying for a <b style="color: #615f5a;">personal loan</b>, per the guidelines set by financial lenders, it is <br>
-                <b style="color: #615f5a;"> mandatory</b> to submit one's <b style="color: #615f5a;">PAN</b> card as it is<b style="color: #615f5a;"> mandatory</b> by the tax laws.
-              </p>
-            </form>
-          </div>
-        </div> 
+    <div class="col-12 col-md-6">
+      <div class="">
+        <h4 class="mt-5 p-relative">
+          Let's quickly verify your identity
+        </h4>
 
-        <div class="choose-profession-con" *ngIf="pan_verification === false && cust_detail_verification === true">
-          <h4 class="mt-5 p-relative">
-            <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-            Almost done, just a few more details
-          </h4>
-          
-          <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()"  autocomplete="off">
-            <div class="form-header-con">
-              <p class="p-dialog-title">Choose your Profession</p>
-              <div class="d-flex">
-                <div class="p-field-radiobutton d-flex align-items-center">
-                  <p-radioButton name="profession" formControlName="profession" value="salaried"  [(ngModel)]="selectedValue"></p-radioButton>
-                  <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
-                </div>
-                <div class="p-field-radiobutton d-flex align-items-center mx-5">
-                  <p-radioButton name="profession" formControlName="profession" value="self employed"  [(ngModel)]="selectedValue"></p-radioButton>
-                  <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
-                </div>
-              </div>
-            </div>
-            <div class="form-body">
-              <div class="row form-elements-con">
-                <div class="col-6 col-md-6">
-                  <div class="form-group p-relative">
-                    <label for="">Name your Organization</label>
-                    <input type="text" class="main-input" name="organization" formControlName="organization" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization.errors }">
-                    <div *ngIf="user_details_submitted && user_detail.organization.errors" class="invalid-feedback">
-                      <div *ngIf="user_detail.organization.errors.required">Organization is required</div>
-                    </div>
-                    <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div class="col-6 col-md-6">
-                  <div class="form-group p-relative">
-                    <label for="">Monthly Income (In-Hand)</label>
-                    <input type="text" class="main-input" name="income" formControlName="income" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.income.errors }">
-                    <div *ngIf="user_details_submitted && user_detail.income.errors" class="invalid-feedback">
-                      <div *ngIf="user_detail.income.errors.required">Income is required</div>
-                    </div>
-                    <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div class="col-6 col-md-6">
-                  <div class="form-group p-relative">
-                    <label for="">Desired Funding Amount</label>
-                    <input type="text" class="main-input" name="funding_amt" formControlName="funding_amt" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.funding_amt.errors }">
-                    <div *ngIf="user_details_submitted && user_detail.funding_amt.errors" class="invalid-feedback">
-                      <div *ngIf="user_detail.funding_amt.errors.required">Funding Amount is required</div>
-                    </div>
-                    <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div class="col-6 col-md-6">
-                  <div class="form-group p-relative">
-                    <label for="">Loan Tenure</label>
-                    <input type="text" class="main-input" name="tenure" formControlName="tenure" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.tenure.errors }">
-                    <div *ngIf="user_details_submitted && user_detail.tenure.errors" class="invalid-feedback">
-                      <div *ngIf="user_detail.tenure.errors.required">Tenure is required</div>
-                    </div>
-                    <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div class="col-6 col-md-6">
-                  <div class="form-group p-relative">
-                    <label for="">Mother's Maiden Name</label>
-                    <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
-                    <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors" class="invalid-feedback">
-                      <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
-                    </div>
-                    <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-            <div class="form-upload-con mt-4">
-              <div class="col-12 col-md-12">
-                <div class="form-group d-flex justify-content-between align-items-center p-relative">
-                  <label for="">Upload your last 3 months salary slips <br> <i style="font-size: 0.8rem;color: #b0adad;">(Accepts pdf format only)</i></label>
-                  <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips" formControlName="salary_slips" (change)="onFileChange($event)" multiple>
-                  <div class="upload-btn d-flex align-items-center">
-                    <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
-                    <span>Upload</span>
-                  </div>
-                </div>
-                <div *ngIf="user_details_submitted && user_detail.salary_slips.invalid" class="invalid-feedback">
-                  Salary Slips are required
-                </div>
-                <div class="error-message text-end" *ngIf="file_exceeded">
-                  You can upload only three payslips
-                </div>
-                <div class="error-message text-end" *ngIf="file_count_less">
-                  You must upload 3 payslips
-                </div>
-              </div>
-
-            </div>
-
-            <h4 class="mt-5 p-relative">
+        <div *ngIf="pan_verification === true && cust_detail_verification === false" class="pan-con">
+          <form [formGroup]="pan_form" (ngSubmit)="SubmitPan()" autocomplete="off">
+            <div class="p-relative" style="font-size: 20px;">
               <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-              Please provide consent
-            </h4>
-            <div class="p-field-checkbox d-flex align-items-center terms-conditions-con mt-4 mb-4">
-              <p-checkbox [(ngModel)]="consent_value" [binary]="true" name="accept_terms" formControlName="accept_terms" [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.accept_terms.errors }"></p-checkbox>
-              <label class="conditions-text">
-                I hereby provide consent to use PAN details mentioned above to fetch Credit Bureau
-                and I agree to <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a>
-              </label>
-              <div *ngIf="user_details_submitted && user_detail.accept_terms.errors" class="invalid-feedback">
-                <div *ngIf="user_detail.accept_terms.errors.required">Please provide consent</div>
+              Enter your PAN Number
+            </div>
+            <div class="mt-3 mb-4">
+              <input type="text" class="main-input" name="pan" formControlName="pan"
+                [ngClass]="{ 'is-invalid': pan_submitted && pan.pan.errors }">
+              <div *ngIf="pan_submitted && pan.pan.errors" class="invalid-feedback">
+                <div *ngIf="pan.pan.errors.required">PAN Number is required</div>
+                <div *ngIf="pan.pan.errors.pattern">
+                  Not a Valid PAN Number
+                </div>
               </div>
             </div>
-            <div class="submit-btn-con d-flex align-items-center mb-5"> 
-              <button class="btn action-confirm-btn" type="submit">Submit 
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-              </button>
-              <label class="conditions-text">
-                We intend to ask only the relevant questions,
-                They will appear as we know about your needs
-              </label>
-            </div>
-
+            <button class="btn action-confirm-btn" type="submit">Continue</button>
+            <p class="mt-3" style="color: #b0adad;font-size: 13px;">
+              When applying for a <b style="color: #615f5a;">personal loan</b>, per the guidelines set by financial
+              lenders, it is <br>
+              <b style="color: #615f5a;"> mandatory</b> to submit one's <b style="color: #615f5a;">PAN</b> card as it
+              is<b style="color: #615f5a;"> mandatory</b> by the tax laws.
+            </p>
           </form>
         </div>
-
       </div>
-      <div class="col-12 col-md-6">
-        <div class="stepper-con mt-4">
-          <div class="stepper-horizontal" id="stepper1">
-            <div class="step done">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">1</div>
-                <div class="step-optional">Specify Your Needs</div>
+
+      <div class="choose-profession-con" *ngIf="pan_verification === false && cust_detail_verification === true">
+        <h4 class="mt-5 p-relative">
+          <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
+          Almost done, just a few more details
+        </h4>
+
+        <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()" autocomplete="off">
+          <div class="form-header-con">
+            <p class="p-dialog-title">Choose your Profession</p>
+            <div class="d-flex">
+              <div class="p-field-radiobutton d-flex align-items-center">
+                <p-radioButton name="profession" formControlName="profession" value="salaried"
+                  [(ngModel)]="selectedValue"></p-radioButton>
+                <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
               </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step editing">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">2</div>
-                <div class="step-optional">User Authentication</div>
+              <div class="p-field-radiobutton d-flex align-items-center mx-5">
+                <p-radioButton name="profession" formControlName="profession" value="self employed"
+                  [(ngModel)]="selectedValue"></p-radioButton>
+                <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
               </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">3</div>
-                <div class="step-optional">Loan Offers</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
-            </div>
-            <div class="step">
-              <div class="step-circle"></div>
-              <div class="stage-btn-click">
-                <div class="step-title">4</div>
-                <div class="step-optional">Loan Approval</div>
-              </div>
-              <div class="step-bar-left"></div>
-              <div class="step-bar-right"></div>
             </div>
           </div>
-        
-        </div>
-        <div class="stage-img-con" style="width: 31vw;margin: 0 auto;">
-            <img class="img-fluid" src="./../../../../../assets/images/screen2.png" alt="">
-        </div>
+          <div class="form-body">
+            <div class="row form-elements-con">
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Name your Organization</label>
+                  <input type="text" class="main-input" name="organization" formControlName="organization"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.organization.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.organization.errors.required">Organization is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Monthly Income (In-Hand)</label>
+                  <input type="text" class="main-input" name="income" formControlName="income"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.income.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.income.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.income.errors.required">Income is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Desired Funding Amount</label>
+                  <input type="text" class="main-input" name="funding_amt" formControlName="funding_amt"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.funding_amt.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.funding_amt.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.funding_amt.errors.required">Funding Amount is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Loan Tenure</label>
+                  <input type="text" class="main-input" name="tenure" formControlName="tenure"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.tenure.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.tenure.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.tenure.errors.required">Tenure is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Mother's Maiden Name</label>
+                  <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-upload-con mt-4">
+            <div class="col-12 col-md-12">
+              <div class="form-group d-flex justify-content-between align-items-center p-relative">
+                <label for="">Upload your last 3 months salary slips <br> <i
+                    style="font-size: 0.8rem;color: #b0adad;">(Accepts pdf format only)</i></label>
+                <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
+                  formControlName="salary_slips" (change)="onFileChange($event)" multiple>
+                <div class="upload-btn d-flex align-items-center">
+                  <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
+                  <span>Upload</span>
+                </div>
+              </div>
+              <div *ngIf="user_details_submitted && user_detail.salary_slips.invalid" class="invalid-feedback">
+                Salary Slips are required
+              </div>
+              <div class="error-message text-end" *ngIf="file_exceeded">
+                You can upload only three payslips
+              </div>
+              <div class="error-message text-end" *ngIf="file_count_less">
+                You must upload 3 payslips
+              </div>
+            </div>
+
+          </div>
+
+          <h4 class="mt-5 p-relative">
+            <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
+            Please provide consent
+          </h4>
+          <div class="p-field-checkbox d-flex align-items-center terms-conditions-con mt-4 mb-4">
+            <p-checkbox [(ngModel)]="consent_value" [binary]="true" name="accept_terms" formControlName="accept_terms"
+              [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.accept_terms.errors }"></p-checkbox>
+            <label class="conditions-text">
+              I hereby provide consent to use PAN details mentioned above to fetch Credit Bureau
+              and I agree to <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a>
+            </label>
+            <div *ngIf="user_details_submitted && user_detail.accept_terms.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.accept_terms.errors.required">Please provide consent</div>
+            </div>
+          </div>
+          <div class="submit-btn-con d-flex align-items-center mb-5">
+            <button class="btn action-confirm-btn" type="submit">Submit
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>
+            <label class="conditions-text">
+              We intend to ask only the relevant questions,
+              They will appear as we know about your needs
+            </label>
+          </div>
+
+        </form>
       </div>
+
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="stepper-con mt-4">
+        <div class="stepper-horizontal" id="stepper1">
+          <div class="step done">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">1</div>
+              <div class="step-optional">Specify Your Needs</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step editing">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">2</div>
+              <div class="step-optional">User Authentication</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">3</div>
+              <div class="step-optional">Loan Offers</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+          <div class="step">
+            <div class="step-circle"></div>
+            <div class="stage-btn-click">
+              <div class="step-title">4</div>
+              <div class="step-optional">Loan Approval</div>
+            </div>
+            <div class="step-bar-left"></div>
+            <div class="step-bar-right"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="stage-img-con" style="width: 31vw;margin: 0 auto;">
+        <img class="img-fluid" src="./../../../../../assets/images/screen2.png" alt="">
+      </div>
+    </div>
   </div>
 </div>
