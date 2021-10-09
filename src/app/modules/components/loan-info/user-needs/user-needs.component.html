@@ -86,7 +86,7 @@
           Let's quickly verify your identity
         </h4>
         <div class="aadhar-con">
-          <form [formGroup]="aadhar_form" (ngSubmit)="SubmitAadhar()" autocomplete="off">
+          <form [formGroup]="aadhar_form"  autocomplete="off">
             <div class="p-relative" style="font-size: 20px;">
               <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
               Enter your Name
@@ -118,8 +118,8 @@
                 </div> -->
               </div>
             </div>
-
-            <button class="btn action-confirm-btn" type="submit">Authenticate</button>
+          </form>
+          <button class="btn action-confirm-btn" (click)="SubmitAadhar()" type="button">Authenticate</button>
             <p class="mt-3" style="color: #b0adad;font-size: 13px;">
               <b style="color: #615f5a;">Aadhaar</b> Card gives you easy access to numerous <b
                 style="color: #615f5a;">loans</b> and other financial services. <br>
@@ -127,7 +127,6 @@
                 style="color: #615f5a;">Aadhaar</b> Card is a solid proof
               of your citizenship and identity.
             </p>
-          </form>
         </div>
       </div>
 
@@ -252,7 +251,7 @@
       </div>
     </div>
     <div class="text-end mt-2">
-      <a class="resend-btn" href="">Resend OTP</a>
+      <button type="button" class="resend-btn" (click)="SubmitAadhar()">Resend OTP</button>
     </div>
     <div class="mt-4">
       <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Confirm</button>

@@ -20,6 +20,7 @@ export class UserAuthenticationComponent implements OnInit {
   myFiles: string[] = [];
   file_exceeded: boolean = false;
   file_count_less: boolean = false;
+  pan_verification_url_type = '/pan/verify';
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService) { }
@@ -88,7 +89,7 @@ export class UserAuthenticationComponent implements OnInit {
       return
     } else {
       console.log(JSON.stringify(this.pan_form.value, null, 2))
-      this.CrudService.post(this.pan_form.value).subscribe(
+      this.CrudService.post(this.pan_form.value, this.pan_verification_url_type).subscribe(
         (response) => {
           console.log('Aadhar verification', response);
           this.pan_verification = false;

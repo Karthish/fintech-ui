@@ -30,6 +30,8 @@ export class UserNeedsComponent implements OnInit {
   aadhar_submitted: boolean = false;
   otp_form!: FormGroup;
   otp_submitted: boolean = false;
+  aadhar_verification_url_type = '/aadhar/generate/accesskey';
+  otp_verification_url_type = '/aadhar/otp/verify';
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService) { }
@@ -100,12 +102,20 @@ export class UserNeedsComponent implements OnInit {
       console.log(this.aadhar_form.value);
       this.invalid_aadhar = false;
 
-      // this.CrudService.post(this.aadhar_form.value).subscribe(
-      //   (response) => {
-      //       console.log('Aadhar verification',response);
-
-      // })
-      this.AadharAuthenticateModal = true;
+      this.CrudService.post(this.aadhar_form.value, this.aadhar_verification_url_type).subscribe(
+        (response: any) => {
+            console.log('Aadhar verification',response);
+            this.AadharAuthenticateModal = true;
+            
+            localStorage.setItem('accessKey', response?.result?.accessKey);
+            localStorage.setItem('caseId', response?.clientData?.caseId);
+            localStorage.getItem('loan_type');
+            localStorage.getItem('loan_description');
+            localStorage.getItem('loan_ref_id');
+            localStorage.setItem('aadhaar_no',this.aadhar_form.value.aadhaarNo);
+            
+      })
+      
     }
   }
 
@@ -120,8 +130,19 @@ export class UserNeedsComponent implements OnInit {
       console.log(this.otp_form);
       return;
     } else {
-      this.AadharAuthenticateModal = false;
-      this.AadharSuccessModal = true;
+      this.otp_form.value.accessKey = localStorage.getItem('accessKey');
+      this.otp_form.value.caseId = localStorage.getItem('caseId');
+      this.otp_form.value.loan_type = localStorage.getItem('loan_type');
+      this.otp_form.value.loan_description = localStorage.getItem('loan_description');
+      this.otp_form.value.loan_ref_id = localStorage.getItem('loan_ref_id');
+      this.otp_form.value.current_page = "aadhar_verification";
+      this.otp_form.value.aadhaar_no = localStorage.getItem('aadhaar_no');
+      console.log("otp-response",this.otp_form.value);
+      this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
+        (response) => {
+          this.AadharAuthenticateModal = false;
+          this.AadharSuccessModal = true;
+      })
     }
 
   }
@@ -139,12 +160,21 @@ export class UserNeedsComponent implements OnInit {
 
 
   selectLoan(loan: any): void {
+    debugger;
+    console.log(loan);
     for (let loan of this.loan_options.data) {
       loan.isClicked = false;
     }
     loan.isClicked = true;
+    localStorage.setItem('loan_type', loan.type);
+    localStorage.setItem('loan_description', loan.description);
+    localStorage.setItem('loan_ref_id', loan._id);
     this.showNextBtn = true;
   }
 
 
+}
+
+function accesskey(accesskey: any, accessKey: any) {
+  throw new Error('Function not implemented.');
 }
