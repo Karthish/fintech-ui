@@ -14,12 +14,17 @@ export class CrudService {
         return this.http.post(this.baseurl+_api_type,postData)
     }
 
-    get(id?: number) {
+    getLoanList(id?: number) {
         if(id) {
-            return this.http.get(this.baseurl+'/loan/list' + id);
+            return this.http.get(this.baseurl+'' + id);
         } else {
             return this.http.get(this.baseurl+'/loan/list');
         }
     }
+
+    getUserStatus(id?: any) {
+        return this.http.get(this.baseurl+'/user/status/' + id);
+    }
+    
 
 }

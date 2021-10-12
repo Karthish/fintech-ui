@@ -21,11 +21,11 @@
               Enter your PAN Number
             </div>
             <div class="mt-3 mb-4">
-              <input type="text" class="main-input" name="pan" formControlName="pan"
-                [ngClass]="{ 'is-invalid': pan_submitted && pan.pan.errors }">
-              <div *ngIf="pan_submitted && pan.pan.errors" class="invalid-feedback">
-                <div *ngIf="pan.pan.errors.required">PAN Number is required</div>
-                <div *ngIf="pan.pan.errors.pattern">
+              <input type="text" class="main-input" name="pan_no" formControlName="pan_no"
+                [ngClass]="{ 'is-invalid': pan_submitted && pan.pan_no.errors }">
+              <div *ngIf="pan_submitted && pan.pan_no.errors" class="invalid-feedback">
+                <div *ngIf="pan.pan_no.errors.required">PAN Number is required</div>
+                <div *ngIf="pan.pan_no.errors.pattern">
                   Not a Valid PAN Number
                 </div>
               </div>
@@ -52,12 +52,12 @@
             <p class="p-dialog-title">Choose your Profession</p>
             <div class="d-flex">
               <div class="p-field-radiobutton d-flex align-items-center">
-                <p-radioButton name="profession" formControlName="profession" value="salaried"
+                <p-radioButton name="professional_type" formControlName="professional_type" value="salaried"
                   [(ngModel)]="selectedValue"></p-radioButton>
                 <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
               </div>
               <div class="p-field-radiobutton d-flex align-items-center mx-5">
-                <p-radioButton name="profession" formControlName="profession" value="self employed"
+                <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"
                   [(ngModel)]="selectedValue"></p-radioButton>
                 <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
               </div>
@@ -68,10 +68,10 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Name your Organization</label>
-                  <input type="text" class="main-input" name="organization" formControlName="organization"
-                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization.errors }">
-                  <div *ngIf="user_details_submitted && user_detail.organization.errors" class="invalid-feedback">
-                    <div *ngIf="user_detail.organization.errors.required">Organization is required</div>
+                  <input type="text" class="main-input" name="organization_name" formControlName="organization_name"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization_name.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.organization_name.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.organization_name.errors.required">Organization is required</div>
                   </div>
                   <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                 </div>
@@ -79,10 +79,10 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Monthly Income (In-Hand)</label>
-                  <input type="text" class="main-input" name="income" formControlName="income"
-                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.income.errors }">
-                  <div *ngIf="user_details_submitted && user_detail.income.errors" class="invalid-feedback">
-                    <div *ngIf="user_detail.income.errors.required">Income is required</div>
+                  <input type="text" class="main-input" name="monthly_income" formControlName="monthly_income"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.monthly_income.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.monthly_income.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.monthly_income.errors.required">Income is required</div>
                   </div>
                   <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                 </div>
@@ -90,10 +90,10 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Desired Funding Amount</label>
-                  <input type="text" class="main-input" name="funding_amt" formControlName="funding_amt"
-                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.funding_amt.errors }">
-                  <div *ngIf="user_details_submitted && user_detail.funding_amt.errors" class="invalid-feedback">
-                    <div *ngIf="user_detail.funding_amt.errors.required">Funding Amount is required</div>
+                  <input type="text" class="main-input" name="desired_fund_amount" formControlName="desired_fund_amount"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.desired_fund_amount.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.desired_fund_amount.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.desired_fund_amount.errors.required">Funding Amount is required</div>
                   </div>
                   <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                 </div>
@@ -101,10 +101,10 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Loan Tenure</label>
-                  <input type="text" class="main-input" name="tenure" formControlName="tenure"
-                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.tenure.errors }">
-                  <div *ngIf="user_details_submitted && user_detail.tenure.errors" class="invalid-feedback">
-                    <div *ngIf="user_detail.tenure.errors.required">Tenure is required</div>
+                  <input type="text" class="main-input" name="loan_tenure" formControlName="loan_tenure"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.loan_tenure.errors.required">Tenure is required</div>
                   </div>
                   <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                 </div>

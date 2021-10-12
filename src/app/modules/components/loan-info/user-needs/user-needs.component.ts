@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
 import { CrudService } from './../../services/crud-service';
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-needs',
@@ -32,14 +34,17 @@ export class UserNeedsComponent implements OnInit {
   otp_submitted: boolean = false;
   aadhar_verification_url_type = '/aadhar/generate/accesskey';
   otp_verification_url_type = '/aadhar/otp/verify';
+  loan_list_url_type = '/loan/list';
+  userID: any;
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService) { }
+    private CrudService: CrudService, private toaster: ToastrService, 
+    private router: Router) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
 
     // get loan options
-    this.CrudService.get().subscribe(
+    this.CrudService.getLoanList().subscribe(
       (response) => {
         console.log('loanoptions', response);
         this.loan_options = response;
@@ -48,7 +53,7 @@ export class UserNeedsComponent implements OnInit {
     this.aadhar_form = this.formBuilder.group(
       {
         name: ['', Validators.required],
-        aadhaarNo: [
+        aadhar_no: [
           '',
           [
             Validators.required,
@@ -83,9 +88,9 @@ export class UserNeedsComponent implements OnInit {
 
   SubmitAadhar(): void {
     this.aadhar_submitted = true;
-    this.aadhar_length = this.aadhar_form.value.aadhaarNo.replace(/ +/g, "").split("").length;
-    let aadhar_rm_space = this.aadhar_form.value.aadhaarNo.replace(/ +/g, "");
-    this.aadhar_form.value.aadhaarNo = aadhar_rm_space;
+    this.aadhar_length = this.aadhar_form.value.aadhar_no.replace(/ +/g, "").split("").length;
+    let aadhar_rm_space = this.aadhar_form.value.aadhar_no.replace(/ +/g, "");
+    this.aadhar_form.value.aadhar_no = aadhar_rm_space;
 
     if (this.aadhar_length != 12) {
       this.invalid_aadhar = true;
@@ -104,15 +109,23 @@ export class UserNeedsComponent implements OnInit {
 
       this.CrudService.post(this.aadhar_form.value, this.aadhar_verification_url_type).subscribe(
         (response: any) => {
+          if(response.status == false) {
+            if(response.msg == 'Aadhar number is already exists') {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: response.data[0]._id } });
+            }
+            this.toaster.error(response.msg);
+          } else {
+            this.toaster.success(response.msg);
             console.log('Aadhar verification',response);
             this.AadharAuthenticateModal = true;
             
-            localStorage.setItem('accessKey', response?.result?.accessKey);
-            localStorage.setItem('caseId', response?.clientData?.caseId);
+            localStorage.setItem('accessKey', response?.data?.result?.accessKey);
+            localStorage.setItem('caseId', response?.data?.clientData?.caseId);
             localStorage.getItem('loan_type');
             localStorage.getItem('loan_description');
             localStorage.getItem('loan_ref_id');
-            localStorage.setItem('aadhaar_no',this.aadhar_form.value.aadhaarNo);
+            localStorage.setItem('aadhar_no',this.aadhar_form.value.aadhar_no);
+          }
             
       })
       
@@ -135,13 +148,21 @@ export class UserNeedsComponent implements OnInit {
       this.otp_form.value.loan_type = localStorage.getItem('loan_type');
       this.otp_form.value.loan_description = localStorage.getItem('loan_description');
       this.otp_form.value.loan_ref_id = localStorage.getItem('loan_ref_id');
-      this.otp_form.value.current_page = "aadhar_verification";
-      this.otp_form.value.aadhaar_no = localStorage.getItem('aadhaar_no');
+      this.otp_form.value.current_page = "aadhar-verification";
+      this.otp_form.value.aadhar_no = localStorage.getItem('aadhar_no');
       console.log("otp-response",this.otp_form.value);
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
-        (response) => {
-          this.AadharAuthenticateModal = false;
-          this.AadharSuccessModal = true;
+        (response:any) => {
+          if(response.status == false) {
+            this.toaster.error(response.msg);
+          } else {
+            this.toaster.success(response.msg);
+            console.log('otpverifyresponse',response);
+            this.userID = response?.data?._id;
+            this.AadharAuthenticateModal = false;
+            this.AadharSuccessModal = true;
+          }
+          
       })
     }
 
@@ -160,8 +181,6 @@ export class UserNeedsComponent implements OnInit {
 
 
   selectLoan(loan: any): void {
-    debugger;
-    console.log(loan);
     for (let loan of this.loan_options.data) {
       loan.isClicked = false;
     }
