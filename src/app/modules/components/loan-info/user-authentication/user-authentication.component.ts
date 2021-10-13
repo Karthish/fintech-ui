@@ -64,9 +64,9 @@ export class UserAuthenticationComponent implements OnInit {
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['', Validators.required],
         mothers_maiden_name: ['', Validators.required],
-        salary_slips: ['',
-          [Validators.required]
-        ],
+        // salary_slips: ['',
+        //   [Validators.required]
+        // ],
         accept_terms: [false, Validators.requiredTrue]
       }
     )
@@ -122,9 +122,12 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
   SubmitUserDetail(): void {
-    console.log('user_details_form', this.user_details_form);
+    delete this.user_details_form.value.accept_terms;
+    // delete this.user_details_form.value.salary_slips;
+    console.log('user_details_form', this.user_details_form.value);
     this.user_details_submitted = true;
     this.user_details_form.value.id = this.userID;
+    debugger;
     if (this.user_details_form.invalid) {
       return;
     } else {

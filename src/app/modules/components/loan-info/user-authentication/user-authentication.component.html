@@ -79,7 +79,7 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Monthly Income (In-Hand)</label>
-                  <input type="text" class="main-input" name="monthly_income" formControlName="monthly_income"
+                  <input type="text" class="main-input" name="monthly_income" floatingValue formControlName="monthly_income"
                     [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.monthly_income.errors }">
                   <div *ngIf="user_details_submitted && user_detail.monthly_income.errors" class="invalid-feedback">
                     <div *ngIf="user_detail.monthly_income.errors.required">Income is required</div>
@@ -90,7 +90,7 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Desired Funding Amount</label>
-                  <input type="text" class="main-input" name="desired_fund_amount" formControlName="desired_fund_amount"
+                  <input type="text" class="main-input" name="desired_fund_amount" floatingValue formControlName="desired_fund_amount"
                     [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.desired_fund_amount.errors }">
                   <div *ngIf="user_details_submitted && user_detail.desired_fund_amount.errors" class="invalid-feedback">
                     <div *ngIf="user_detail.desired_fund_amount.errors.required">Funding Amount is required</div>
@@ -101,7 +101,7 @@
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Loan Tenure</label>
-                  <input type="text" class="main-input" name="loan_tenure" formControlName="loan_tenure"
+                  <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure"
                     [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
                   <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
                     <div *ngIf="user_detail.loan_tenure.errors.required">Tenure is required</div>
@@ -129,14 +129,16 @@
               <div class="form-group d-flex justify-content-between align-items-center p-relative">
                 <label for="">Upload your last 3 months salary slips <br> <i
                     style="font-size: 0.8rem;color: #b0adad;">(Accepts pdf format only)</i></label>
-                <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
-                  formControlName="salary_slips" (change)="onFileChange($event)" multiple>
+                <!-- <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
+                  formControlName="salary_slips" (change)="onFileChange($event)" multiple> -->
+                  <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
+                   (change)="onFileChange($event)" multiple>
                 <div class="upload-btn d-flex align-items-center">
                   <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
                   <span>Upload</span>
                 </div>
               </div>
-              <div *ngIf="user_details_submitted && user_detail.salary_slips.invalid" class="invalid-feedback">
+              <!-- <div *ngIf="user_details_submitted && user_detail.salary_slips.invalid" class="invalid-feedback">
                 Salary Slips are required
               </div>
               <div class="error-message text-end" *ngIf="file_exceeded">
@@ -144,7 +146,7 @@
               </div>
               <div class="error-message text-end" *ngIf="file_count_less">
                 You must upload 3 payslips
-              </div>
+              </div> -->
             </div>
 
           </div>
