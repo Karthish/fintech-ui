@@ -38,6 +38,28 @@ b {
     }
 }
 
+.action-btn-transparent {
+    @extend .action-confirm-btn;
+    background-color: transparent;
+    border: 1px solid $primary-green;
+    color: $primary-green;
+
+    &:hover {
+        background-color: $primary-green;
+        color: #fff;
+    }
+    &:active {
+        transform: scale(0.98);
+        box-shadow: 3px 2px 22px 1px $shade-green;
+    }
+}
+
+.action-btn-filled {
+    @extend .action-btn-transparent;
+    color: #fff;
+    background-color: $primary-green;
+}
+
 .main-input{
     border: 0;
     outline: 0;
