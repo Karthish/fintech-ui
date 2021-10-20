@@ -14,6 +14,10 @@ export class CrudService {
         return this.http.post(this.baseurl+_api_type,postData)
     }
 
+    get(urlType?: string) {
+        return this.http.get(this.baseurl+urlType);
+    }
+
     getLoanList(id?: number) {
         if(id) {
             return this.http.get(this.baseurl+'' + id);

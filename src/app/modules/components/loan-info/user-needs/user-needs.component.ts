@@ -91,6 +91,7 @@ export class UserNeedsComponent implements OnInit {
     this.aadhar_length = this.aadhar_form.value.aadhar_no.replace(/ +/g, "").split("").length;
     let aadhar_rm_space = this.aadhar_form.value.aadhar_no.replace(/ +/g, "");
     this.aadhar_form.value.aadhar_no = aadhar_rm_space;
+    this.otp_form.reset();
 
     if (this.aadhar_length != 12) {
       this.invalid_aadhar = true;
@@ -154,7 +155,7 @@ export class UserNeedsComponent implements OnInit {
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
           if(response.status == false) {
-            this.toaster.error(response.msg);
+            this.toaster.error(response.msg.statusMessage);
           } else {
             this.toaster.success(response.msg);
             console.log('otpverifyresponse',response);

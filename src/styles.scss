@@ -107,6 +107,9 @@
           padding:1.5rem;
           z-index: 2;
           width: 25%;
+          &:nth-child(2) {
+            padding: 0px!important;
+          }
           &:last-child .step-bar-left,
           &:last-child .step-bar-right {
               display:none;
@@ -192,7 +195,7 @@
               background-color:$shade-green;
               border-color: $shade-green;
               z-index: 3;
-              width: calc(100% - 1rem);
+              width: 100%;
           }
       }
   }
@@ -213,7 +216,7 @@
 
         .stepper-horizontal .step {
             padding: 1.5rem 0 0 0 !important;
-
+            
             .step-optional {
                 font-size: 0.8rem;
             }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
 import { CrudService } from './../../services/crud-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -27,7 +27,7 @@ export class UserAuthenticationComponent implements OnInit {
   userdetail__url_type = '/user/details';
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private activatedRoute: ActivatedRoute, private toaster: ToastrService) { 
+    private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
 
@@ -37,11 +37,20 @@ export class UserAuthenticationComponent implements OnInit {
     if(this.userID) {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
-          if(response.data.current_page == "pan-verification") {
-            this.pan_verification = false;
-            this.cust_detail_verification = true;
+          if(response.status == true) {
+            if(response.data.current_page == "pan-verification") {
+              this.pan_verification = false;
+              this.cust_detail_verification = true;
+              this.toaster.success(response.msg);
+            }
+          } else {
+            this.toaster.error(response.msg);
+            this.router.navigate(['/loan-info/user-needs']);
           }
+          
         })
+    } else {
+      this.router.navigate(['/loan-info/user-needs']);
     }
 
     this.pan_form = this.formBuilder.group(
