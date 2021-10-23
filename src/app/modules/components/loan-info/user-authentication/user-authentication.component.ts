@@ -19,12 +19,14 @@ export class UserAuthenticationComponent implements OnInit {
   pan_submitted: boolean = false;
   user_details_form!: FormGroup;
   user_details_submitted: boolean = false;
-  myFiles: string[] = [];
+  myFiles: any[] = [];
   file_exceeded: boolean = false;
   file_count_less: boolean = false;
   userID;
   pan_verification_url_type = '/pan/verify';
   userdetail__url_type = '/user/details';
+  filesUpload_url_type = '/payslip/upload/';
+  formData = new FormData();
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
@@ -35,6 +37,7 @@ export class UserAuthenticationComponent implements OnInit {
     this.primengConfig.ripple = true;
     
     if(this.userID) {
+      
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
@@ -42,8 +45,12 @@ export class UserAuthenticationComponent implements OnInit {
               this.pan_verification = false;
               this.cust_detail_verification = true;
               this.toaster.success(response.msg);
+            } 
+            else if(response.data.current_page == "cust-details") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             }
-          } else {
+          } 
+          else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
           }
@@ -73,9 +80,9 @@ export class UserAuthenticationComponent implements OnInit {
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['', Validators.required],
         mothers_maiden_name: ['', Validators.required],
-        // salary_slips: ['',
-        //   [Validators.required]
-        // ],
+        salary_slips: ['',
+          [Validators.required]
+        ],
         accept_terms: [false, Validators.requiredTrue]
       }
     )
@@ -93,16 +100,26 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
   onFileChange(event: any) {
+    debugger;
+    // this.myFiles = [];
+    
     if (event.target.files.length == 3) {
       for (var i = 0; i < event.target.files.length; i++) {
-        this.myFiles.push(event.target.files[i]);
+        this.formData.append("payslip", event.target.files[i]);
+        
+        this.file_count_less = false;
+        this.file_exceeded = false;
       }
-    } else if (event.target.files.length > 3) {
+      console.log('files',this.formData);
+    } 
+    else if (event.target.files.length > 3) {
       this.file_count_less = false;
       this.file_exceeded = true;
+      this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
     } else if (event.target.files.length < 3) {
       this.file_exceeded = false;
       this.file_count_less = true;
+      this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
     }
   }
 
@@ -132,18 +149,26 @@ export class UserAuthenticationComponent implements OnInit {
 
   SubmitUserDetail(): void {
     delete this.user_details_form.value.accept_terms;
-    // delete this.user_details_form.value.salary_slips;
-    console.log('user_details_form', this.user_details_form.value);
+    delete this.user_details_form.value.salary_slips;
+    console.log('user_details_form', this.user_details_form);
     this.user_details_submitted = true;
     this.user_details_form.value.id = this.userID;
-    debugger;
     if (this.user_details_form.invalid) {
       return;
-    } else {
+    } 
+    else {
       this.CrudService.post(this.user_details_form.value, this.userdetail__url_type).subscribe(
           (response: any) => {
             if(response.status == true) {
-              this.toaster.success(response.msg);
+              this.CrudService.put(this.formData,this.filesUpload_url_type,this.userID).subscribe((response: any) => {
+                if(response.status == true) {
+                  this.toaster.success("User Details Submitted Successfully");
+                  this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+                } else {
+                  this.toaster.error(response.msg);
+                }
+              })
+              
             } else {
               this.toaster.error(response.msg);
             }

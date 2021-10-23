@@ -96,7 +96,7 @@ p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
     border-color: $shade-grey!important;
 }
 .error-message {
-    color: #ff0a0a;
-    font-size: 1rem;
+    font-size: .875em;
+    color: #dc3545;
     font-family: $regular-font;
 }

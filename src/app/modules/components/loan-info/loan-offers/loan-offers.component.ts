@@ -24,11 +24,14 @@ export class LoanOffersComponent implements OnInit {
     if(this.userID) {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
-          if(response.status == false) {
+          debugger;
+          if(response.status == true) {
+            return;
+          } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
-        }
-      })
+          }
+        })
     } else {
       this.router.navigate(['/loan-info/user-needs']);
     }
@@ -48,11 +51,12 @@ export class LoanOffersComponent implements OnInit {
     };
     let updateDetails_url_type = '/bank/update';
     console.log('update_bank_details',update_bank_details);
+    
+    this.submitDetails = true;
+    
     this.CrudService.post(update_bank_details, updateDetails_url_type).subscribe(
       (response: any) => {
         console.log('loanoptions', response);
-        debugger;
-        this.submitDetails = true;
         if(response.status == true) {
           this.toaster.success(response.msg);
           this.router.navigate(['/loan-info/loan-approval']);
