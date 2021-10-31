@@ -29,6 +29,7 @@ b {
     font-size: 1.2rem;
     border-radius: 30px;
     background-color: $stepper-active-font-color;
+    cursor: pointer;
     &:hover {
         background-color: #faa714;
     }

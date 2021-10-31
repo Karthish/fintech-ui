@@ -12,8 +12,10 @@ import { LoanOffersComponent } from './loan-offers/loan-offers.component';
 import { LoanApprovalComponent } from './loan-approval/loan-approval.component';
 import { LoanInfoComponent } from '../loan-info/loan-info.component';
 import {TooltipModule} from 'primeng/tooltip';
+import { DropdownModule } from 'primeng/dropdown';
 import { NumberOnlyDirective } from '../../../shared/directives/onlynumber.directive';
 import { floatingnumberDirective} from '../../../shared/directives/floatingvalue.directive';
+import { onlyCharactersDirective} from '../../../shared/directives/onlycharacters.directive';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
@@ -27,12 +29,14 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     LoanApprovalComponent,
     LoanInfoComponent,
     floatingnumberDirective,
+    onlyCharactersDirective,
     NumberOnlyDirective
   ],
   imports: [
     CommonModule,
     LoanInfoRoutingModule,
     DialogModule,
+    DropdownModule,
     ButtonModule,
     SliderModule,
     InputTextModule,

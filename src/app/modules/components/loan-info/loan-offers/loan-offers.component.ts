@@ -24,7 +24,6 @@ export class LoanOffersComponent implements OnInit {
     if(this.userID) {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
-          debugger;
           if(response.status == true) {
             return;
           } else {
@@ -50,6 +49,7 @@ export class LoanOffersComponent implements OnInit {
       bank_ref_id : bank_id,
     };
     let updateDetails_url_type = '/bank/update';
+    debugger;
     console.log('update_bank_details',update_bank_details);
     
     this.submitDetails = true;
@@ -59,7 +59,7 @@ export class LoanOffersComponent implements OnInit {
         console.log('loanoptions', response);
         if(response.status == true) {
           this.toaster.success(response.msg);
-          this.router.navigate(['/loan-info/loan-approval']);
+          this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
           this.submitDetails = false;
         } else {
           this.submitDetails = false;
