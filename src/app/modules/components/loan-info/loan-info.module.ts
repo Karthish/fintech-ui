@@ -20,6 +20,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SanctionLetterPdfComponent } from './sanction-letter-pdf/sanction-letter-pdf.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     LoanInfoComponent,
     floatingnumberDirective,
     onlyCharactersDirective,
-    NumberOnlyDirective
+    NumberOnlyDirective,
+    SanctionLetterPdfComponent
   ],
   imports: [
     CommonModule,
