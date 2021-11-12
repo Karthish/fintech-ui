@@ -27,6 +27,7 @@ export class UserAuthenticationComponent implements OnInit {
   userdetail__url_type = '/user/details';
   filesUpload_url_type = '/payslip/upload/';
   formData = new FormData();
+  file_names: string[] = [];
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
@@ -99,13 +100,12 @@ export class UserAuthenticationComponent implements OnInit {
     return this.user_details_form.controls;
   }
 
-  onFileChange(event: any) {
-    debugger;
-    // this.myFiles = [];
-    
+  onFileChange(event: any) {    
+    console.log('event', this.file_names);
     if (event.target.files.length == 3) {
       for (var i = 0; i < event.target.files.length; i++) {
         this.formData.append("payslip", event.target.files[i]);
+        this.file_names.push(event.target.files[i].name);
         
         this.file_count_less = false;
         this.file_exceeded = false;
