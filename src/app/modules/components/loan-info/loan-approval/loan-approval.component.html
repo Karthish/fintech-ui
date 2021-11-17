@@ -239,7 +239,7 @@
 <p-dialog id="edit_user_details" header="View/Edit Your Details" [(visible)]="addEdit_Modal"
   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '60vw'}" [draggable]="false"
   [resizable]="false">
-  <form [formGroup]="edit_user_details_form" autocomplete="off">
+  <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()" autocomplete="off">
     <div class="row">
       <div class="col-6 col-md-6">
         <div class="">
@@ -270,11 +270,11 @@
         <p-dropdown [options]="loan_options" formControlName="loandropdown" 
         [(ngModel)]="selectedLoanOption"  
         name="loandropdown"
-        optionLabel="type" 
+        optionLabel="type"
         [filter]="true" 
         filterBy="type" 
         [showClear]="true" 
-        placeholder="{{default_option}}">
+        placeholder="Loan Type">
           <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value"  *ngIf="selectedLoanOption">
                   <div>{{selectedLoanOption.type}}</div>
@@ -287,11 +287,13 @@
       <p class="p-dialog-title">Choose your Profession</p>
       <div class="d-flex">
         <div class="p-field-radiobutton d-flex align-items-center">
-          <p-radioButton name="professional_type" formControlName="professional_type" value="salaried"></p-radioButton>
+          <p-radioButton name="professional_type" formControlName="professional_type" value="salaried" 
+          [(ngModel)]="selectedValue"></p-radioButton>
           <span class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</span>
         </div>
         <div class="p-field-radiobutton d-flex align-items-center mx-5">
-          <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"></p-radioButton>
+          <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"
+          [(ngModel)]="selectedValue"></p-radioButton>
           <span class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</span>
         </div>
       </div>
@@ -301,35 +303,55 @@
         <div class="col-6 col-md-6">
           <div class="form-group p-relative">
             <label for="">Name your Organization</label>
-            <input type="text" class="main-input" name="organization_name" formControlName="organization_name">
+            <input type="text" class="main-input" name="organization_name" formControlName="organization_name" 
+            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization_name.errors }">
+            <div *ngIf="user_details_submitted && user_detail.organization_name.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.organization_name.errors.required">Organization is required</div>
+            </div>
             <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
           </div>
         </div>
         <div class="col-6 col-md-6">
           <div class="form-group p-relative">
             <label for="">Monthly Income (In-Hand)</label>
-            <input type="text" class="main-input" name="monthly_income" floatingValue formControlName="monthly_income">
+            <input type="text" class="main-input" name="monthly_income" floatingValue formControlName="monthly_income" 
+            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.monthly_income.errors }">
+            <div *ngIf="user_details_submitted && user_detail.monthly_income.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.monthly_income.errors.required">Income is required</div>
+            </div>
             <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
           </div>
         </div>
         <div class="col-6 col-md-6">
           <div class="form-group p-relative">
             <label for="">Desired Funding Amount</label>
-            <input type="text" class="main-input" name="desired_fund_amount" floatingValue formControlName="desired_fund_amount">
+            <input type="text" class="main-input" name="desired_fund_amount" floatingValue formControlName="desired_fund_amount"
+            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.desired_fund_amount.errors }">
+            <div *ngIf="user_details_submitted && user_detail.desired_fund_amount.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.desired_fund_amount.errors.required">Funding Amount is required</div>
+            </div>
             <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
           </div>
         </div>
         <div class="col-6 col-md-6">
           <div class="form-group p-relative">
             <label for="">Loan Tenure</label>
-            <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure">
+            <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure"
+            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
+            <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.loan_tenure.errors.required">Tenure is required</div>
+            </div>
             <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
           </div>
         </div>
         <div class="col-6 col-md-6">
           <div class="form-group p-relative">
             <label for="">Mother's Maiden Name</label>
-            <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name">
+            <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name" 
+            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
+            <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors" class="invalid-feedback">
+              <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
+            </div>
             <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
           </div>
         </div>

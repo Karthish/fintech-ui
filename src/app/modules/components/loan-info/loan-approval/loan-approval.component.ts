@@ -15,7 +15,7 @@ export class LoanApprovalComponent implements OnInit {
   referenceModal!: boolean;
   email_Modal!: boolean;
   addEdit_Modal!: boolean;
-  edit_user_details_form!: FormGroup;
+  user_details_form!: FormGroup;
   loan_options!: any;
   selectedLoanOption!: any;
   add_reference_form!: FormGroup;
@@ -23,8 +23,11 @@ export class LoanApprovalComponent implements OnInit {
   add_reference_form_url_type = "/user/reference";
   reference_added_mark = false;
   userEnteredDetails: any;
+  selectedValue!: string;
+  user_details_submitted: boolean = false;
+  userdetail__url_type = '/user/details/update/';
+  
 
-  default_option = "Home Loan";
 
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
@@ -39,6 +42,23 @@ export class LoanApprovalComponent implements OnInit {
         (response: any) => {
           if(response.status == true) {
             this.userEnteredDetails = response.data;
+            // set value to user details form
+            if(this.userEnteredDetails?.professional_type == 'salaried') {
+              this.selectedValue = this.userEnteredDetails?.professional_type;
+            } 
+            if(this.userEnteredDetails?.references.length == 0 ) {
+              this.reference_added_mark = true;
+            }
+            this.user_details_form.controls['organization_name'].setValue(this.userEnteredDetails.organization_name);
+            this.user_details_form.controls['monthly_income'].setValue(this.userEnteredDetails.monthly_income);
+            this.user_details_form.controls['desired_fund_amount'].setValue(this.userEnteredDetails.desired_fund_amount);
+            this.user_details_form.controls['loan_tenure'].setValue(this.userEnteredDetails.loan_tenure);
+            this.user_details_form.controls['mothers_maiden_name'].setValue(this.userEnteredDetails.mothers_maiden_name);
+            this.user_details_form.controls['loandropdown'].setValue(this.userEnteredDetails.loan_type);
+            // this.loan_options = [{type: this.userEnteredDetails.loan_type}];
+            this.selectedLoanOption = this.loan_options.find((val:any) => val.type === this.userEnteredDetails.loan_type);
+
+            
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
@@ -73,7 +93,7 @@ export class LoanApprovalComponent implements OnInit {
       )
 
 
-    this.edit_user_details_form = this.formBuilder.group(
+    this.user_details_form = this.formBuilder.group(
       {
         loandropdown: ['', Validators.required],
         professional_type: ['selectedValue', Validators.required],
@@ -81,15 +101,21 @@ export class LoanApprovalComponent implements OnInit {
         monthly_income: ['', Validators.required],
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['', Validators.required],
-        mothers_maiden_name: ['', Validators.required],
-        accept_terms: [false, Validators.requiredTrue]
+        mothers_maiden_name: ['', Validators.required]
       }
     )
+
+    
   }
 
   // getter function for addreferenceform
   get addReference(): { [key: string]: AbstractControl } {
     return this.add_reference_form.controls;
+  }
+
+  // getter function for user detail form
+  get user_detail(): { [key: string]: AbstractControl } {
+    return this.user_details_form.controls;
   }
   
   SubmitAddReference() {
@@ -130,6 +156,30 @@ export class LoanApprovalComponent implements OnInit {
 
   show_addReference() {
     this.referenceModal = true;
+  }
+
+  SubmitUserDetail(): void {
+    this.user_details_submitted = true;
+
+    this.user_details_form.value.loan_description = this.user_details_form.value.loandropdown.description;
+    this.user_details_form.value.loan_ref_id = this.user_details_form.value.loandropdown._id;
+    this.user_details_form.value.loan_type = this.user_details_form.value.loandropdown.type;
+    delete this.user_details_form.value.loandropdown;
+
+    console.log('userdetailsUpdated', this.user_details_form.value);
+    if (this.user_details_form.invalid) {
+      return;
+    } 
+    else {
+      this.CrudService.put(this.user_details_form.value, this.userdetail__url_type,this.userID).subscribe(
+          (response: any) => {
+            if(response.status == true) {
+              this.toaster.success(response.msg);
+            } else {
+              this.toaster.error(response.msg);
+            }
+          })
+    }
   }
 
   showEmailModal() {
