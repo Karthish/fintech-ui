@@ -16,6 +16,7 @@ export class LoanApprovalComponent implements OnInit {
   email_Modal!: boolean;
   addEdit_Modal!: boolean;
   user_details_form!: FormGroup;
+  email_form!: FormGroup;
   loan_options!: any;
   selectedLoanOption!: any;
   add_reference_form!: FormGroup;
@@ -25,6 +26,7 @@ export class LoanApprovalComponent implements OnInit {
   userEnteredDetails: any;
   selectedValue!: string;
   user_details_submitted: boolean = false;
+  email_detail_submitted: boolean = false;
   userdetail__url_type = '/user/details/update/';
   
 
@@ -46,9 +48,11 @@ export class LoanApprovalComponent implements OnInit {
             if(this.userEnteredDetails?.professional_type == 'salaried') {
               this.selectedValue = this.userEnteredDetails?.professional_type;
             } 
-            if(this.userEnteredDetails?.references.length == 0 ) {
+            if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
+
+
             this.user_details_form.controls['organization_name'].setValue(this.userEnteredDetails.organization_name);
             this.user_details_form.controls['monthly_income'].setValue(this.userEnteredDetails.monthly_income);
             this.user_details_form.controls['desired_fund_amount'].setValue(this.userEnteredDetails.desired_fund_amount);
@@ -105,6 +109,14 @@ export class LoanApprovalComponent implements OnInit {
       }
     )
 
+    // Email form
+    this.email_form = this.formBuilder.group(
+      {
+        email: ['', [Validators.required, 
+        Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      }
+    )
+
     
   }
 
@@ -116,6 +128,11 @@ export class LoanApprovalComponent implements OnInit {
   // getter function for user detail form
   get user_detail(): { [key: string]: AbstractControl } {
     return this.user_details_form.controls;
+  }
+
+  // getter function for email form
+  get email_detail(): { [key: string]: AbstractControl } { 
+    return this.email_form.controls;
   }
   
   SubmitAddReference() {
@@ -180,6 +197,15 @@ export class LoanApprovalComponent implements OnInit {
             }
           })
     }
+  }
+
+  SubmitEmail(): void {
+    this.email_detail_submitted = true
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}})
+    );
+  
+    window.open(url, '_blank');
   }
 
   showEmailModal() {

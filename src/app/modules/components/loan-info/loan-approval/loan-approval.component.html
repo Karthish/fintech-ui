@@ -222,16 +222,21 @@
 <p-dialog header="Enter your email address" [(visible)]="email_Modal"
   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
   [resizable]="false">
-  <form action="">
+  <form [formGroup]="email_form" (ngSubmit)="SubmitEmail()" autocomplete="off">
     <div class="row mb-3">
       <div class="col-12">
         <div>
-          <input type="text" class="main-input" name="email" placeholder="Enter here" style="width: 100%;" />
+          <input type="text" class="main-input" name="email" placeholder="Enter here" formControlName="email"
+          style="width: 100%;" [ngClass]="{ 'is-invalid': email_detail_submitted && email_detail.email.errors }" />
+          <div *ngIf="email_detail_submitted && email_detail.email.errors" class="invalid-feedback">
+            <div *ngIf="email_detail.email.errors.required">Email is required</div>
+            <div *ngIf="email_detail.email.errors.email">Email must be a valid email address</div>
+        </div>
         </div>
       </div>
     </div>
     <div class="mt-5">
-      <button class="btn action-confirm-btn" style="width: 100%;">Submit</button>
+      <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Submit</button>
     </div>
   </form>
 </p-dialog>
