@@ -1,23 +1,9 @@
-// @import './../../../../../variables.scss';
+pdf-viewer {
+    height: 100vh;
+}
 
-// #sanctionLetter_pdfData {
-//     font-family: $regular-font;
-//     font-size: 1.2rem;
-//     ul {
-//         list-style-type: none;
-//         padding: 0;
-//     }
-
-//     table {
-//         tr {
-//             td:nth-child(odd) {
-//                 min-width: 25vw;
-//             }
-//         }
-//     }
-
-//     h4 {
-//         font-family: $semi-bold-font;
-//         font-size: 1.1rem;
-//     }
-// }
+#esign_btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}

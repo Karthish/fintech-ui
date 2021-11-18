@@ -1,5 +1,6 @@
-<button class="btn btn-success btn-block">E-Sign PDF</button>
-<div id="sanctionLetter_pdfData" class="p-5" style="font-size: 1.2rem;font-family: 'regular_font', sans-serif!important;">
+<button class="btn btn-success btn-block" id="esign_btn">E-Sign PDF</button>
+
+<!-- <div id="sanctionLetter_pdfData" class="p-5" style="font-size: 1.2rem;font-family: 'regular_font', sans-serif!important;">
     <div class="date mb-3">31-10-2021</div>
     <ul class="address" style="list-style-type: none;padding: 0;">
         <li>Company Name</li>
@@ -74,4 +75,18 @@
             Date
         </div>
     </div>
-</div>
+</div> -->
+
+<pdf-viewer [src]="pdfSrc"
+              [render-text]="true"
+              [original-size]="true"
+              [fit-to-page]="true"
+              [zoom]="1"
+      [zoom-scale]="'page-width'"
+      [render-text]="true"
+      [external-link-target]="'blank'"
+      [autoresize]="true"
+      [show-borders]="false"
+  ></pdf-viewer>
+
+  <h4 style="position: absolute;bottom: -10px;left: 30vw;color: #198754;">Verified</h4>

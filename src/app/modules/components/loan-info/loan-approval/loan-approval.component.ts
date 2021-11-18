@@ -160,7 +160,7 @@ export class LoanApprovalComponent implements OnInit {
           }
         ]
       }
-      this.CrudService.post(this.add_reference_form.value, this.add_reference_form_url_type).subscribe(
+      this.CrudService.post(add_reference_form_value, this.add_reference_form_url_type).subscribe(
         (response: any) => {
           if(response.status == true) { 
             this.reference_added_mark = true;

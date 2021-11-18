@@ -21,6 +21,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SanctionLetterPdfComponent } from './sanction-letter-pdf/sanction-letter-pdf.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer'; 
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SanctionLetterPdfComponent } from './sanction-letter-pdf/sanction-lette
     RadioButtonModule,
     CheckboxModule,
     InputMaskModule,
+    PdfViewerModule,
     NgCircleProgressModule.forRoot()
   ],
   entryComponents: [UserNeedsComponent]
