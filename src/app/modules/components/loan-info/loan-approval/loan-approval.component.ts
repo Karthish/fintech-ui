@@ -51,8 +51,10 @@ export class LoanApprovalComponent implements OnInit {
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
-
-
+            if(this.userEnteredDetails.email_id != null) {
+              this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
+            }
+            
             this.user_details_form.controls['organization_name'].setValue(this.userEnteredDetails.organization_name);
             this.user_details_form.controls['monthly_income'].setValue(this.userEnteredDetails.monthly_income);
             this.user_details_form.controls['desired_fund_amount'].setValue(this.userEnteredDetails.desired_fund_amount);
@@ -108,7 +110,7 @@ export class LoanApprovalComponent implements OnInit {
         mothers_maiden_name: ['', Validators.required]
       }
     )
-
+    
     // Email form
     this.email_form = this.formBuilder.group(
       {
