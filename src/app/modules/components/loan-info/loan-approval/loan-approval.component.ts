@@ -28,6 +28,8 @@ export class LoanApprovalComponent implements OnInit {
   user_details_submitted: boolean = false;
   email_detail_submitted: boolean = false;
   userdetail__url_type = '/user/details/update/';
+  download__url_type = '/user/sanction/download';
+  send_email__url_type = '/user/sanction/attachment';
   
 
 
@@ -201,14 +203,40 @@ export class LoanApprovalComponent implements OnInit {
     }
   }
 
-  SubmitEmail(): void {
-    this.email_detail_submitted = true
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}})
-    );
-  
-    window.open(url, '_blank');
+  // download sanction letter
+  download_sanction_letter() {
+    let download_sanction_letter_obj = {
+      id: this.userID
+    }
+    this.CrudService.post(download_sanction_letter_obj, this.download__url_type).subscribe(
+      (response: any) => {
+        if(response.status == true) { 
+          window.open(response.data);
+          this.toaster.success(response.msg);
+        } else {
+          this.toaster.error(response.msg);
+        }
+    })
   }
+
+  // Send email id
+  send_email() {
+    this.email_detail_submitted = true;
+    this.email_form.value.id = this.userID;
+    this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
+      (response: any) => {
+        if(response.status == true) { 
+          this.toaster.success(response.msg);
+          const url = this.router.serializeUrl(
+            this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}})
+          );
+          window.open(response.data, '_blank');
+        } else {
+          this.toaster.error(response.msg);
+        }
+    })
+  }
+
 
   showEmailModal() {
     this.email_Modal = true;

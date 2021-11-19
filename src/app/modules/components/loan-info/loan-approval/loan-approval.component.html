@@ -12,7 +12,7 @@
             <div class="funding-options-level">
               <h4 class="mt-5 p-relative mb-4" style="color: #3f976c;">
                 <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -40px;font-size: 2rem;"></i>
-                Congralations!
+                Congratulations!
               </h4>
               <h5 class="mb-4">
                 Your application is approved. Please provide 2 reference and initiate e-sign process.
@@ -70,7 +70,7 @@
                 <div class="header-text" style="font-size: 1.3rem;">Sanction Letter</div>
               </div>
               <div class="btn-con mt-4 mb-3">
-                <button class="btn action-confirm-btn">Download</button>
+                <button class="btn action-confirm-btn" (click)="download_sanction_letter()">Download</button>
                 <button class="btn action-btn-filled ms-3" (click)="showEmailModal()">Initiate E-Sign</button>
               </div>
             </div>
@@ -219,10 +219,10 @@
   </form>
 </p-dialog>
 
-<p-dialog header="Enter your email address" [(visible)]="email_Modal"
+<p-dialog header="Send" [(visible)]="email_Modal"
   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
   [resizable]="false">
-  <form [formGroup]="email_form" (ngSubmit)="SubmitEmail()" autocomplete="off">
+  <form [formGroup]="email_form" (ngSubmit)="send_email()" autocomplete="off">
     <div class="row mb-3">
       <div class="col-12">
         <div>
@@ -236,7 +236,7 @@
       </div>
     </div>
     <div class="mt-5">
-      <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Submit</button>
+      <button class="btn action-confirm-btn" type="Send" style="width: 100%;">Submit</button>
     </div>
   </form>
 </p-dialog>

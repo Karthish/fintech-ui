@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from "ngx-toastr";
+import { CrudService } from './../../services/crud-service';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-sanction-letter-pdf',
@@ -6,10 +10,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sanction-letter-pdf.component.scss']
 })
 export class SanctionLetterPdfComponent implements OnInit {
-  pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
-  constructor() { }
+  userID;
+  pdfSrc!: string;
+  verification: boolean = false;
+  constructor(private primengConfig: PrimeNGConfig,
+    private CrudService: CrudService, private toaster: ToastrService, private router: Router, 
+    private activatedRoute: ActivatedRoute) {
+      this.userID = this.activatedRoute.snapshot.queryParams.id;
+    }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.userID) {
+      this.CrudService.getUserStatus(this.userID).subscribe(
+        (response: any) => {
+          if(response.status == true) {
+            if(response.data.is_esigned == false) {
+              this.pdfSrc = response.data.sanction_lettter_url;
+              this.verification = true;
+            }
+          }
+        })
+    }
+  }
 
 
 }

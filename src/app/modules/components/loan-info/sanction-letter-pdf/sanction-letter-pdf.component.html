@@ -89,4 +89,4 @@
       [show-borders]="false"
   ></pdf-viewer>
 
-  <h4 style="position: absolute;bottom: -10px;left: 30vw;color: #198754;">Verified</h4>
+  <h4 [ngClass]="{'show-verified-sign': verification === true}" class="verified-sign">Verified</h4>

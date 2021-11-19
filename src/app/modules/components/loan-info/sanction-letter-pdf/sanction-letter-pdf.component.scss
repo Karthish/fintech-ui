@@ -7,3 +7,17 @@ pdf-viewer {
     right: 20px;
     top: 20px;
 }
+
+.verified-sign {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    left: 30vw;
+    color: #198754;
+    transition: transform 500ms ease-in-out 25ms;
+}
+
+.show-verified-sign {
+    display: block!important;
+    transform:  translateY(-75px);
+}
