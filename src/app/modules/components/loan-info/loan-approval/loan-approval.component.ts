@@ -227,10 +227,9 @@ export class LoanApprovalComponent implements OnInit {
       (response: any) => {
         if(response.status == true) { 
           this.toaster.success(response.msg);
-          const url = this.router.serializeUrl(
-            this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}})
-          );
-          window.open(response.data, '_blank');
+          const url = this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}});
+          this.email_Modal = false;
+          window.open(url.toString(), '_blank');
         } else {
           this.toaster.error(response.msg);
         }

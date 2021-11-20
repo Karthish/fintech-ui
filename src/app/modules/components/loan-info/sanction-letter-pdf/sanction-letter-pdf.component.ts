@@ -22,12 +22,15 @@ export class SanctionLetterPdfComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.userID) {
+      debugger;
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
             if(response.data.is_esigned == false) {
               this.pdfSrc = response.data.sanction_lettter_url;
               this.verification = true;
+            } else {
+              this.pdfSrc = response.data.sanction_lettter_singned_url; 
             }
           }
         })
