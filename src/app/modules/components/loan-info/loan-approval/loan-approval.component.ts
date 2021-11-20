@@ -226,6 +226,7 @@ export class LoanApprovalComponent implements OnInit {
     this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
       (response: any) => {
         if(response.status == true) { 
+          debugger;
           this.toaster.success(response.msg);
           const url = this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}});
           this.email_Modal = false;

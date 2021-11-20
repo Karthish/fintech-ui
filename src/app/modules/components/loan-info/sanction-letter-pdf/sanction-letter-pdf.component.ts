@@ -30,6 +30,7 @@ export class SanctionLetterPdfComponent implements OnInit {
               this.pdfSrc = response.data.sanction_lettter_url;
               this.verification = true;
             } else {
+              this.verification = true;
               this.pdfSrc = response.data.sanction_lettter_singned_url; 
             }
           }

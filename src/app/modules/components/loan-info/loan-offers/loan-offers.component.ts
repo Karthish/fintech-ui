@@ -22,6 +22,7 @@ export class LoanOffersComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.userID) {
+      (document.querySelector('.progress-loader') as HTMLElement).style.display = 'unset';
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
@@ -53,7 +54,7 @@ export class LoanOffersComponent implements OnInit {
     console.log('update_bank_details',update_bank_details);
     
     this.submitDetails = true;
-    
+    (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     this.CrudService.post(update_bank_details, updateDetails_url_type).subscribe(
       (response: any) => {
         console.log('loanoptions', response);

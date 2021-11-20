@@ -16,6 +16,10 @@ pdf-viewer {
     left: 30vw;
     color: #198754;
     transition: transform 500ms ease-in-out 25ms;
+    background-color: #198754;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
 }
 
 .show-verified-sign {
