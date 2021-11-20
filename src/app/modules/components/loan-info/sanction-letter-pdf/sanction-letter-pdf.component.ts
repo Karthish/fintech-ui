@@ -13,6 +13,7 @@ export class SanctionLetterPdfComponent implements OnInit {
   userID;
   pdfSrc!: string;
   verification: boolean = false;
+  verification__url = '/user/sanction/esign';
   constructor(private primengConfig: PrimeNGConfig,
     private CrudService: CrudService, private toaster: ToastrService, private router: Router, 
     private activatedRoute: ActivatedRoute) {
@@ -31,6 +32,21 @@ export class SanctionLetterPdfComponent implements OnInit {
           }
         })
     }
+  }
+
+  doEsign() {
+    let verificationObj = {
+      id: this.userID
+    }
+    this.CrudService.post(verificationObj, this.verification__url).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          this.toaster.success(response.msg);
+          this.verification = true;
+        } else {
+          this.toaster.error(response.msg); 
+        }
+    })
   }
 
 
