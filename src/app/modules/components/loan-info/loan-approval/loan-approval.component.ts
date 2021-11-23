@@ -46,10 +46,7 @@ export class LoanApprovalComponent implements OnInit {
         (response: any) => {
           if(response.status == true) {
             this.userEnteredDetails = response.data;
-            // set value to user details form
-            if(this.userEnteredDetails?.professional_type == 'salaried') {
               this.selectedValue = this.userEnteredDetails?.professional_type;
-            } 
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }

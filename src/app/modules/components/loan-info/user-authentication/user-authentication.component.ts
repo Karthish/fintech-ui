@@ -28,6 +28,7 @@ export class UserAuthenticationComponent implements OnInit {
   filesUpload_url_type = '/payslip/upload/';
   formData = new FormData();
   file_names: string[] = [];
+  file_arr: string[] = [];
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
@@ -101,10 +102,10 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
   onFileChange(event: any) {    
-    console.log('event', this.file_names);
-    if (event.target.files.length == 3) {
+    if (event.target.files.length <= 3) {
       for (var i = 0; i < event.target.files.length; i++) {
-        this.formData.append("payslip", event.target.files[i]);
+        // this.formData.append("payslip", event.target.files[i]);
+        this.file_arr.push(event.target.files[i]);
         this.file_names.push(event.target.files[i].name);
         
         this.file_count_less = false;
@@ -116,11 +117,18 @@ export class UserAuthenticationComponent implements OnInit {
       this.file_count_less = false;
       this.file_exceeded = true;
       this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
-    } else if (event.target.files.length < 3) {
-      this.file_exceeded = false;
-      this.file_count_less = true;
-      this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
-    }
+    } 
+    // else if (event.target.files.length < 3) {
+    //   this.file_exceeded = false;
+    //   this.file_count_less = true;
+    //   this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
+    // }
+  }
+
+  delete_file(filename:string) {
+    let file_index = this.file_names.indexOf(filename);
+    this.file_names.splice(file_index, 1);
+    this.file_arr.splice(file_index, 1);
   }
 
 
@@ -160,6 +168,9 @@ export class UserAuthenticationComponent implements OnInit {
       this.CrudService.post(this.user_details_form.value, this.userdetail__url_type).subscribe(
           (response: any) => {
             if(response.status == true) {
+              for(let i=0;i<this.file_arr.length;i++) {
+                this.formData.append("payslip", this.file_arr[i]);
+              }
               this.CrudService.put(this.formData,this.filesUpload_url_type,this.userID).subscribe((response: any) => {
                 if(response.status == true) {
                   this.toaster.success("User Details Submitted Successfully");
@@ -175,32 +186,8 @@ export class UserAuthenticationComponent implements OnInit {
           })
     }
 
-    // if (this.myFiles.length == 3) {
-    //   const formData = new FormData();
-    //   for (var i = 0; i < this.myFiles.length; i++) {
-    //     formData.append("salary_slips", this.myFiles[i]);
-    //   }
-    //   this.user_details_submitted = true;
-
-    //   this.CrudService.post(this.user_details_form.value, this.userdetail__url_type).subscribe(
-    //     (response: any) => {
-
-    //     })
-    // } else {
-    //   this.user_details_submitted = false;
-    //   console.log("invalid form");
-    //   this.file_exceeded = false;
-    //   this.file_count_less = true;
-    //   return;
-    // }
 
   }
-
-
-
-  // showAuthenticateModalDialog() {
-  //   this.AadharAuthenticateModal = true;
-  // }
 
 
 }

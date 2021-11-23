@@ -100,7 +100,7 @@
               </div>
               <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
-                  <label for="">Loan Tenure</label>
+                  <label for="">Loan Tenure (In Month)</label>
                   <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure"
                     [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
                   <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
@@ -150,7 +150,9 @@
               </div>
             </div>
             <div class="col-12 col-md-12 file-name-con text-end">
-              <span *ngFor="let file_name of file_names">{{file_name}}</span>
+              <span class="p-relative" *ngFor="let file_name of file_names">{{file_name}} 
+                <span class="delete_file_btn" (click)="delete_file(file_name)"><i class="fa fa-close"></i></span>
+              </span>
             </div>
 
           </div>
