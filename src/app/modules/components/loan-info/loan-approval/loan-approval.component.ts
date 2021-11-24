@@ -15,6 +15,7 @@ export class LoanApprovalComponent implements OnInit {
   referenceModal!: boolean;
   email_Modal!: boolean;
   addEdit_Modal!: boolean;
+  esign_Modal!:boolean;
   user_details_form!: FormGroup;
   email_form!: FormGroup;
   loan_options!: any;
@@ -27,9 +28,12 @@ export class LoanApprovalComponent implements OnInit {
   selectedValue!: string;
   user_details_submitted: boolean = false;
   email_detail_submitted: boolean = false;
+  pdfSrc = "https://aryaa-filecontianer-dev.s3.ap-south-1.amazonaws.com/1637771400916.pdf";
+  esignVerified:boolean = false;
   userdetail__url_type = '/user/details/update/';
   download__url_type = '/user/sanction/download';
   send_email__url_type = '/user/sanction/attachment';
+  verification__url = '/user/sanction/esign';
   
 
 
@@ -52,6 +56,10 @@ export class LoanApprovalComponent implements OnInit {
             }
             if(this.userEnteredDetails.email_id != null) {
               this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
+            }
+
+            if(response.data.is_esigned == true) {
+              this.esignVerified = true;
             }
             
             this.user_details_form.controls['organization_name'].setValue(this.userEnteredDetails.organization_name);
@@ -224,12 +232,27 @@ export class LoanApprovalComponent implements OnInit {
       (response: any) => {
         if(response.status == true) { 
           debugger;
+          this.pdfSrc = response.data;
           this.toaster.success(response.msg);
-          const url = this.router.createUrlTree(["loan-info/sanction-letter"], {queryParams: {id: this.userID}});
           this.email_Modal = false;
-          window.open(url.toString(), '_blank');
+          this.showEsignModel();
         } else {
           this.toaster.error(response.msg);
+        }
+    })
+  }
+
+  doEsign() {
+    let verificationObj = {
+      id: this.userID
+    }
+    this.CrudService.post(verificationObj, this.verification__url).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          debugger
+          this.toaster.success(response.msg);
+        } else {
+          this.toaster.error(response.msg); 
         }
     })
   }
@@ -241,5 +264,9 @@ export class LoanApprovalComponent implements OnInit {
 
   shoAddEditModal() {
     this.addEdit_Modal = true;
+  }
+
+  showEsignModel() {
+    this.esign_Modal = true;
   }
 }

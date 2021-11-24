@@ -120,3 +120,26 @@ label {
         }
     }
 }
+
+.esign-completed-btn {
+    color: $primary-green;
+    font-family: $semi-bold-font;
+}
+
+pdf-viewer {
+    height: 100%!important;
+}
+::ng-deep #esign_Modal  {
+    .p-dialog-content {
+        position: relative;
+        height: 100vh;
+        
+        #esign_btn {
+            position: absolute;
+            right: 4vw;
+            top: 2vh;
+            z-index: 100;
+        }
+    }
+}
+

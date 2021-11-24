@@ -71,7 +71,11 @@
               </div>
               <div class="btn-con mt-4 mb-3">
                 <button class="btn action-confirm-btn" (click)="download_sanction_letter()">Download</button>
-                <button class="btn action-btn-filled ms-3" (click)="showEmailModal()">Initiate E-Sign</button>
+                <button class="btn action-btn-filled ms-3" (click)="showEmailModal()" *ngIf="!esignVerified">Initiate E-Sign</button>
+                <button class="btn ms-3 esign-completed-btn" *ngIf="esignVerified">
+                  <i class="fa fa-check me-2"></i>
+                  <span>E-Sign Completed</span> 
+                </button>
               </div>
             </div>
         </div>
@@ -371,4 +375,14 @@
     </div>
 
   </form>
+</p-dialog>
+
+<p-dialog header="Send" [(visible)]="esign_Modal" id="esign_Modal"
+  [breakpoints]="{'960px': '80vw', '640px': '100vw'}" [modal]="true" [style]="{width: '90vw'}" [draggable]="false"
+  [resizable]="false">
+  <button class="btn btn-success btn-block" id="esign_btn" (click)="doEsign()">E-Sign PDF</button>
+
+  <pdf-viewer [src]="pdfSrc"
+        [show-borders]="false">
+  </pdf-viewer>
 </p-dialog>
