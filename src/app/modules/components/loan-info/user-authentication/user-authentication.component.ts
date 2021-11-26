@@ -55,7 +55,6 @@ export class UserAuthenticationComponent implements OnInit {
             if(response.data.current_page == "aadhar-verification") {
               this.aadhar_verification = false;
               this.cust_detail_verification = true;
-              // this.toaster.success(response.msg);
             } 
             else if(response.data.current_page == "pan-verification") {
               this.aadhar_verification = true;
@@ -63,6 +62,12 @@ export class UserAuthenticationComponent implements OnInit {
             }
             else if(response.data.current_page == "cust-details") {
               this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } 
+            else if(response.data.next_page == "loan-offer-details") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
             }
           } 
           else {

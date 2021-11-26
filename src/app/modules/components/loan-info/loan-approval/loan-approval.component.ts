@@ -29,12 +29,14 @@ export class LoanApprovalComponent implements OnInit {
   user_details_submitted: boolean = false;
   email_detail_submitted: boolean = false;
   showDownload: boolean = false;
-  pdfSrc = "https://aryaa-filecontianer-dev.s3.ap-south-1.amazonaws.com/1637771400916.pdf";
+  pdfSrc: any;
   esignVerified:boolean = false;
+  selected_bank_details: any;
   userdetail__url_type = '/user/details/update/';
   download__url_type = '/user/sanction/download';
   send_email__url_type = '/user/sanction/attachment';
   verification__url = '/user/sanction/esign';
+  get_selected_bank_detail__url = '/bank/detail';
   
 
 
@@ -50,8 +52,33 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-              this.userEnteredDetails = response.data;
-              this.selectedValue = this.userEnteredDetails?.professional_type;
+            
+            if(response.data.next_page == "aadhar-verification" || "cust-details") {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-details") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
+            }
+
+            let selectedBankDetail = {
+              bank_ref_id: response.data.bank_ref_id
+            }
+            this.CrudService.post(selectedBankDetail, this.get_selected_bank_detail__url).subscribe(
+              (response: any) => {
+                if(response.status == true) { 
+                  this.selected_bank_details = response.data;
+                  this.toaster.success(response.msg);
+                } else {
+                  this.toaster.error(response.msg);
+                }
+            })
+
+            this.userEnteredDetails = response.data;
+            this.selectedValue = this.userEnteredDetails?.professional_type;
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
@@ -81,7 +108,6 @@ export class LoanApprovalComponent implements OnInit {
             this.user_details_form.controls['loan_tenure'].setValue(this.userEnteredDetails.loan_tenure);
             this.user_details_form.controls['mothers_maiden_name'].setValue(this.userEnteredDetails.mothers_maiden_name);
             this.user_details_form.controls['loandropdown'].setValue(this.userEnteredDetails.loan_type);
-            // this.loan_options = [{type: this.userEnteredDetails.loan_type}];
             this.selectedLoanOption = this.loan_options.find((val:any) => val.type === this.userEnteredDetails.loan_type);
 
             
@@ -288,3 +314,4 @@ export class LoanApprovalComponent implements OnInit {
     this.esign_Modal = true;
   }
 }
+

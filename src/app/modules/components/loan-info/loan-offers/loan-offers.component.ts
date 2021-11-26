@@ -26,14 +26,22 @@ export class LoanOffersComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            if(response.data.current_page == "loan-offer-list") {
+            if(response.data.next_page == "aadhar-verification" || "cust-details") {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-details") {
               this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
             }
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
           }
         })
+      
     } else {
       this.router.navigate(['/loan-info/user-needs']);
     }
@@ -52,7 +60,7 @@ export class LoanOffersComponent implements OnInit {
       bank_ref_id : bank_id,
     };
     let updateDetails_url_type = '/bank/update';
-    debugger;
+
     console.log('update_bank_details',update_bank_details);
     
     this.submitDetails = true;

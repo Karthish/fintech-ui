@@ -16,13 +16,10 @@ export class UserNeedsComponent implements OnInit {
   pan_form!: FormGroup;
   pan_submitted: boolean = false;
   pan_verification_url_type = '/pan/verify';
-
-
   displayModal!: boolean;
   amt_need: number = 100000;
   aadhar_id: any;
   invalid_aadhar: boolean = false;
-  // aadhar_length!: number;
   tenure: number = 12;
   interest_rate: number = 11;
   interest_payable: number = 6056;
@@ -30,24 +27,43 @@ export class UserNeedsComponent implements OnInit {
   monthly_emi: number = 8838;
   showNextBtn = false;
   AadharAuthenticateModal!: boolean;
-  // AadharSuccessModal!: boolean;
   pan_verification_con: boolean = false;
   loan_options_con: boolean = true;
   loan_options: any;
-  // aadhar_form!: FormGroup;
-  // aadhar_submitted: boolean = false;
-  // otp_form!: FormGroup;
-  // otp_submitted: boolean = false;
-  // aadhar_verification_url_type = '/aadhar/generate/accesskey';
-  // otp_verification_url_type = '/aadhar/otp/verify';
   loan_list_url_type = '/loan/list';
   userID: any;
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private toaster: ToastrService, 
-    private router: Router) {}
+    private CrudService: CrudService, private toaster: ToastrService, private activatedRoute: ActivatedRoute,
+    private router: Router) {
+      this.userID = this.activatedRoute.snapshot.queryParams.id;
+    }
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+
+    if(this.userID) {
+      this.CrudService.getUserStatus(this.userID).subscribe(
+        (response: any) => {
+          if(response.status == true) {
+            if(response.data.next_page == "aadhar-verification" || "cust-details") {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-details") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
+            }
+          } else {
+            this.toaster.error(response.msg);
+            this.router.navigate(['/loan-info/user-needs']);
+          }
+        })
+      
+    } else {
+      this.router.navigate(['/loan-info/user-needs']);
+    }
 
     // get loan options
     this.CrudService.getLoanList().subscribe(
@@ -101,14 +117,7 @@ export class UserNeedsComponent implements OnInit {
     }
   }
 
-  
 
-  // showAadharSuccessModal() {
-  //   this.AadharAuthenticateModal = false;
-  //   this.AadharSuccessModal = true;
-  // }
-
-  
 
   calculate_emi() {
     this.monthly_emi = (this.amt_need * (this.interest_rate / 1200)) / (1 - (Math.pow(1 / (1 + (this.interest_rate / 1200)), this.tenure)));

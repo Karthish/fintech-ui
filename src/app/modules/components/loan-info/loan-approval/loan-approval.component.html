@@ -1,380 +1,380 @@
 <div class="container">
-    <div class="header-row row p-2">
-        <div class="img-con" style="width: 100px;">
-          <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
-        </div>
-    </div>
+  <div class="header-row row p-2">
+      <div class="img-con" style="width: 100px;">
+        <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
+      </div>
+  </div>
 </div>
 <hr class="m-0">
 <div class="container loan-approval-con">
-    <div class="body-row row">
-        <div class="col-12 col-md-12 col-lg-5 mb-5">
-            <div class="funding-options-level">
-              <h4 class="mt-5 p-relative mb-4" style="color: #3f976c;">
-                <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -40px;font-size: 2rem;"></i>
-                Congratulations!
-              </h4>
-              <h5 class="mb-4">
-                Your application is approved. Please provide 2 reference and initiate e-sign process.
-              </h5>
-              <div class="funding-options-box axis-funding-options-box p-4">
-                <div class="d-flex justify-content-between mb-3">
-                  <div class="option-detail d-flex flex-column">
-                    <label class="option-detail-heading">Funding Financier</label>
-                    <div class="option-detail-value"><b>ABC</b></div>
-                  </div>
-                  <div class="option-detail d-flex flex-column" style="width: 41.33%;">
-                    <label class="option-detail-heading">Funding Amount</label>
-                    <div class="option-detail-value"><b>5 Lacs</b></div>
-                  </div>
-                  <div class="option-detail d-flex flex-column" style="width: 25.33%;">
-                    <label class="option-detail-heading img-con" style="width: 100%;">
-                      <img class="img-fluid" src="./../../../../../assets/images/AXIS BANK-logo.png" alt="">
-                    </label>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-start mb-3">
-                  <div class="option-detail d-flex flex-column">
-                    <label class="option-detail-heading">Interest Rate</label>
-                    <div class="option-detail-value">10.3%</div>
-                  </div>
-                  <div class="option-detail d-flex flex-column">
-                    <label class="option-detail-heading">Tenure</label>
-                    <div class="option-detail-value">36 Months</div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-start mb-3">
-                    <div class="option-detail d-flex flex-column">
-                      <label class="option-detail-heading">Processing Fee</label>
-                      <div class="option-detail-value">Rs 1500</div>
-                    </div>
-                    <div class="option-detail d-flex flex-column">
-                      <label class="option-detail-heading">EMI (for 2 years)</label>
-                      <div class="option-detail-value"><b>Rs23,142</b></div>
-                    </div>
-                  </div>
-              </div>
-  
-            </div>
-            <div class="btn-con mt-4 mb-4">
-              <button class="btn action-confirm-btn" (click)="show_addReference()"> 
-                <i *ngIf="reference_added_mark" class="fa fa-check" aria-hidden="true"></i>
-                Add References</button>
-              <button class="btn action-btn-transparent ms-3" (click)="shoAddEditModal()">View/Edit</button>
-            </div>
+  <div class="body-row row">
+      <div class="col-12 col-md-12 col-lg-5 mb-5">
+          <div class="funding-options-level">
+            <h4 class="mt-5 p-relative mb-4" style="color: #3f976c;">
+              <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -40px;font-size: 2rem;"></i>
+              Congratulations!
+            </h4>
+            <h5 class="mb-4">
+              Your application is approved. Please provide 2 reference and initiate e-sign process.
+            </h5>
             <div class="funding-options-box axis-funding-options-box p-4">
-              <div class="d-flex align-items-center">
-                <div class="me-3">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 3.5rem;color: #f84343;"></i>
+              <div class="d-flex justify-content-between mb-3">
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Funding Financier</label>
+                  <div class="option-detail-value"><b>{{selected_bank_details?.bank_name}}</b></div>
                 </div>
-                <div class="header-text" style="font-size: 1.3rem;">Sanction Letter</div>
+                <div class="option-detail d-flex flex-column" style="width: 41.33%;">
+                  <label class="option-detail-heading">Funding Amount</label>
+                  <div class="option-detail-value"><b>{{selected_bank_details?.max_loan_amount}}</b></div>
+                </div>
+                <div class="option-detail d-flex flex-column" style="width: 25.33%;">
+                  <label class="option-detail-heading img-con" style="width: 100%;">
+                    <img class="img-fluid" src="./../../../../../assets/images/AXIS BANK-logo.png" alt="">
+                  </label>
+                </div>
               </div>
-              <div class="btn-con mt-4 mb-3">
-                <button class="btn action-confirm-btn" [ngClass]="{ 'disabled': !showDownload}" (click)="download_sanction_letter()">Download</button>
-                <button class="btn action-btn-filled ms-3" (click)="showEmailModal()" *ngIf="!esignVerified">Initiate E-Sign</button>
-                <button class="btn ms-3 esign-completed-btn" *ngIf="esignVerified">
-                  <i class="fa fa-check me-2"></i>
-                  <span>E-Sign Completed</span> 
-                </button>
+              <div class="d-flex justify-content-start mb-3">
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Interest Rate</label>
+                  <div class="option-detail-value">{{selected_bank_details?.interest_rate}}</div>
+                </div>
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Tenure</label>
+                  <div class="option-detail-value">{{selected_bank_details?.loan_tenure}}</div>
+                </div>
               </div>
+              <div class="d-flex justify-content-start mb-3">
+                  <div class="option-detail d-flex flex-column">
+                    <label class="option-detail-heading">Processing Fee</label>
+                    <div class="option-detail-value">Rs {{selected_bank_details?.processing_fee}}</div>
+                  </div>
+                  <div class="option-detail d-flex flex-column">
+                    <label class="option-detail-heading">EMI</label>
+                    <div class="option-detail-value"><b>Rs {{selected_bank_details?.emi}}</b></div>
+                  </div>
+                </div>
             </div>
-        </div>
-        <div class="col-12 col-md-12 offset-lg-1 col-lg-6">
-          <div class="stepper-con mt-4">
-            <div class="stepper-horizontal" id="stepper1">
-              <div class="step done">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">1</div>
-                  <div class="step-optional">Specify Your Needs</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
+
+          </div>
+          <div class="btn-con mt-4 mb-4">
+            <button class="btn action-confirm-btn" (click)="show_addReference()"> 
+              <i *ngIf="reference_added_mark" class="fa fa-check" aria-hidden="true"></i>
+              Add References</button>
+            <button class="btn action-btn-transparent ms-3" (click)="shoAddEditModal()">View/Edit</button>
+          </div>
+          <div class="funding-options-box axis-funding-options-box p-4">
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 3.5rem;color: #f84343;"></i>
               </div>
-              <div class="step done">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">2</div>
-                  <div class="step-optional">User Authentication</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-              <div class="step done">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">3</div>
-                  <div class="step-optional">Loan Offers</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
-              <div class="step editing">
-                <div class="step-circle"></div>
-                <div class="stage-btn-click">
-                  <div class="step-title">4</div>
-                  <div class="step-optional">Loan Approval</div>
-                </div>
-                <div class="step-bar-left"></div>
-                <div class="step-bar-right"></div>
-              </div>
+              <div class="header-text" style="font-size: 1.3rem;">Sanction Letter</div>
             </div>
-  
+            <div class="btn-con mt-4 mb-3">
+              <button class="btn action-confirm-btn" [ngClass]="{ 'disabled': !showDownload}" (click)="download_sanction_letter()">Download</button>
+              <button class="btn action-btn-filled ms-3" (click)="showEmailModal()" *ngIf="!esignVerified">Initiate E-Sign</button>
+              <button class="btn ms-3 esign-completed-btn" *ngIf="esignVerified">
+                <i class="fa fa-check me-2"></i>
+                <span>E-Sign Completed</span> 
+              </button>
+            </div>
           </div>
-          <div class="img-con" style="width: 27vw;margin: 0 auto;">
-              <img class="img-fluid" src="./../../../../../assets/images/screen3.png" alt="">
+      </div>
+      <div class="col-12 col-md-12 offset-lg-1 col-lg-6">
+        <div class="stepper-con mt-4">
+          <div class="stepper-horizontal" id="stepper1">
+            <div class="step done">
+              <div class="step-circle"></div>
+              <div class="stage-btn-click">
+                <div class="step-title">1</div>
+                <div class="step-optional">Specify Your Needs</div>
+              </div>
+              <div class="step-bar-left"></div>
+              <div class="step-bar-right"></div>
+            </div>
+            <div class="step done">
+              <div class="step-circle"></div>
+              <div class="stage-btn-click">
+                <div class="step-title">2</div>
+                <div class="step-optional">User Authentication</div>
+              </div>
+              <div class="step-bar-left"></div>
+              <div class="step-bar-right"></div>
+            </div>
+            <div class="step done">
+              <div class="step-circle"></div>
+              <div class="stage-btn-click">
+                <div class="step-title">3</div>
+                <div class="step-optional">Loan Offers</div>
+              </div>
+              <div class="step-bar-left"></div>
+              <div class="step-bar-right"></div>
+            </div>
+            <div class="step editing">
+              <div class="step-circle"></div>
+              <div class="stage-btn-click">
+                <div class="step-title">4</div>
+                <div class="step-optional">Loan Approval</div>
+              </div>
+              <div class="step-bar-left"></div>
+              <div class="step-bar-right"></div>
+            </div>
           </div>
+
         </div>
-    </div>
-  
+        <div class="img-con" style="width: 27vw;margin: 0 auto;">
+            <img class="img-fluid" src="./../../../../../assets/images/screen3.png" alt="">
+        </div>
+      </div>
+  </div>
+
 </div>
 
 <p-dialog header="Before Proceeding to E-sign please provide 2 references" [(visible)]="referenceModal"
-  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
-  [resizable]="false">
-  <form [formGroup]="add_reference_form"  autocomplete="off">
-    <div class="row mb-3">
-      <div class="col-6">
-        <div class="reference-con p-4">
-          <div class="mb-3"><b>Reference 1</b></div>
-          <div>
-            <input type="text" class="main-input" formControlName="name" name="name" charactersOnly
-            placeholder="Name" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.name.errors }" />
-            <div *ngIf="addReference_submitted && addReference.name.errors" class="invalid-feedback">
-              <div *ngIf="addReference.name.errors.required">Name is required</div>
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+[resizable]="false">
+<form [formGroup]="add_reference_form"  autocomplete="off">
+  <div class="row mb-3">
+    <div class="col-6">
+      <div class="reference-con p-4">
+        <div class="mb-3"><b>Reference 1</b></div>
+        <div>
+          <input type="text" class="main-input" formControlName="name" name="name" charactersOnly
+          placeholder="Name" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.name.errors }" />
+          <div *ngIf="addReference_submitted && addReference.name.errors" class="invalid-feedback">
+            <div *ngIf="addReference.name.errors.required">Name is required</div>
+          </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="relationship" name="relationship" charactersOnly
+          placeholder="Relationship With Applicant" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.relationship.errors }"/>
+          <div *ngIf="addReference_submitted && addReference.relationship.errors" class="invalid-feedback">
+            <div *ngIf="addReference.relationship.errors.required">Relationship is required</div>
+          </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="pin_code" name="pin_code" numbersOnly maxlength="6"
+          placeholder="Pin Code" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.pin_code.errors }" />
+          <div *ngIf="addReference_submitted && addReference.pin_code.errors" class="invalid-feedback">
+            <div *ngIf="addReference.pin_code.errors.required">Pin code is required</div>
+            <div *ngIf="addReference.pin_code.errors.hasOwnProperty('pattern')">
+              <div *ngIf="addReference.pin_code.errors.pattern?.actualValue.length < 6">Pin Code Must Contain 6 Digits</div>
+              <div *ngIf="addReference.pin_code.errors.pattern?.actualValue.length > 6">Pin Code Must Contain Only 6 Digits</div>
             </div>
           </div>
-          <div>
-            <input type="text" class="main-input" formControlName="relationship" name="relationship" charactersOnly
-            placeholder="Relationship With Applicant" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.relationship.errors }"/>
-            <div *ngIf="addReference_submitted && addReference.relationship.errors" class="invalid-feedback">
-              <div *ngIf="addReference.relationship.errors.required">Relationship is required</div>
-            </div>
-          </div>
-          <div>
-            <input type="text" class="main-input" formControlName="pin_code" name="pin_code" numbersOnly maxlength="6"
-            placeholder="Pin Code" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.pin_code.errors }" />
-            <div *ngIf="addReference_submitted && addReference.pin_code.errors" class="invalid-feedback">
-              <div *ngIf="addReference.pin_code.errors.required">Pin code is required</div>
-              <div *ngIf="addReference.pin_code.errors.hasOwnProperty('pattern')">
-                <div *ngIf="addReference.pin_code.errors.pattern?.actualValue.length < 6">Pin Code Must Contain 6 Digits</div>
-                <div *ngIf="addReference.pin_code.errors.pattern?.actualValue.length > 6">Pin Code Must Contain Only 6 Digits</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <input type="text" class="main-input" formControlName="phone_number" name="phone_number" numbersOnly maxlength="10"
-            placeholder="Phone Number" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.phone_number.errors }" />
-            <div *ngIf="addReference_submitted && addReference.phone_number.errors" class="invalid-feedback">
-             <div *ngIf="addReference.phone_number.errors?.required">Phone Number is required</div>
-             <div *ngIf="addReference.phone_number.errors.hasOwnProperty('pattern')">
-              <div *ngIf="addReference.phone_number.errors.pattern?.actualValue.length < 10">Phone Number Must Contain 10 Digits</div>
-              <div *ngIf="addReference.phone_number.errors?.pattern?.actualValue.length > 10">Phone Number Must Contain Only 10 Digits</div>
-             </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="phone_number" name="phone_number" numbersOnly maxlength="10"
+          placeholder="Phone Number" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.phone_number.errors }" />
+          <div *ngIf="addReference_submitted && addReference.phone_number.errors" class="invalid-feedback">
+           <div *ngIf="addReference.phone_number.errors?.required">Phone Number is required</div>
+           <div *ngIf="addReference.phone_number.errors.hasOwnProperty('pattern')">
+            <div *ngIf="addReference.phone_number.errors.pattern?.actualValue.length < 10">Phone Number Must Contain 10 Digits</div>
+            <div *ngIf="addReference.phone_number.errors?.pattern?.actualValue.length > 10">Phone Number Must Contain Only 10 Digits</div>
            </div>
-          </div>
+         </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="reference-con p-4">
-          <div class="mb-3"><b>Reference 2</b></div>
-          <div>
-            <input type="text" class="main-input" formControlName="name1" name="name1" placeholder="Name" charactersOnly
-            [ngClass]="{ 'is-invalid': addReference_submitted && addReference.name1.errors }"/>
-            <div *ngIf="addReference_submitted && addReference.name1.errors" class="invalid-feedback">
-              <div *ngIf="addReference.name1.errors.required">Name is required</div>
+    </div>
+    <div class="col-6">
+      <div class="reference-con p-4">
+        <div class="mb-3"><b>Reference 2</b></div>
+        <div>
+          <input type="text" class="main-input" formControlName="name1" name="name1" placeholder="Name" charactersOnly
+          [ngClass]="{ 'is-invalid': addReference_submitted && addReference.name1.errors }"/>
+          <div *ngIf="addReference_submitted && addReference.name1.errors" class="invalid-feedback">
+            <div *ngIf="addReference.name1.errors.required">Name is required</div>
+          </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="relationship1" name="relationship1" charactersOnly
+          placeholder="Relationship With Applicant"  [ngClass]="{ 'is-invalid': addReference_submitted && addReference.relationship1.errors }"/>
+          <div *ngIf="addReference_submitted && addReference.relationship1.errors" class="invalid-feedback">
+            <div *ngIf="addReference.relationship1.errors.required">Relationship is required</div>
+          </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="pin_code1" name="pin_code1" numbersOnly maxlength="6"
+          placeholder="Pin Code"  [ngClass]="{ 'is-invalid': addReference_submitted && addReference.pin_code1.errors }" />
+          <div *ngIf="addReference_submitted && addReference.pin_code1.errors" class="invalid-feedback">
+            <div *ngIf="addReference.pin_code1.errors.required">Pin code is required</div>
+            <div *ngIf="addReference.pin_code1.errors.hasOwnProperty('pattern')">
+              <div *ngIf="addReference.pin_code1.errors.pattern?.actualValue.length < 6">Pin Code Must Contain 6 Digits</div>
+              <div *ngIf="addReference.pin_code1.errors.pattern?.actualValue.length > 6">Pin Code Must Contain Only 6 Digits</div>
             </div>
           </div>
-          <div>
-            <input type="text" class="main-input" formControlName="relationship1" name="relationship1" charactersOnly
-            placeholder="Relationship With Applicant"  [ngClass]="{ 'is-invalid': addReference_submitted && addReference.relationship1.errors }"/>
-            <div *ngIf="addReference_submitted && addReference.relationship1.errors" class="invalid-feedback">
-              <div *ngIf="addReference.relationship1.errors.required">Relationship is required</div>
-            </div>
-          </div>
-          <div>
-            <input type="text" class="main-input" formControlName="pin_code1" name="pin_code1" numbersOnly maxlength="6"
-            placeholder="Pin Code"  [ngClass]="{ 'is-invalid': addReference_submitted && addReference.pin_code1.errors }" />
-            <div *ngIf="addReference_submitted && addReference.pin_code1.errors" class="invalid-feedback">
-              <div *ngIf="addReference.pin_code1.errors.required">Pin code is required</div>
-              <div *ngIf="addReference.pin_code1.errors.hasOwnProperty('pattern')">
-                <div *ngIf="addReference.pin_code1.errors.pattern?.actualValue.length < 6">Pin Code Must Contain 6 Digits</div>
-                <div *ngIf="addReference.pin_code1.errors.pattern?.actualValue.length > 6">Pin Code Must Contain Only 6 Digits</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <input type="text" class="main-input" formControlName="phone_number1" name="phone_number1" numbersOnly maxlength="10"
-             placeholder="Phone Number" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.phone_number1.errors }" />
-             <div *ngIf="addReference_submitted && addReference.phone_number1.errors" class="invalid-feedback">
-              <div *ngIf="addReference.phone_number1.errors.required">Phone Number is required</div>
-              <div *ngIf="addReference.phone_number1.errors.hasOwnProperty('pattern')">
-                <div *ngIf="addReference.phone_number1.errors.pattern?.actualValue.length < 10">Phone Number Must Contain 10 Digits</div>
-                <div *ngIf="addReference.phone_number1.errors?.pattern?.actualValue.length > 10">Phone Number Must Contain Only 10 Digits</div>
-               </div>
-            </div>
+        </div>
+        <div>
+          <input type="text" class="main-input" formControlName="phone_number1" name="phone_number1" numbersOnly maxlength="10"
+           placeholder="Phone Number" [ngClass]="{ 'is-invalid': addReference_submitted && addReference.phone_number1.errors }" />
+           <div *ngIf="addReference_submitted && addReference.phone_number1.errors" class="invalid-feedback">
+            <div *ngIf="addReference.phone_number1.errors.required">Phone Number is required</div>
+            <div *ngIf="addReference.phone_number1.errors.hasOwnProperty('pattern')">
+              <div *ngIf="addReference.phone_number1.errors.pattern?.actualValue.length < 10">Phone Number Must Contain 10 Digits</div>
+              <div *ngIf="addReference.phone_number1.errors?.pattern?.actualValue.length > 10">Phone Number Must Contain Only 10 Digits</div>
+             </div>
           </div>
         </div>
       </div>
     </div>
-    <div>
-      <button class="btn action-confirm-btn" (click)="SubmitAddReference()" type="button">Submit</button>
-    </div>
-  </form>
+  </div>
+  <div>
+    <button class="btn action-confirm-btn" (click)="SubmitAddReference()" type="button">Submit</button>
+  </div>
+</form>
 </p-dialog>
 
 <p-dialog header="Enter Your Email Address" [(visible)]="email_Modal"
-  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
-  [resizable]="false">
-  <form [formGroup]="email_form" (ngSubmit)="send_email()" autocomplete="off">
-    <div class="row mb-3">
-      <div class="col-12">
-        <div>
-          <input type="text" class="main-input" name="email" placeholder="Enter here" formControlName="email"
-          style="width: 100%;" [ngClass]="{ 'is-invalid': email_detail_submitted && email_detail.email.errors }" />
-          <div *ngIf="email_detail_submitted && email_detail.email.errors" class="invalid-feedback">
-            <div *ngIf="email_detail.email.errors.required">Email is required</div>
-            <div *ngIf="email_detail.email.errors.email">Email must be a valid email address</div>
-        </div>
-        </div>
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+[resizable]="false">
+<form [formGroup]="email_form" (ngSubmit)="send_email()" autocomplete="off">
+  <div class="row mb-3">
+    <div class="col-12">
+      <div>
+        <input type="text" class="main-input" name="email" placeholder="Enter here" formControlName="email"
+        style="width: 100%;" [ngClass]="{ 'is-invalid': email_detail_submitted && email_detail.email.errors }" />
+        <div *ngIf="email_detail_submitted && email_detail.email.errors" class="invalid-feedback">
+          <div *ngIf="email_detail.email.errors.required">Email is required</div>
+          <div *ngIf="email_detail.email.errors.email">Email must be a valid email address</div>
+      </div>
       </div>
     </div>
-    <div class="mt-5">
-      <button class="btn action-confirm-btn" type="Send" style="width: 100%;">Submit</button>
-    </div>
-  </form>
+  </div>
+  <div class="mt-5">
+    <button class="btn action-confirm-btn" type="Send" style="width: 100%;">Submit</button>
+  </div>
+</form>
 </p-dialog>
 
 <p-dialog id="edit_user_details" header="View/Edit Your Details" [(visible)]="addEdit_Modal"
-  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '60vw'}" [draggable]="false"
-  [resizable]="false">
-  <form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()" autocomplete="off">
-    <div class="row">
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [style]="{width: '60vw'}" [draggable]="false"
+[resizable]="false">
+<form [formGroup]="user_details_form" (ngSubmit)="SubmitUserDetail()" autocomplete="off">
+  <div class="row">
+    <div class="col-6 col-md-6">
+      <div class="">
+        <label for="">User Name</label>
+        <div>
+          {{userEnteredDetails?.name}}
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-6">
+      <div class="">
+        <label for="">PAN Number</label>
+        <div>
+          {{userEnteredDetails?.pan_no}}
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mb-3">
+      <label for="">Loan Type</label>
+      <p-dropdown [options]="loan_options" formControlName="loandropdown" 
+      [(ngModel)]="selectedLoanOption"  
+      name="loandropdown"
+      optionLabel="type"
+      [filter]="true" 
+      filterBy="type" 
+      [showClear]="true" 
+      placeholder="Loan Type">
+        <ng-template pTemplate="selectedItem">
+            <div class="country-item country-item-value"  *ngIf="selectedLoanOption">
+                <div>{{selectedLoanOption.type}}</div>
+            </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </div>
+  <div class="form-header-con">
+    <p class="p-dialog-title">Choose your Profession</p>
+    <div class="d-flex">
+      <div class="p-field-radiobutton d-flex align-items-center">
+        <p-radioButton name="professional_type" formControlName="professional_type" value="salaried" 
+        [(ngModel)]="selectedValue"></p-radioButton>
+        <span class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</span>
+      </div>
+      <div class="p-field-radiobutton d-flex align-items-center mx-5">
+        <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"
+        [(ngModel)]="selectedValue"></p-radioButton>
+        <span class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="row form-elements-con">
       <div class="col-6 col-md-6">
-        <div class="">
-          <label for="">User Name</label>
-          <div>
-            {{userEnteredDetails?.name}}
+        <div class="form-group p-relative">
+          <label for="">Name your Organization</label>
+          <input type="text" class="main-input" name="organization_name" formControlName="organization_name" 
+          [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization_name.errors }">
+          <div *ngIf="user_details_submitted && user_detail.organization_name.errors" class="invalid-feedback">
+            <div *ngIf="user_detail.organization_name.errors.required">Organization is required</div>
           </div>
+          <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
         </div>
       </div>
       <div class="col-6 col-md-6">
-        <div class="">
-          <label for="">PAN Number</label>
-          <div>
-            {{userEnteredDetails?.pan_no}}
+        <div class="form-group p-relative">
+          <label for="">Monthly Income (In-Hand)</label>
+          <input type="text" class="main-input" name="monthly_income" floatingValue formControlName="monthly_income" 
+          [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.monthly_income.errors }">
+          <div *ngIf="user_details_submitted && user_detail.monthly_income.errors" class="invalid-feedback">
+            <div *ngIf="user_detail.monthly_income.errors.required">Income is required</div>
           </div>
+          <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
         </div>
       </div>
-      <div class="col-6 mb-3">
-        <label for="">Loan Type</label>
-        <p-dropdown [options]="loan_options" formControlName="loandropdown" 
-        [(ngModel)]="selectedLoanOption"  
-        name="loandropdown"
-        optionLabel="type"
-        [filter]="true" 
-        filterBy="type" 
-        [showClear]="true" 
-        placeholder="Loan Type">
-          <ng-template pTemplate="selectedItem">
-              <div class="country-item country-item-value"  *ngIf="selectedLoanOption">
-                  <div>{{selectedLoanOption.type}}</div>
-              </div>
-          </ng-template>
-        </p-dropdown>
-      </div>
-    </div>
-    <div class="form-header-con">
-      <p class="p-dialog-title">Choose your Profession</p>
-      <div class="d-flex">
-        <div class="p-field-radiobutton d-flex align-items-center">
-          <p-radioButton name="professional_type" formControlName="professional_type" value="salaried" 
-          [(ngModel)]="selectedValue"></p-radioButton>
-          <span class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</span>
-        </div>
-        <div class="p-field-radiobutton d-flex align-items-center mx-5">
-          <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"
-          [(ngModel)]="selectedValue"></p-radioButton>
-          <span class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</span>
+      <div class="col-6 col-md-6">
+        <div class="form-group p-relative">
+          <label for="">Desired Funding Amount</label>
+          <input type="text" class="main-input" name="desired_fund_amount" floatingValue formControlName="desired_fund_amount"
+          [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.desired_fund_amount.errors }">
+          <div *ngIf="user_details_submitted && user_detail.desired_fund_amount.errors" class="invalid-feedback">
+            <div *ngIf="user_detail.desired_fund_amount.errors.required">Funding Amount is required</div>
+          </div>
+          <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
-    <div class="form-body">
-      <div class="row form-elements-con">
-        <div class="col-6 col-md-6">
-          <div class="form-group p-relative">
-            <label for="">Name your Organization</label>
-            <input type="text" class="main-input" name="organization_name" formControlName="organization_name" 
-            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.organization_name.errors }">
-            <div *ngIf="user_details_submitted && user_detail.organization_name.errors" class="invalid-feedback">
-              <div *ngIf="user_detail.organization_name.errors.required">Organization is required</div>
-            </div>
-            <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+      <div class="col-6 col-md-6">
+        <div class="form-group p-relative">
+          <label for="">Loan Tenure</label>
+          <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure"
+          [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
+          <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
+            <div *ngIf="user_detail.loan_tenure.errors.required">Tenure is required</div>
           </div>
-        </div>
-        <div class="col-6 col-md-6">
-          <div class="form-group p-relative">
-            <label for="">Monthly Income (In-Hand)</label>
-            <input type="text" class="main-input" name="monthly_income" floatingValue formControlName="monthly_income" 
-            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.monthly_income.errors }">
-            <div *ngIf="user_details_submitted && user_detail.monthly_income.errors" class="invalid-feedback">
-              <div *ngIf="user_detail.monthly_income.errors.required">Income is required</div>
-            </div>
-            <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="col-6 col-md-6">
-          <div class="form-group p-relative">
-            <label for="">Desired Funding Amount</label>
-            <input type="text" class="main-input" name="desired_fund_amount" floatingValue formControlName="desired_fund_amount"
-            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.desired_fund_amount.errors }">
-            <div *ngIf="user_details_submitted && user_detail.desired_fund_amount.errors" class="invalid-feedback">
-              <div *ngIf="user_detail.desired_fund_amount.errors.required">Funding Amount is required</div>
-            </div>
-            <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="col-6 col-md-6">
-          <div class="form-group p-relative">
-            <label for="">Loan Tenure</label>
-            <input type="text" class="main-input" name="loan_tenure" numbersOnly formControlName="loan_tenure"
-            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.loan_tenure.errors }">
-            <div *ngIf="user_details_submitted && user_detail.loan_tenure.errors" class="invalid-feedback">
-              <div *ngIf="user_detail.loan_tenure.errors.required">Tenure is required</div>
-            </div>
-            <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="col-6 col-md-6">
-          <div class="form-group p-relative">
-            <label for="">Mother's Maiden Name</label>
-            <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name" 
-            [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
-            <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors" class="invalid-feedback">
-              <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
-            </div>
-            <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
-          </div>
+          <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
         </div>
       </div>
-
+      <div class="col-6 col-md-6">
+        <div class="form-group p-relative">
+          <label for="">Mother's Maiden Name</label>
+          <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name" 
+          [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.mothers_maiden_name.errors }">
+          <div *ngIf="user_details_submitted && user_detail.mothers_maiden_name.errors" class="invalid-feedback">
+            <div *ngIf="user_detail.mothers_maiden_name.errors.required">Mother's Maiden Name is required</div>
+          </div>
+          <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
 
-    <div class="d-flex align-items-center mb-5">
-      <button class="btn action-confirm-btn" type="submit">Update
-        <i class="fa fa-angle-right" aria-hidden="true"></i>
-      </button>
-    </div>
+  </div>
 
-  </form>
+  <div class="d-flex align-items-center mb-5">
+    <button class="btn action-confirm-btn" type="submit">Update
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </button>
+  </div>
+
+</form>
 </p-dialog>
 
 <p-dialog header="Send" [(visible)]="esign_Modal" id="esign_Modal"
-  [breakpoints]="{'960px': '80vw', '640px': '100vw'}" [modal]="true" [style]="{width: '90vw'}" [draggable]="false"
-  [resizable]="false">
-  <button class="btn btn-success btn-block" id="esign_btn" (click)="doEsign()">E-Sign PDF</button>
+[breakpoints]="{'960px': '80vw', '640px': '100vw'}" [modal]="true" [style]="{width: '90vw'}" [draggable]="false"
+[resizable]="false">
+<button class="btn btn-success btn-block" id="esign_btn" (click)="doEsign()">E-Sign PDF</button>
 
-  <pdf-viewer [src]="pdfSrc"
-        [show-borders]="false">
-  </pdf-viewer>
+<pdf-viewer [src]="pdfSrc"
+      [show-borders]="false">
+</pdf-viewer>
 </p-dialog>
