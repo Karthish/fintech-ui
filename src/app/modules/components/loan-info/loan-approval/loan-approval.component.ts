@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
-import { CrudService } from './../../services/crud-service';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
+import { PrimeNGConfig } from 'primeng/api';
+import { CrudService } from './../../services/crud-service';
 
 @Component({
   selector: 'app-loan-approval',
@@ -37,12 +37,12 @@ export class LoanApprovalComponent implements OnInit {
   send_email__url_type = '/user/sanction/attachment';
   verification__url = '/user/sanction/esign';
   get_selected_bank_detail__url = '/bank/detail';
-  
+
 
 
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private toaster: ToastrService, private router: Router, 
+    private CrudService: CrudService, private toaster: ToastrService, private router: Router,
     private activatedRoute: ActivatedRoute) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
@@ -52,26 +52,26 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            
-            if(response.data.next_page == "aadhar-verification" || "cust-details") {
-              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-list") {
-              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-details") {
-              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            } else {
-              this.toaster.error(response.msg);
-              this.router.navigate(['/loan-info/user-needs']);
-            }
+
+            // if(response.data.next_page == "aadhar-verification" || "cust-details") {
+            //   this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            // } else if(response.data.next_page == "loan-offer-list") {
+            //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            // } else if(response.data.next_page == "loan-offer-details") {
+            //   this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            // } else {
+            //   this.toaster.error(response.msg);
+            //   this.router.navigate(['/loan-info/user-needs']);
+            // }
 
             let selectedBankDetail = {
               bank_ref_id: response.data.bank_ref_id
             }
             this.CrudService.post(selectedBankDetail, this.get_selected_bank_detail__url).subscribe(
               (response: any) => {
-                if(response.status == true) { 
+                if(response.status == true) {
                   this.selected_bank_details = response.data;
-                  this.toaster.success(response.msg);
+                  //this.toaster.success(response.msg);
                 } else {
                   this.toaster.error(response.msg);
                 }
@@ -89,7 +89,7 @@ export class LoanApprovalComponent implements OnInit {
             if(response.data.is_esigned == true) {
               this.esignVerified = true;
             }
-            
+
             if(response.data.references.length > 0) {
               this.showDownload = true;
               this.add_reference_form.controls['name'].setValue(response.data.references[0].name);
@@ -110,7 +110,7 @@ export class LoanApprovalComponent implements OnInit {
             this.user_details_form.controls['loandropdown'].setValue(this.userEnteredDetails.loan_type);
             this.selectedLoanOption = this.loan_options.find((val:any) => val.type === this.userEnteredDetails.loan_type);
 
-            
+
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
@@ -124,7 +124,7 @@ export class LoanApprovalComponent implements OnInit {
     // get loan options
     this.CrudService.getLoanList().subscribe(
       (response: any) => {
-        if(response.status == true) { 
+        if(response.status == true) {
           this.loan_options = response.data;
         } else {
           this.toaster.error(response.msg);
@@ -156,16 +156,16 @@ export class LoanApprovalComponent implements OnInit {
         mothers_maiden_name: ['', Validators.required]
       }
     )
-    
+
     // Email form
     this.email_form = this.formBuilder.group(
       {
-        email: ['', [Validators.required, 
+        email: ['', [Validators.required,
         Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       }
     )
 
-    
+
   }
 
   // getter function for addreferenceform
@@ -179,10 +179,10 @@ export class LoanApprovalComponent implements OnInit {
   }
 
   // getter function for email form
-  get email_detail(): { [key: string]: AbstractControl } { 
+  get email_detail(): { [key: string]: AbstractControl } {
     return this.email_form.controls;
   }
-  
+
   SubmitAddReference() {
     this.addReference_submitted = true;
     console.log('add_reference_form',this.add_reference_form);
@@ -208,7 +208,7 @@ export class LoanApprovalComponent implements OnInit {
       }
       this.CrudService.post(add_reference_form_value, this.add_reference_form_url_type).subscribe(
         (response: any) => {
-          if(response.status == true) { 
+          if(response.status == true) {
             this.reference_added_mark = true;
             this.showDownload = true;
             this.toaster.success(response.msg);
@@ -218,7 +218,7 @@ export class LoanApprovalComponent implements OnInit {
         })
     }
   }
-  
+
 
   show_addReference() {
     this.referenceModal = true;
@@ -235,7 +235,7 @@ export class LoanApprovalComponent implements OnInit {
     console.log('userdetailsUpdated', this.user_details_form.value);
     if (this.user_details_form.invalid) {
       return;
-    } 
+    }
     else {
       this.CrudService.put(this.user_details_form.value, this.userdetail__url_type,this.userID).subscribe(
           (response: any) => {
@@ -255,7 +255,7 @@ export class LoanApprovalComponent implements OnInit {
     }
     this.CrudService.post(download_sanction_letter_obj, this.download__url_type).subscribe(
       (response: any) => {
-        if(response.status == true) { 
+        if(response.status == true) {
           window.open(response.data);
           this.toaster.success(response.msg);
         } else {
@@ -273,7 +273,7 @@ export class LoanApprovalComponent implements OnInit {
       this.email_form.value.id = this.userID;
       this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
         (response: any) => {
-          if(response.status == true) { 
+          if(response.status == true) {
             debugger;
             this.pdfSrc = response.data;
             this.toaster.success(response.msg);
@@ -282,7 +282,7 @@ export class LoanApprovalComponent implements OnInit {
           } else {
             this.toaster.error(response.msg);
           }
-      }) 
+      })
     }
   }
 
@@ -293,10 +293,11 @@ export class LoanApprovalComponent implements OnInit {
     this.CrudService.post(verificationObj, this.verification__url).subscribe(
       (response: any) => {
         if(response.status == true) {
-          debugger
           this.toaster.success(response.msg);
+         this.esignVerified = true;
+         this.esign_Modal = false;
         } else {
-          this.toaster.error(response.msg); 
+          this.toaster.error(response.msg);
         }
     })
   }

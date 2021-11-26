@@ -1,11 +1,11 @@
-import { HttpClient, HttpResponse  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CrudService {
     http;
-    baseurl: string = "https://ec2-13-126-45-140.ap-south-1.compute.amazonaws.com/api/v1"; 
-
+    //baseurl: string = "https://ec2-13-126-45-140.ap-south-1.compute.amazonaws.com/api/v1";
+    baseurl: string = "http://localhost:8870/api/v1";
     constructor(http: HttpClient) {
         this.http = http;
     }
@@ -24,7 +24,7 @@ export class CrudService {
         } else {
             return this.http.put(this.baseurl+_api_type,Data)
         }
-        
+
     }
 
     getLoanList(id?: number) {
@@ -38,6 +38,6 @@ export class CrudService {
     getUserStatus(id?: any) {
         return this.http.get(this.baseurl+'/user/status/' + id);
     }
-    
+
 
 }

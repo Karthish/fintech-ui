@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudService } from './../../services/crud-service';
-import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from "ngx-toastr";
+import { CrudService } from './../../services/crud-service';
 
 @Component({
   selector: 'app-loan-offers',
@@ -13,39 +13,39 @@ export class LoanOffersComponent implements OnInit {
   funding_options_list_details!: any;
   userID;
   submitDetails: boolean = false;
-  
-  constructor(private CrudService: CrudService, private toaster: ToastrService, 
+
+  constructor(private CrudService: CrudService, private toaster: ToastrService,
     private router: Router, private activatedRoute: ActivatedRoute) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
 
   ngOnInit(): void {
 
-    if(this.userID) {
-      (document.querySelector('.progress-loader') as HTMLElement).style.display = 'unset';
-      this.CrudService.getUserStatus(this.userID).subscribe(
-        (response: any) => {
-          if(response.status == true) {
-            if(response.data.next_page == "aadhar-verification" || "cust-details") {
-              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-list") {
-              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-details") {
-              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            } else {
-              this.toaster.error(response.msg);
-              this.router.navigate(['/loan-info/user-needs']);
-            }
-          } else {
-            this.toaster.error(response.msg);
-            this.router.navigate(['/loan-info/user-needs']);
-          }
-        })
-      
-    } else {
-      this.router.navigate(['/loan-info/user-needs']);
-    }
-    
+    // if(this.userID) {
+    //   (document.querySelector('.progress-loader') as HTMLElement).style.display = 'unset';
+    //   this.CrudService.getUserStatus(this.userID).subscribe(
+    //     (response: any) => {
+    //       if(response.status == true) {
+    //         if(response.data.next_page == "aadhar-verification" || "cust-details") {
+    //           this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+    //         } else if(response.data.next_page == "loan-offer-list") {
+    //           this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+    //         } else if(response.data.next_page == "loan-offer-details") {
+    //           this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+    //         } else {
+    //           this.toaster.error(response.msg);
+    //           this.router.navigate(['/loan-info/user-needs']);
+    //         }
+    //       } else {
+    //         this.toaster.error(response.msg);
+    //         this.router.navigate(['/loan-info/user-needs']);
+    //       }
+    //     })
+
+    // } else {
+    //   this.router.navigate(['/loan-info/user-needs']);
+    // }
+
     let bank_List_url_type = '/bank/list';
     this.CrudService.get(bank_List_url_type).subscribe(
       (response) => {
@@ -62,7 +62,7 @@ export class LoanOffersComponent implements OnInit {
     let updateDetails_url_type = '/bank/update';
 
     console.log('update_bank_details',update_bank_details);
-    
+
     this.submitDetails = true;
     (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     this.CrudService.post(update_bank_details, updateDetails_url_type).subscribe(
@@ -77,7 +77,7 @@ export class LoanOffersComponent implements OnInit {
           this.toaster.error(response.msg);
         }
     })
-    
+
   }
 
 }
