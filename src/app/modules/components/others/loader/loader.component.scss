@@ -1,10 +1,10 @@
 .loading-spinner{    
     background-color: #0000001f;
-    position: absolute;
+    position: fixed;
     width: 100%;
     top: 0px;
     left: 0px;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: scroll;
     align-items: center;
     justify-content: center;

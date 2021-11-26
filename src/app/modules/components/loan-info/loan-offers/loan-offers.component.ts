@@ -26,7 +26,9 @@ export class LoanOffersComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            return;
+            if(response.data.current_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            }
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);

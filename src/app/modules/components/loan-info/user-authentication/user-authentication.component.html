@@ -10,38 +10,52 @@
   <div class="body-row row">
     <div class="col-12 col-md-6">
       <div class="">
-        <h4 class="mt-5 p-relative">
-          Let's quickly verify your identity
-        </h4>
-
-        <div *ngIf="pan_verification === true && cust_detail_verification === false" class="pan-con">
-          <form [formGroup]="pan_form" (ngSubmit)="SubmitPan()" autocomplete="off">
+        
+        <div class="aadhar-con" *ngIf="aadhar_verification === true && cust_detail_verification === false">
+          <h4 class="mt-5 p-relative">
+            Let's quickly verify your identity
+          </h4>
+          <form [formGroup]="aadhar_form"  autocomplete="off">
             <div class="p-relative" style="font-size: 20px;">
               <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
-              Enter your PAN Number
+              Enter your Name
             </div>
             <div class="mt-3 mb-4">
-              <input type="text" class="main-input" name="pan_no" formControlName="pan_no"
-                [ngClass]="{ 'is-invalid': pan_submitted && pan.pan_no.errors }">
-              <div *ngIf="pan_submitted && pan.pan_no.errors" class="invalid-feedback">
-                <div *ngIf="pan.pan_no.errors.required">PAN Number is required</div>
-                <div *ngIf="pan.pan_no.errors.pattern">
-                  Not a Valid PAN Number
+              <input type="text" class="main-input" name="name" formControlName="name"
+                [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.name.errors }">
+              <div *ngIf="aadhar_submitted && aadhar.name.errors" class="invalid-feedback">
+                <div *ngIf="aadhar.name.errors.required">Name is required</div>
+              </div>
+            </div>
+            <div class="p-relative" style="font-size: 20px;">
+              <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
+              Enter your AADHAR Number
+            </div>
+            <div class="mt-3 mb-4">
+              <p-inputMask formControlName="aadhar_no" class="main-input" [(ngModel)]="aadhar_id" slotChar=" "
+                mask="9999 9999 9999" [autoClear]="false" placeholder="xxxx xxxx xxxx"
+                [ngClass]="{ 'is-invalid': aadhar_submitted && aadhar.aadhar_no.errors || invalid_aadhar }">
+              </p-inputMask>
+              <div *ngIf="aadhar_submitted && aadhar.aadhar_no.errors || invalid_aadhar" class="invalid-feedback">
+                <div *ngIf="aadhar.aadhar_no.errors?.required">Aadhar ID is required</div>
+                <div *ngIf="invalid_aadhar">
+                  Aadhar must be 12 digits number
                 </div>
               </div>
             </div>
-            <button class="btn action-confirm-btn" type="submit">Continue</button>
-            <p class="mt-3" style="color: #b0adad;font-size: 13px;">
-              When applying for a <b style="color: #615f5a;">personal loan</b>, per the guidelines set by financial
-              lenders, it is <br>
-              <b style="color: #615f5a;"> mandatory</b> to submit one's <b style="color: #615f5a;">PAN</b> card as it
-              is<b style="color: #615f5a;"> mandatory</b> by the tax laws.
-            </p>
           </form>
+          <button class="btn action-confirm-btn" (click)="SubmitAadhar()" type="button">Authenticate</button>
+            <p class="mt-3" style="color: #b0adad;font-size: 13px;">
+              <b style="color: #615f5a;">Aadhaar</b> Card gives you easy access to numerous <b
+                style="color: #615f5a;">loans</b> and other financial services. <br>
+              The loan applicants are asked to provide Know Your Customer (KYC) documents and <br> <b
+                style="color: #615f5a;">Aadhaar</b> Card is a solid proof
+              of your citizenship and identity.
+            </p>
         </div>
       </div>
 
-      <div class="choose-profession-con" *ngIf="pan_verification === false && cust_detail_verification === true">
+      <div class="choose-profession-con" *ngIf="aadhar_verification === false && cust_detail_verification === true" >
         <h4 class="mt-5 p-relative">
           <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -42px;font-size: 2rem;"></i>
           Almost done, just a few more details
@@ -234,3 +248,31 @@
     </div>
   </div>
 </div>
+
+<p-dialog header="Authenticate your AADHAR" [(visible)]="AadharAuthenticateModal" [modal]="true"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="otp_form" (ngSubmit)="SubmitOtp()" autocomplete="off">
+    <div class="form-group">
+      <label for="">Enter OTP</label>
+      <input type="text" name="otp" formControlName="otp" class="main-input form-control"
+        [ngClass]="{ 'is-invalid': otp_submitted && otp.otp.errors }">
+      <div *ngIf="otp_submitted && otp.otp.errors" class="invalid-feedback">
+        <div *ngIf="otp.otp.errors.required">OTP is required</div>
+      </div>
+    </div>
+    <div class="text-end mt-2">
+      <button type="button" class="resend-btn" (click)="SubmitAadhar()">Resend OTP</button>
+    </div>
+    <div class="mt-4">
+      <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Confirm</button>
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog header="Aadhar Verified Successfully" [(visible)]="AadharSuccessModal" [modal]="true"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false">
+  <div class="mt-4 text-center">
+    <button class="btn action-confirm-btn" (click)="AadharSuccessModal=false;aadhar_verification=false;
+    cust_detail_verification=true;">Close</button>
+  </div>
+</p-dialog>

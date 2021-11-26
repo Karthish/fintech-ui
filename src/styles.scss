@@ -91,6 +91,11 @@
     box-shadow: none!important;
  }
 
+ .disabled {
+     pointer-events: none;
+     opacity: 0.6;
+ }
+
 //  stepper styles
   $border-color: #D9E2EC;
   $text-color: #102A43;

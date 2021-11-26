@@ -28,6 +28,7 @@ export class LoanApprovalComponent implements OnInit {
   selectedValue!: string;
   user_details_submitted: boolean = false;
   email_detail_submitted: boolean = false;
+  showDownload: boolean = false;
   pdfSrc = "https://aryaa-filecontianer-dev.s3.ap-south-1.amazonaws.com/1637771400916.pdf";
   esignVerified:boolean = false;
   userdetail__url_type = '/user/details/update/';
@@ -49,19 +50,31 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            this.userEnteredDetails = response.data;
+              this.userEnteredDetails = response.data;
               this.selectedValue = this.userEnteredDetails?.professional_type;
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
-            if(this.userEnteredDetails.email_id != null) {
-              this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
-            }
+            // if(this.userEnteredDetails.email_id != null) {
+            //   this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
+            // }
 
             if(response.data.is_esigned == true) {
               this.esignVerified = true;
             }
             
+            if(response.data.references.length > 0) {
+              this.showDownload = true;
+              this.add_reference_form.controls['name'].setValue(response.data.references[0].name);
+              this.add_reference_form.controls['phone_number'].setValue(response.data.references[0].phone_number);
+              this.add_reference_form.controls['pin_code'].setValue(response.data.references[0].pin_code);
+              this.add_reference_form.controls['relationship'].setValue(response.data.references[0].relationship);
+              this.add_reference_form.controls['name1'].setValue(response.data.references[1].name);
+              this.add_reference_form.controls['phone_number1'].setValue(response.data.references[1].phone_number);
+              this.add_reference_form.controls['pin_code1'].setValue(response.data.references[1].pin_code);
+              this.add_reference_form.controls['relationship1'].setValue(response.data.references[1].relationship);
+            }
+
             this.user_details_form.controls['organization_name'].setValue(this.userEnteredDetails.organization_name);
             this.user_details_form.controls['monthly_income'].setValue(this.userEnteredDetails.monthly_income);
             this.user_details_form.controls['desired_fund_amount'].setValue(this.userEnteredDetails.desired_fund_amount);
@@ -171,6 +184,7 @@ export class LoanApprovalComponent implements OnInit {
         (response: any) => {
           if(response.status == true) { 
             this.reference_added_mark = true;
+            this.showDownload = true;
             this.toaster.success(response.msg);
           } else {
             this.toaster.error(response.msg);
@@ -227,19 +241,23 @@ export class LoanApprovalComponent implements OnInit {
   // Send email id
   send_email() {
     this.email_detail_submitted = true;
-    this.email_form.value.id = this.userID;
-    this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
-      (response: any) => {
-        if(response.status == true) { 
-          debugger;
-          this.pdfSrc = response.data;
-          this.toaster.success(response.msg);
-          this.email_Modal = false;
-          this.showEsignModel();
-        } else {
-          this.toaster.error(response.msg);
-        }
-    })
+    if(this.email_form.invalid) {
+      return
+    } else {
+      this.email_form.value.id = this.userID;
+      this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
+        (response: any) => {
+          if(response.status == true) { 
+            debugger;
+            this.pdfSrc = response.data;
+            this.toaster.success(response.msg);
+            this.email_Modal = false;
+            this.showEsignModel();
+          } else {
+            this.toaster.error(response.msg);
+          }
+      }) 
+    }
   }
 
   doEsign() {
