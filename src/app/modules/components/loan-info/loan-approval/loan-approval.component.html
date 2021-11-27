@@ -28,7 +28,10 @@
                   <div class="option-detail-value"><b>{{selected_bank_details?.max_loan_amount}}</b></div>
                 </div>
                 <div class="option-detail d-flex flex-column" style="width: 25.33%;">
-                  <label class="option-detail-heading img-con" style="width: 100%;">
+                  <label *ngIf="selected_bank_details?.bank_name == 'HDFC'"  class="option-detail-heading img-con" style="width: 100%;">
+                    <img class="img-fluid" src="./../../../../../assets/images/HDFC-logo.png" alt="">
+                  </label>
+                  <label *ngIf="selected_bank_details?.bank_name !== 'HDFC'"  class="option-detail-heading img-con" style="width: 100%;">
                     <img class="img-fluid" src="./../../../../../assets/images/AXIS BANK-logo.png" alt="">
                   </label>
                 </div>

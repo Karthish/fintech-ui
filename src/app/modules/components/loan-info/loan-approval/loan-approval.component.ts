@@ -62,7 +62,6 @@ export class LoanApprovalComponent implements OnInit {
             this.CrudService.post(selectedBankDetail, this.get_selected_bank_detail__url).subscribe(
               (response: any) => {
                 if(response.status == true) {
-                  debugger;
                   this.selected_bank_details = response.data;
                   //this.toaster.success(response.msg);
                 } else {
