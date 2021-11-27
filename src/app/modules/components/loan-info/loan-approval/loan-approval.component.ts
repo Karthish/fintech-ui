@@ -44,6 +44,7 @@ export class LoanApprovalComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private toaster: ToastrService, private router: Router,
     private activatedRoute: ActivatedRoute) {
+     console.log('current url', this.router.url);
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
 
@@ -52,17 +53,25 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
+            if(response.data.next_page == "loan-offer-details") {
+              console.log('here')
+              return
+              ///this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            }
 
-            // if(response.data.next_page == "aadhar-verification" || "cust-details") {
-            //   this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            // } else if(response.data.next_page == "loan-offer-list") {
-            //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            // } else if(response.data.next_page == "loan-offer-details") {
-            //   this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            // } else {
-            //   this.toaster.error(response.msg);
-            //   this.router.navigate(['/loan-info/user-needs']);
-            // }
+            if(response.data.next_page == "aadhar-verification" || "cust-details") {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-list") {
+
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-details") {
+              console.log('here')
+              return
+              ///this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
+            }
 
             let selectedBankDetail = {
               bank_ref_id: response.data.bank_ref_id
