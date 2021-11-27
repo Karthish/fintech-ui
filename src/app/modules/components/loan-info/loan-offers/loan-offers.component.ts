@@ -21,6 +21,13 @@ export class LoanOffersComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let bank_List_url_type = '/bank/list';
+    this.CrudService.get(bank_List_url_type).subscribe(
+      (response) => {
+        this.funding_options_list_details = response;
+        console.log('loanoptions', response);
+    })
+    
     if(this.userID) {
       (document.querySelector('.progress-loader') as HTMLElement).style.display = 'unset';
       this.CrudService.getUserStatus(this.userID).subscribe(
@@ -47,12 +54,6 @@ export class LoanOffersComponent implements OnInit {
       this.router.navigate(['/loan-info/user-needs']);
     }
 
-    let bank_List_url_type = '/bank/list';
-    this.CrudService.get(bank_List_url_type).subscribe(
-      (response) => {
-        this.funding_options_list_details = response;
-        console.log('loanoptions', response);
-    })
   }
 
   update_bank_details(bank_id: string) {

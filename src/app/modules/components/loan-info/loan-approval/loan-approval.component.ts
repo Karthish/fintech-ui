@@ -53,27 +53,16 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            if(response.data.next_page == "loan-offer-details") {
-              console.log('here')
-              return;
-            }
-
-            else if(response.data.next_page == "aadhar-verification" || "cust-details") {
-              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-list") {
-
-              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } else {
-              this.toaster.error(response.msg);
-              this.router.navigate(['/loan-info/user-needs']);
-            }
-
+            
+            this.checkNextPg(response);
+            
             let selectedBankDetail = {
               bank_ref_id: response.data.bank_ref_id
             }
             this.CrudService.post(selectedBankDetail, this.get_selected_bank_detail__url).subscribe(
               (response: any) => {
                 if(response.status == true) {
+                  debugger;
                   this.selected_bank_details = response.data;
                   //this.toaster.success(response.msg);
                 } else {
@@ -170,6 +159,23 @@ export class LoanApprovalComponent implements OnInit {
     )
 
 
+  }
+
+  checkNextPg(response: any) {
+    if(response.data.next_page == "loan-offer-details") {
+      console.log('here')
+      return;
+    }
+
+    else if(response.data.next_page == "aadhar-verification" || "cust-details") {
+      this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+    } else if(response.data.next_page == "loan-offer-list") {
+
+      this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+    } else {
+      this.toaster.error(response.msg);
+      this.router.navigate(['/loan-info/user-needs']);
+    }
   }
 
   // getter function for addreferenceform
