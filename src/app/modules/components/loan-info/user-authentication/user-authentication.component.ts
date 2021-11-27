@@ -131,15 +131,31 @@ export class UserAuthenticationComponent implements OnInit {
 
   onFileChange(event: any) {    
     if (event.target.files.length <= 3) {
-      for (var i = 0; i < event.target.files.length; i++) {
+      debugger;
+      
+      
         // this.formData.append("payslip", event.target.files[i]);
-        this.file_arr.push(event.target.files[i]);
-        this.file_names.push(event.target.files[i].name);
+        if(this.file_names.length + event.target.files.length <= 3) {
+          for (var i = 0; i < event.target.files.length; i++) {
+          this.file_arr.push(event.target.files[i]);
+          this.file_arr = this.file_arr.filter( function( item, index, inputArray ) {
+            return inputArray.indexOf(item) == index;
+          });
+          this.file_names.push(event.target.files[i].name);
+          this.file_names = this.file_names.filter( function( item, index, inputArray ) {
+            return inputArray.indexOf(item) == index;
+          });
+          console.log('this.file_names',this.file_names);
+          // this.file_count_less = false;
+          // this.file_exceeded = false;
+          }
+          this.file_count_less = false;
+          this.file_exceeded = false;
+        } else {
+          this.file_exceeded = true; 
+        }
         
-        this.file_count_less = false;
-        this.file_exceeded = false;
-      }
-      console.log('files',this.formData);
+      console.log('file_arr',this.file_arr);
     } 
     else if (event.target.files.length > 3) {
       this.file_count_less = false;
@@ -157,6 +173,9 @@ export class UserAuthenticationComponent implements OnInit {
     let file_index = this.file_names.indexOf(filename);
     this.file_names.splice(file_index, 1);
     this.file_arr.splice(file_index, 1);
+    if(this.file_names.length <= 3) {
+      this.file_exceeded = false;
+    }
   }
 
 
