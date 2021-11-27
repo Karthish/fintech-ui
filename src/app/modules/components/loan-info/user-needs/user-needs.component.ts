@@ -98,6 +98,8 @@ export class UserNeedsComponent implements OnInit {
       this.pan_form.value.loan_description = localStorage.getItem('loan_description');
       this.pan_form.value.loan_ref_id = localStorage.getItem('loan_ref_id');
       this.pan_form.value.loan_type = localStorage.getItem('loan_type');
+      this.pan_form.value.pan_no = this.pan_form.value.pan_no.toUpperCase();
+      console.log('pancheck',this.pan_form.value);
       this.CrudService.post(this.pan_form.value, this.pan_verification_url_type).subscribe(
         (response: any) => {
           if(response.status == false) {
