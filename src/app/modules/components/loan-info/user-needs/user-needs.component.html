@@ -131,7 +131,7 @@
               </div>
               <div class="mt-3 mb-4">
                 <input type="text" class="main-input" name="pan_no" formControlName="pan_no"
-                  [ngClass]="{ 'is-invalid': pan_submitted && pan.pan_no.errors }">
+                  [ngClass]="{ 'is-invalid': pan_submitted && pan.pan_no.errors }" style="text-transform: uppercase;">
                 <div *ngIf="pan_submitted && pan.pan_no.errors" class="invalid-feedback">
                   <div *ngIf="pan.pan_no.errors.required">PAN Number is required</div>
                   <div *ngIf="pan.pan_no.errors.pattern">
