@@ -124,6 +124,7 @@ label {
 .esign-completed-btn {
     color: $primary-green;
     font-family: $semi-bold-font;
+    pointer-events: none;
 }
 
 pdf-viewer {
