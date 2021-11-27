@@ -55,19 +55,14 @@ export class LoanApprovalComponent implements OnInit {
           if(response.status == true) {
             if(response.data.next_page == "loan-offer-details") {
               console.log('here')
-              return
-              ///this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+              return;
             }
 
-            if(response.data.next_page == "aadhar-verification" || "cust-details") {
+            else if(response.data.next_page == "aadhar-verification" || "cust-details") {
               this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
             } else if(response.data.next_page == "loan-offer-list") {
 
               this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } else if(response.data.next_page == "loan-offer-details") {
-              console.log('here')
-              return
-              ///this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
             } else {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);

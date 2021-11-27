@@ -55,10 +55,7 @@ export class UserNeedsComponent implements OnInit {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);
             }
-          } else {
-            this.toaster.error(response.msg);
-            this.router.navigate(['/loan-info/user-needs']);
-          }
+          } 
         })
       
     } else {
