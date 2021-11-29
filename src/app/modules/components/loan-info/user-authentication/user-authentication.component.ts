@@ -130,11 +130,8 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
   onFileChange(event: any) {    
+    
     if (event.target.files.length <= 3) {
-      debugger;
-      
-      
-        // this.formData.append("payslip", event.target.files[i]);
         if(this.file_names.length + event.target.files.length <= 3) {
           for (var i = 0; i < event.target.files.length; i++) {
           this.file_arr.push(event.target.files[i]);
@@ -145,12 +142,10 @@ export class UserAuthenticationComponent implements OnInit {
           this.file_names = this.file_names.filter( function( item, index, inputArray ) {
             return inputArray.indexOf(item) == index;
           });
-          console.log('this.file_names',this.file_names);
-          // this.file_count_less = false;
-          // this.file_exceeded = false;
           }
           this.file_count_less = false;
           this.file_exceeded = false;
+          event.target.value = "";
         } else {
           this.file_exceeded = true; 
         }
@@ -162,11 +157,6 @@ export class UserAuthenticationComponent implements OnInit {
       this.file_exceeded = true;
       this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
     } 
-    // else if (event.target.files.length < 3) {
-    //   this.file_exceeded = false;
-    //   this.file_count_less = true;
-    //   this.user_details_form.controls['salary_slips'].setErrors({'incorrect': true});
-    // }
   }
 
   delete_file(filename:string) {
@@ -176,6 +166,7 @@ export class UserAuthenticationComponent implements OnInit {
     if(this.file_names.length <= 3) {
       this.file_exceeded = false;
     }
+    console.log('remainingfiles',this.file_names);
   }
 
 

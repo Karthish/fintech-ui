@@ -74,7 +74,7 @@
             </div>
             <div class="btn-con mt-4 mb-3">
               <button class="btn action-confirm-btn" [ngClass]="{ 'disabled': !showDownload}" (click)="download_sanction_letter()">Download</button>
-              <button class="btn action-btn-filled ms-3" (click)="showEmailModal()" *ngIf="!esignVerified">Initiate E-Sign</button>
+              <button class="btn action-btn-filled ms-3" [ngClass]="{ 'disabled': !showDownload}" (click)="showEmailModal()" *ngIf="!esignVerified">Initiate E-Sign</button>
               <button class="btn ms-3 esign-completed-btn" *ngIf="esignVerified">
                 <i class="fa fa-check me-2"></i>
                 <span>E-Sign Completed</span> 
