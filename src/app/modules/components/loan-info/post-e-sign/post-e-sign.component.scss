@@ -1,0 +1,75 @@
+@import "./../../../../../utility-classes-styles.scss";
+.main-input {
+    border-bottom: 2px solid #8f8e87!important;
+    color: #65625e!important;
+    width: 90%;
+}
+
+.form-body {
+    background-color: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    position: relative;
+    top: -13px;
+    box-shadow: 0px 3px 3px 2px #b0adad54;
+    .main-input {
+        width: 100%;
+        padding-right: 15px;
+        border-color: $primary-grey;
+    }
+    .form-elements-con {
+        &>div {
+            margin-bottom: 2rem;
+        }
+        .fa-exclamation-circle {
+            top: 28px;
+            right: 0;
+            color: $primary-grey;
+        }
+    }
+}
+
+.form-upload-con {
+    @extend .form-body;
+    box-shadow: 0px 1px 4px 4px #b0adad54;
+    .upload-btn {
+        background-color: $primary-green;
+        color: #fff;
+        padding: 8px 20px;
+        width: 125px;
+        border-radius: 30px;
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
+    .upload-box:not(:nth-child(3)) {
+        border-bottom: 1px solid #ededed;
+    }
+
+    .hidden-file-input {
+        width: 125px;
+        position: absolute;
+        right: 0;
+        padding: 5px 20px;
+        border-radius: 30px;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-name-con .delete_file_btn {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background-color: #ef3c4d;
+        color: #fff;
+        font-size: 0.7rem;
+        position: absolute;
+        right: -17px;
+        top: 4px;
+    }
+}

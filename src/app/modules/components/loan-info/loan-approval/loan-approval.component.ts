@@ -74,9 +74,9 @@ export class LoanApprovalComponent implements OnInit {
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
-            // if(this.userEnteredDetails.email_id != null) {
-            //   this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
-            // }
+            if(this.userEnteredDetails.email_id != null) {
+              this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
+            }
 
             if(response.data.is_esigned == true) {
               this.esignVerified = true;

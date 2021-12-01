@@ -20,8 +20,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { SanctionLetterPdfComponent } from './sanction-letter-pdf/sanction-letter-pdf.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer'; 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PostESignComponent } from './post-e-sign/post-e-sign.component'; 
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     floatingnumberDirective,
     onlyCharactersDirective,
     NumberOnlyDirective,
-    SanctionLetterPdfComponent
+    PostESignComponent
   ],
   imports: [
     CommonModule,

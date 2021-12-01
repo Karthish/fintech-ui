@@ -5,7 +5,7 @@ import { UserNeedsComponent } from './user-needs/user-needs.component';
 import { UserAuthenticationComponent } from './user-authentication/user-authentication.component';
 import { LoanOffersComponent } from './loan-offers/loan-offers.component';
 import { LoanApprovalComponent } from './loan-approval/loan-approval.component';
-import { SanctionLetterPdfComponent } from './sanction-letter-pdf/sanction-letter-pdf.component';
+import { PostESignComponent } from "./post-e-sign/post-e-sign.component";
 
 const routes: Routes = [
   { path: '', component: UserNeedsComponent },
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'user-authentication', component: UserAuthenticationComponent },
   { path: 'loan-offers', component: LoanOffersComponent },
   { path: 'loan-approval', component: LoanApprovalComponent },
-  { path: 'sanction-letter', component: SanctionLetterPdfComponent }
+  { path: 'post-Esign', component: PostESignComponent }
 ];
 
 
