@@ -1,0 +1,106 @@
+<div class="container dashboard-page-header">
+    <div class="header-row row">
+        <div class="col-6 d-flex align-items-center">
+            <div class="img-con" style="width: 50px;">
+                <img src="./../../../../../assets/images/logo.png" alt="" style="width: 100%;">
+              </div>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <div style="margin-right: 2.5vw;">
+                <span>Hi,</span>
+                <span><b>User Name</b></span>
+            </div>
+            <div>
+                <div ngbDropdown class="dropdown">
+                    <button ngbDropdownToggle class="" type="button" id="dropdownMenuButton1" aria-expanded="false">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                   </button>
+                    <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                      <li><a ngbDropdownItem href="#">Action</a></li>
+                      <li><a ngbDropdownItem href="#">Another action</a></li>
+                      <li><a ngbDropdownItem href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="menu-navigation-con">
+            <div class="row">
+                <div class="col-6">
+                    <div class="tabs-con">
+                        <ul>
+                            <li class="active">Dashboard</li>
+                            <li>My Application</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-center">
+                    <button class="btn action-confirm-btn" type="button">Start New Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="body-row row">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="summary-con">
+                <p class="header-text">Summary</p>
+                <div class="d-flex justify-content-between loan-app-detail">
+                    <span>Loan Application</span>
+                    <span>xxxxx4521</span>
+                </div>
+                <div class="stat-con d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column ">
+                        <span class="label-txt">Amount Sanctioned</span>
+                        <span class="value-txt amt-sanctioned">Rs 5,00,000</span>
+                    </div>
+                    <div>
+                        <div class="option-detail-value circle-progressbar-con p-relative">
+                            <circle-progress
+                            [percent]="90"
+                            [radius]="100"
+                            [outerStrokeWidth]="10"
+                            [innerStrokeWidth]="10"
+                            [space] = "-10"
+                            [outerStrokeColor]="'#f2b43b'"
+                            [innerStrokeColor]="'#3f976c'"
+                            [showSubtitle] = "false"
+                            [animation]="true"
+                            [animationDuration]="300"
+                            [startFromZero]="false"
+                            [responsive]="true"
+                          ></circle-progress>
+                          </div>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <span class="label-txt">Current Outstanding</span>
+                        <span class="value-txt curr-outstanding">Rs 4,76,858</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="row">
+                <div class="col-12">
+                    
+                </div>
+                <div class="col-12">
+                    box2
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  
+
+
+  
+
+  

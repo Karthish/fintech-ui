@@ -21,7 +21,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { PostESignComponent } from './post-e-sign/post-e-sign.component'; 
+import { PostESignComponent } from './post-e-sign/post-e-sign.component';
+import { DashboardComponent } from './dashboard/dashboard.component'; 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { PostESignComponent } from './post-e-sign/post-e-sign.component';
     floatingnumberDirective,
     onlyCharactersDirective,
     NumberOnlyDirective,
-    PostESignComponent
+    PostESignComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ import { PostESignComponent } from './post-e-sign/post-e-sign.component';
     CheckboxModule,
     InputMaskModule,
     PdfViewerModule,
+    NgbModule,
     NgCircleProgressModule.forRoot()
   ],
   entryComponents: [UserNeedsComponent]

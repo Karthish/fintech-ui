@@ -1,0 +1,84 @@
+@import './../../../../../variables.scss';
+@import "./../../../../../utility-classes-styles.scss";
+
+.dashboard-page-header {
+    .dropdown-toggle {
+        background-color: transparent;
+        border: none;
+        &::after {
+            color: $primary-green;
+        }
+        i {
+            color: $primary-green;
+        }
+    }
+    .show>.btn-secondary.dropdown-toggle:focus {
+        box-shadow: none;
+    }
+    .dropdown {
+        border: 1px solid #e7decc;
+        padding: 0 2vw 0 2vw;
+        border-bottom: 0;
+        border-top: 0;
+        height: 68px;
+        display: flex;
+    }
+}
+
+.menu-navigation-con {
+    background-color: #3f976c;
+    padding: 0 5vw;
+    .tabs-con {
+        ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            li {
+                margin-right: 3vw;
+                color: #fff;
+                font-family: $regular-font;
+                opacity: 0.8;
+                padding: 3vh 0;
+                cursor: pointer;
+            }
+            li.active {
+                font-family: $semi-bold-font;
+                opacity: 1;
+                border-bottom: 3px solid #fff;
+            }
+        }
+    }
+    .action-confirm-btn {
+        padding: 5px 25px;
+    }
+    
+}
+
+.summary-con {
+    background-color: #fff;
+    padding: 2vw;
+    border-radius: 18px;
+    .stat-con {
+        margin: 5vh 0 2vh 0;
+    }
+    .option-detail-value {
+        width: 15vw;
+    }
+    .loan-app-detail {
+        border-bottom: 1px solid $primary-grey;
+        padding-bottom: 4vh;
+    }
+    .value-txt {
+        font-family: $semi-bold-font;
+        font-size: 24px;
+        margin-top: 1vh;
+    }
+    .value-txt.amt-sanctioned {
+        color: #3f976c;
+    }
+    .value-txt.curr-outstanding {
+        color: #f2b43b;
+    }
+}
