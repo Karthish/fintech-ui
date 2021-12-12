@@ -61,18 +61,18 @@
     padding: 2vw;
     border-radius: 18px;
     .stat-con {
-        margin: 5vh 0 2vh 0;
+        margin: 5vh 0 8vh 0;
     }
     .option-detail-value {
         width: 15vw;
     }
     .loan-app-detail {
         border-bottom: 1px solid $primary-grey;
-        padding-bottom: 4vh;
+        padding-bottom: 6vh;
     }
     .value-txt {
         font-family: $semi-bold-font;
-        font-size: 24px;
+        font-size: 1.7vw;
         margin-top: 1vh;
     }
     .value-txt.amt-sanctioned {
@@ -80,5 +80,53 @@
     }
     .value-txt.curr-outstanding {
         color: #f2b43b;
+    }
+}
+
+.funding-options-box {
+    border-radius: 18px;
+    background-color: #fff;
+    .option-detail-heading {
+        font-family: $semi-bold-font;
+        font-size: 0.9rem;
+        color: $shade-grey;
+        margin-bottom: 8px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .option-detail {
+        width: 33.33%;
+    }
+
+    .stat-row-con {
+        flex-direction: column;
+        .stat-row {
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: center;
+
+            .stat-header {
+                font-size: 1.2vw;
+                font-family: $semi-bold-font;
+                margin-bottom: 0.25rem!important;
+            }
+            .stat-txt {
+                font-size: 1vw;
+                font-family: $regular-font;
+                color: $primary-grey;
+            }
+            .status-txt.stat-txt {
+                font-family: $semi-bold-font;
+            }
+            .status-txt-due {
+                color: $stepper-active-font-color;
+            }
+            .status-txt-paid {
+                color: $shade-green;
+            }
+        }
     }
 }

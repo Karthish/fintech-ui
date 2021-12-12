@@ -1,8 +1,11 @@
 @import "./../../../../../utility-classes-styles.scss";
 .main-input {
     border-bottom: 2px solid #8f8e87!important;
-    color: #65625e!important;
+    color: #000!important;
     width: 90%;
+    &::placeholder {
+        color: #65625e!important;
+    }
 }
 
 .form-body {
@@ -40,6 +43,25 @@
         border-radius: 30px;
         &:hover {
             box-shadow: none;
+        }
+    }
+    .upload-box {
+        .form-group {
+            padding: 10px 0 18px 0;
+        }
+        position: relative;
+        .invalid-feedback {
+            position: absolute;
+            right: 0;
+            text-align: right;
+            bottom: -5px;
+        }
+        
+        .file-name-con {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.8rem;
+            color: #b0adad;
         }
     }
 

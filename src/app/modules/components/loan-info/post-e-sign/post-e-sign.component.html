@@ -6,7 +6,7 @@
     </div>
   </div>
   <hr class="m-0">
-  <form action="">
+  <form [formGroup]="post_esign_form" (ngSubmit)="SubmitPostEsign()"  autocomplete="off">
     <div class="container loan-approval-con">
         <div class="body-row row">
             <div class="col-12 mb-5">
@@ -21,13 +21,25 @@
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
-                                    <input type="text" class="main-input" formControlName="bank_name" name="bank_name" charactersOnly placeholder="Bank Name"/>
+                                    <input type="text" class="main-input" formControlName="bank_name" name="bank_name" charactersOnly 
+                                    placeholder="Bank Name" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.bank_name.errors }"/>
+                                    <div *ngIf="post_esign_submitted && post_esign.bank_name.errors" class="invalid-feedback">
+                                        <div *ngIf="post_esign.bank_name.errors.required">Bank Name is required</div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6 mt-2">
-                                    <input type="text" class="main-input" formControlName="acc_num" name="acc_num" charactersOnly placeholder="Account Number"/>
+                                    <input type="text" class="main-input" formControlName="acc_num" name="acc_num" 
+                                    placeholder="Account Number" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.acc_num.errors }"/>
+                                    <div *ngIf="post_esign_submitted && post_esign.acc_num.errors" class="invalid-feedback">
+                                        <div *ngIf="post_esign.acc_num.errors.required">Account Number is required</div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6 mt-2 mt-lg-4 mt-md-2 ">
-                                    <input type="text" class="main-input" formControlName="ifsc" name="ifsc" charactersOnly placeholder="IFSC Code"/>
+                                    <input type="text" class="main-input" formControlName="ifsc" name="ifsc" 
+                                    placeholder="IFSC Code" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.ifsc.errors }"/>
+                                    <div *ngIf="post_esign_submitted && post_esign.ifsc.errors" class="invalid-feedback">
+                                        <div *ngIf="post_esign.ifsc.errors.required">IFSC Code is required</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -41,33 +53,98 @@
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="form-upload-con mt-2">
                                 <div class="col-12 col-md-12">
-                                    <div class="upload-box pb-3 form-group d-flex justify-content-between align-items-center p-relative">
-                                        <label for="">Cancelled Check - Document upload</label>
-                                        <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
-                                            multiple  formControlName="salary_slips">
-                                        <div class="upload-btn d-flex align-items-center">
-                                            <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
-                                            <span>Upload</span>
+                                    <div class="upload-box">
+                                        <div class="form-group d-flex justify-content-between align-items-center p-relative">
+                                            <label for="">Cancelled Check - Document upload</label>
+                                            <input type="file" class="hidden-file-input" accept=".pdf" name="check"
+                                                  formControlName="check" (change)="onFileChange_Check($event)"
+                                                [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.check.errors }">
+                                            <div class="upload-btn d-flex align-items-center">
+                                                <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
+                                                <span>Upload</span>
+                                            </div>
+                                            <div *ngIf="post_esign_submitted && post_esign.check.errors" class="invalid-feedback">
+                                                <div *ngIf="post_esign.check.errors.required">Check is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="file-name-con check-file-name-con text-end">
+                                            {{checkDocName}}
                                         </div>
                                     </div>
-                                    <div class="upload-box pt-3 pb-3 form-group d-flex justify-content-between align-items-center p-relative">
-                                        <label for="">Employee ID Card - Document Upload</label>
-                                        <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
-                                            multiple  formControlName="salary_slips">
-                                        <div class="upload-btn d-flex align-items-center">
-                                            <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
-                                            <span>Upload</span>
+                                    
+                                    <!-- <div class="upload-box">
+                                        <div class="pt-3 pb-3 form-group d-flex justify-content-between align-items-center p-relative">
+                                            <label for="">Employee ID Card - Document Upload</label>
+                                            <input type="file" class="hidden-file-input" accept=".pdf" name="emp_id"
+                                                multiple  formControlName="emp_id" (change)="onFileChange_emp_id($event)"
+                                                [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.emp_id.errors }">
+                                            <div class="upload-btn d-flex align-items-center">
+                                                <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
+                                                <span>Upload</span>
+                                            </div>
+                                            <div *ngIf="post_esign_submitted && post_esign.emp_id.errors" class="invalid-feedback">
+                                                <div *ngIf="post_esign.emp_id.errors.required">Employee ID required</div>
+                                            </div>
+                                        </div>
+                                        <div class="file-name-con check-file-name-con text-end">
+                                            {{empIdDocName}}
+                                        </div>
+                                    </div> -->
+
+                                    <div class="upload-box">
+                                        <div class=" form-group d-flex justify-content-between align-items-center p-relative">
+                                            <label for="">Employee ID Card - Document Upload</label>
+                                            <input type="file" class="hidden-file-input" accept=".pdf" name="emp_id"
+                                                multiple  formControlName="emp_id" (change)="onFileChange_emp_id($event)"
+                                                [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.emp_id.errors }">
+                                            <div class="upload-btn d-flex align-items-center">
+                                                <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
+                                                <span>Upload</span>
+                                            </div>
+                                            <div *ngIf="post_esign_submitted && post_esign.emp_id.errors" class="invalid-feedback">
+                                                <div *ngIf="post_esign.emp_id.errors.required">Employee ID required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12 file-name-con text-end">
+                                            <span class="p-relative" *ngFor="let empId_file_name of empId_file_names">{{empId_file_name}} 
+                                              <span class="delete_file_btn" (click)="empId_delete_file(empId_file_name)"><i class="fa fa-close"></i></span>
+                                            </span>
+                                        </div>
+                                        <div class="error-message text-end" *ngIf="empId_file_exceeded">
+                                            You can upload only two documents
+                                        </div>
+                                        <div class="error-message text-end" *ngIf="empId_file_count_less">
+                                            Employee ID required
                                         </div>
                                     </div>
-                                    <div class="upload-box pt-3 form-group d-flex justify-content-between align-items-center p-relative">
-                                        <label for="">Bank Account Statement of Last 3 <br>months - Document upload</label>
-                                        <input type="file" class="hidden-file-input" accept=".pdf" name="salary_slips"
-                                            multiple  formControlName="salary_slips">
-                                        <div class="upload-btn d-flex align-items-center">
-                                            <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
-                                            <span>Upload</span>
+                                    
+                                    <div class="upload-box">
+                                        <div class=" form-group d-flex justify-content-between align-items-center p-relative">
+                                            <label for="">Bank Account Statement of Last 3 <br>months - Document upload</label>
+                                            <input type="file" class="hidden-file-input" accept=".pdf" name="acc_statement"
+                                                multiple  formControlName="acc_statement" (change)="onFileChange_acc_statement($event)"
+                                                [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.acc_statement.errors }">
+                                            <div class="upload-btn d-flex align-items-center">
+                                                <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
+                                                <span>Upload</span>
+                                            </div>
+                                            <div *ngIf="post_esign_submitted && post_esign.acc_statement.errors" class="invalid-feedback">
+                                                <div *ngIf="post_esign.acc_statement.errors.required">Account Statement required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12 file-name-con text-end">
+                                            <span class="p-relative" *ngFor="let file_name of accStatement_file_names">{{file_name}} 
+                                              <span class="delete_file_btn" (click)="delete_file(file_name)"><i class="fa fa-close"></i></span>
+                                            </span>
+                                        </div>
+                                        <div class="error-message text-end" *ngIf="file_exceeded">
+                                            You can upload only three payslips
+                                        </div>
+                                        <div class="error-message text-end" *ngIf="file_count_less">
+                                            Account Statement required
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -76,9 +153,12 @@
                                 <img class="img-fluid" src="./../../../../../assets/images/screen4.png" alt="">
                             </div>
                         </div>
+                        <div class="col-12">
+                            <button class="btn action-confirm-btn" type="submit">Continue</button>
+                        </div>
                     </div>
                 </div>
-              
+                
             </div>
         </div>
       </div>
