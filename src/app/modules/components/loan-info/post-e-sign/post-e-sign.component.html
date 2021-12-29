@@ -28,17 +28,17 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6 mt-2">
-                                    <input type="text" class="main-input" formControlName="acc_num" name="acc_num" 
-                                    placeholder="Account Number" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.acc_num.errors }"/>
-                                    <div *ngIf="post_esign_submitted && post_esign.acc_num.errors" class="invalid-feedback">
-                                        <div *ngIf="post_esign.acc_num.errors.required">Account Number is required</div>
+                                    <input type="text" class="main-input" formControlName="account_no" name="account_no" 
+                                    placeholder="Account Number" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.account_no.errors }"/>
+                                    <div *ngIf="post_esign_submitted && post_esign.account_no.errors" class="invalid-feedback">
+                                        <div *ngIf="post_esign.account_no.errors.required">Account Number is required</div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6 mt-2 mt-lg-4 mt-md-2 ">
-                                    <input type="text" class="main-input" formControlName="ifsc" name="ifsc" 
-                                    placeholder="IFSC Code" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.ifsc.errors }"/>
-                                    <div *ngIf="post_esign_submitted && post_esign.ifsc.errors" class="invalid-feedback">
-                                        <div *ngIf="post_esign.ifsc.errors.required">IFSC Code is required</div>
+                                    <input type="text" class="main-input" formControlName="ifsc_code" name="ifsc_code" 
+                                    placeholder="IFSC Code" [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.ifsc_code.errors }"/>
+                                    <div *ngIf="post_esign_submitted && post_esign.ifsc_code.errors" class="invalid-feedback">
+                                        <div *ngIf="post_esign.ifsc_code.errors.required">IFSC Code is required</div>
                                     </div>
                                 </div>
                             </div>

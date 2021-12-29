@@ -22,6 +22,11 @@
             tooltipPosition="top" [ngClass]="{'active': loan.isClicked}"
             (click)="selectLoan(loan)">{{ loan.type }}</button>
         </div>
+        <div class="funding-options-con mt-3" *ngIf="showSubCategory">
+          <h5>Loan Sub Category</h5>
+          <button type="button" class="btn" *ngFor="let sub_loan of sub_loan_options"  pTooltip="{{sub_loan.description}}" 
+          tooltipPosition="top" [ngClass]="{'active': sub_loan.isClicked}" (click)="selectSubLoan(sub_loan)">{{ sub_loan.type }}</button>
+        </div>
       </div>
 
 

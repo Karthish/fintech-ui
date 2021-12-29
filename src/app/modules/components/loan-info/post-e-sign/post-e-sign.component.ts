@@ -16,6 +16,7 @@ export class PostESignComponent implements OnInit {
   userID;
   post_esign_submitted = false;
   checkDocName!: string;
+  checkDocFile!: any;
   empIdDocName!: string;
   file_exceeded: boolean = false;
   file_count_less: boolean = false;
@@ -29,6 +30,9 @@ export class PostESignComponent implements OnInit {
   empId_file_names: string[] = [];
   empId_file_arr: string[] = [];
 
+  formData = new FormData();
+  post_eSign__url = "/post/esign";
+
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
       this.userID = this.activatedRoute.snapshot.queryParams.id;
@@ -38,8 +42,8 @@ export class PostESignComponent implements OnInit {
     this.post_esign_form = this.formBuilder.group(
       {
         bank_name: ['', Validators.required],
-        acc_num: ['', Validators.required],
-        ifsc: ['', Validators.required],
+        account_no: ['', Validators.required],
+        ifsc_code: ['', Validators.required],
         check: ['', Validators.required],
         emp_id: ['', Validators.required],
         acc_statement: ['', Validators.required],
@@ -54,6 +58,7 @@ export class PostESignComponent implements OnInit {
 
   onFileChange_Check(event: any) {
     this.checkDocName = event.target.files[0].name;
+    this.checkDocFile = event.target.files[0];
   }
 
 
@@ -149,7 +154,35 @@ export class PostESignComponent implements OnInit {
       return;
     } 
     else {
+      console.log('post_esign_form.value',this.post_esign_form.value);
       
+      this.formData.append("empId", this.checkDocFile);
+      for(let i=0;i<this.empId_file_arr.length;i++) {
+        this.formData.append("bankstatement", this.empId_file_arr[i]);
+      }
+      for(let i=0;i<this.accStatement_file_arr.length;i++) {
+        this.formData.append("empId", this.accStatement_file_arr[i]);
+      }
+
+      let posteSignFormData = {
+        id: "619d2ed60261fc51f88c60f9",
+        eSingData: {
+          bank_name: this.post_esign_form.value.bank_name,
+          account_no: this.post_esign_form.value.account_no,
+          ifsc_code: this.post_esign_form.value.ifsc_code
+        },
+        
+      }
+      
+      this.CrudService.post(this.post_esign_form.value, this.post_eSign__url).subscribe(
+        (response: any) => {
+          if(response.status == true) {
+            
+            
+          } else {
+            this.toaster.error(response.msg);
+        }
+      })
     }
   }
 

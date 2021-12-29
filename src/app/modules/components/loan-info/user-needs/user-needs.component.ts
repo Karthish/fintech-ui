@@ -26,11 +26,14 @@ export class UserNeedsComponent implements OnInit {
   total_payment: number = 106056;
   monthly_emi: number = 8838;
   showNextBtn = false;
+  showSubCategory = false;
   AadharAuthenticateModal!: boolean;
   pan_verification_con: boolean = false;
   loan_options_con: boolean = true;
   loan_options: any;
+  sub_loan_options: any;
   loan_list_url_type = '/loan/list';
+  sub_category__url_type = '/loan/subcategory/list';
   userID: any;
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
@@ -130,6 +133,17 @@ export class UserNeedsComponent implements OnInit {
   }
 
 
+  // selectLoan(loan: any): void {
+  //   for (let loan of this.loan_options.data) {
+  //     loan.isClicked = false;
+  //   }
+  //   loan.isClicked = true;
+  //   localStorage.setItem('loan_type', loan.type);
+  //   localStorage.setItem('loan_description', loan.description);
+  //   localStorage.setItem('loan_ref_id', loan._id);
+  //   this.showNextBtn = true;
+  // }
+
   selectLoan(loan: any): void {
     for (let loan of this.loan_options.data) {
       loan.isClicked = false;
@@ -138,6 +152,28 @@ export class UserNeedsComponent implements OnInit {
     localStorage.setItem('loan_type', loan.type);
     localStorage.setItem('loan_description', loan.description);
     localStorage.setItem('loan_ref_id', loan._id);
+    let loan_cate_obj = {
+      loan_ref_id : loan._id
+    }
+    this.CrudService.post(loan_cate_obj, this.sub_category__url_type).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          this.toaster.success(response.msg);
+          this.sub_loan_options = response.data;
+          this.showSubCategory = true;
+          
+        } else {
+          this.toaster.error(response.msg);
+        }
+        
+    })
+  }
+
+  selectSubLoan(subLoan: any) {
+    for (let subLoan of this.sub_loan_options) {
+      subLoan.isClicked = false;
+    }
+    subLoan.isClicked = true;
     this.showNextBtn = true;
   }
 
