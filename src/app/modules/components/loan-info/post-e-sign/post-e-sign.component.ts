@@ -158,15 +158,14 @@ export class PostESignComponent implements OnInit {
       console.log('post_esign_form.value',this.post_esign_form.value);
 
       this.formData.append("cancelledcheck", this.checkDocFile);
-      // for(let i=0;i<this.empId_file_arr.length;i++) {
-      //   this.formData.append("bankstatement", this.empId_file_arr[i]);
-      // }
-      // for(let i=0;i<this.accStatement_file_arr.length;i++) {
-      //   this.formData.append("empId", this.accStatement_file_arr[i]);
-      // }
+      for(let i=0;i<this.empId_file_arr.length;i++) {
+        this.formData.append("bankstatement", this.empId_file_arr[i]);
+      }
+      for(let i=0;i<this.accStatement_file_arr.length;i++) {
+        this.formData.append("empId", this.accStatement_file_arr[i]);
+      }
 
       let eSingData = {
-
           id: "619d2ed60261fc51f88c60f9",
           bank_name: this.post_esign_form.value.bank_name,
           account_no: this.post_esign_form.value.account_no,
