@@ -32,7 +32,9 @@ export class PostESignComponent implements OnInit {
 
   formData = new FormData();
   // post_eSign__url = "/post/esign";
-  post_eSign__url = "/cancelledcheck/upload";
+  cancelled_cheque_upload_url = "/cancelledcheck/upload";
+  empId_upload_url = "/empId/upload";
+  bankstatment_upload_url = "/bankstatement/upload";
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) {
@@ -174,7 +176,7 @@ export class PostESignComponent implements OnInit {
       this.formData.append("eSingData", JSON.stringify(eSingData));
 
 
-      this.CrudService.post(this.formData, this.post_eSign__url).subscribe(
+      this.CrudService.post(this.formData, this.cancelled_cheque_upload_url).subscribe(
         (response: any) => {
           if(response.status == true) {
 
