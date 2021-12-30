@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
-import { CrudService } from './../../services/crud-service';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
+import { PrimeNGConfig } from 'primeng/api';
+import { CrudService } from './../../services/crud-service';
 
 
 @Component({
@@ -31,10 +31,11 @@ export class PostESignComponent implements OnInit {
   empId_file_arr: string[] = [];
 
   formData = new FormData();
-  post_eSign__url = "/post/esign";
+  // post_eSign__url = "/post/esign";
+  post_eSign__url = "/cancelledcheck/upload";
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) { 
+    private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
   }
 
@@ -45,8 +46,8 @@ export class PostESignComponent implements OnInit {
         account_no: ['', Validators.required],
         ifsc_code: ['', Validators.required],
         check: ['', Validators.required],
-        emp_id: ['', Validators.required],
-        acc_statement: ['', Validators.required],
+        emp_id: [''],
+        acc_statement: [''],
       }
     )
   }
@@ -62,7 +63,7 @@ export class PostESignComponent implements OnInit {
   }
 
 
-  onFileChange_acc_statement(event: any) {    
+  onFileChange_acc_statement(event: any) {
     if (event.target.files.length <= 3) {
         if(this.accStatement_file_names.length + event.target.files.length <= 3) {
           for (var i = 0; i < event.target.files.length; i++) {
@@ -79,16 +80,16 @@ export class PostESignComponent implements OnInit {
           this.file_exceeded = false;
           event.target.value = "";
         } else {
-          this.file_exceeded = true; 
+          this.file_exceeded = true;
         }
-        
+
       console.log('file_arr',this.accStatement_file_arr);
-    } 
+    }
     else if (event.target.files.length > 3) {
       this.file_count_less = false;
       this.file_exceeded = true;
       this.post_esign_form.controls['acc_statement'].setErrors({'incorrect': true});
-    } 
+    }
   }
 
   delete_file(filename:string) {
@@ -101,11 +102,11 @@ export class PostESignComponent implements OnInit {
     } else if(this.accStatement_file_names.length <= 3) {
       this.file_exceeded = false;
     }
-    
+
     console.log('remainingfiles',this.accStatement_file_names);
   }
 
-  onFileChange_emp_id(event: any) {    
+  onFileChange_emp_id(event: any) {
     if (event.target.files.length <= 2) {
         if(this.empId_file_names.length + event.target.files.length <= 2) {
           for (var i = 0; i < event.target.files.length; i++) {
@@ -122,16 +123,16 @@ export class PostESignComponent implements OnInit {
           this.empId_file_exceeded = false;
           event.target.value = "";
         } else {
-          this.empId_file_exceeded = true; 
+          this.empId_file_exceeded = true;
         }
-        
+
       console.log('file_arr',this.empId_file_arr);
-    } 
+    }
     else if (event.target.files.length > 2) {
       this.empId_file_count_less = false;
       this.empId_file_exceeded = true;
       this.post_esign_form.controls['emp_id'].setErrors({'incorrect': true});
-    } 
+    }
   }
 
   empId_delete_file(filename:string) {
@@ -144,7 +145,7 @@ export class PostESignComponent implements OnInit {
     } else if(this.empId_file_names.length <= 2) {
       this.file_exceeded = false;
     }
-    
+
     console.log('remainingfiles',this.empId_file_names);
   }
 
@@ -152,33 +153,33 @@ export class PostESignComponent implements OnInit {
     this.post_esign_submitted = true;
     if (this.post_esign_form.invalid) {
       return;
-    } 
+    }
     else {
       console.log('post_esign_form.value',this.post_esign_form.value);
-      
-      this.formData.append("empId", this.checkDocFile);
-      for(let i=0;i<this.empId_file_arr.length;i++) {
-        this.formData.append("bankstatement", this.empId_file_arr[i]);
-      }
-      for(let i=0;i<this.accStatement_file_arr.length;i++) {
-        this.formData.append("empId", this.accStatement_file_arr[i]);
-      }
 
-      let posteSignFormData = {
-        id: "619d2ed60261fc51f88c60f9",
-        eSingData: {
+      this.formData.append("cancelledcheck", this.checkDocFile);
+      // for(let i=0;i<this.empId_file_arr.length;i++) {
+      //   this.formData.append("bankstatement", this.empId_file_arr[i]);
+      // }
+      // for(let i=0;i<this.accStatement_file_arr.length;i++) {
+      //   this.formData.append("empId", this.accStatement_file_arr[i]);
+      // }
+
+      let eSingData = {
+
+          id: "619d2ed60261fc51f88c60f9",
           bank_name: this.post_esign_form.value.bank_name,
           account_no: this.post_esign_form.value.account_no,
           ifsc_code: this.post_esign_form.value.ifsc_code
-        },
-        
       }
-      
-      this.CrudService.post(this.post_esign_form.value, this.post_eSign__url).subscribe(
+      this.formData.append("eSingData", JSON.stringify(eSingData));
+
+
+      this.CrudService.post(this.formData, this.post_eSign__url).subscribe(
         (response: any) => {
           if(response.status == true) {
-            
-            
+
+
           } else {
             this.toaster.error(response.msg);
         }
