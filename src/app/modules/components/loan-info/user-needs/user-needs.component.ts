@@ -101,6 +101,11 @@ export class UserNeedsComponent implements OnInit {
       this.pan_form.value.loan_description = localStorage.getItem('loan_description');
       this.pan_form.value.loan_ref_id = localStorage.getItem('loan_ref_id');
       this.pan_form.value.loan_type = localStorage.getItem('loan_type');
+      
+      this.pan_form.value.loan_subcategory_type = localStorage.getItem('sub_loan_type');
+      this.pan_form.value.loan_subcategory_description = localStorage.getItem('sub_loan_description');
+      this.pan_form.value.loan_subcategory_ref_id = localStorage.getItem('sub_loan_ref_id');
+
       this.pan_form.value.pan_no = this.pan_form.value.pan_no.toUpperCase();
       console.log('pancheck',this.pan_form.value);
       this.CrudService.post(this.pan_form.value, this.pan_verification_url_type).subscribe(
@@ -175,6 +180,9 @@ export class UserNeedsComponent implements OnInit {
     }
     subLoan.isClicked = true;
     this.showNextBtn = true;
+    localStorage.setItem('sub_loan_type', subLoan.type);
+    localStorage.setItem('sub_loan_description', subLoan.description);
+    localStorage.setItem('sub_loan_ref_id', subLoan._id);
   }
 
 

@@ -30,7 +30,9 @@ export class PostESignComponent implements OnInit {
   empId_file_names: string[] = [];
   empId_file_arr: string[] = [];
 
-  formData = new FormData();
+  formData_cancelled_cheque = new FormData();
+  formData_IDcard = new FormData();
+  formData_accountStatement = new FormData();
   // post_eSign__url = "/post/esign";
   cancelled_cheque_upload_url = "/cancelledcheck/upload";
   empId_upload_url = "/empId/upload";
@@ -48,8 +50,8 @@ export class PostESignComponent implements OnInit {
         account_no: ['', Validators.required],
         ifsc_code: ['', Validators.required],
         check: ['', Validators.required],
-        emp_id: [''],
-        acc_statement: [''],
+        emp_id: ['', Validators.required],
+        acc_statement: ['', Validators.required],
       }
     )
   }
@@ -151,6 +153,47 @@ export class PostESignComponent implements OnInit {
     console.log('remainingfiles',this.empId_file_names);
   }
 
+  upload_empID() {
+    for(let i=0;i<this.empId_file_arr.length;i++) {
+      this.formData_IDcard.append("empId", this.empId_file_arr[i]);
+    }
+
+    let empid_esign = {
+      id: "619d2ed60261fc51f88c60f9"
+    }
+    this.formData_accountStatement.append("empid_esign", JSON.stringify(empid_esign));
+
+    this.CrudService.post(this.formData_IDcard, this.empId_upload_url).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          this.toaster.success(response.msg);
+
+        } else {
+          this.toaster.error(response.msg);
+      }
+    })
+  }
+
+  upload_accStatement() {
+    for(let i=0;i<this.accStatement_file_arr.length;i++) {
+      this.formData_accountStatement.append("bankstatement", this.accStatement_file_arr[i]);
+    }
+    let accstatement_esign = {
+      id: "619d2ed60261fc51f88c60f9"
+     }
+     this.formData_accountStatement.append("accstatement_esign", JSON.stringify(accstatement_esign));
+
+    this.CrudService.post(this.formData_accountStatement, this.bankstatment_upload_url).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          this.toaster.success(response.msg);
+
+        } else {
+          this.toaster.error(response.msg);
+      }
+    })
+  }
+
   SubmitPostEsign(): void {
     this.post_esign_submitted = true;
     if (this.post_esign_form.invalid) {
@@ -159,13 +202,14 @@ export class PostESignComponent implements OnInit {
     else {
       console.log('post_esign_form.value',this.post_esign_form.value);
 
-      this.formData.append("cancelledcheck", this.checkDocFile);
-      for(let i=0;i<this.empId_file_arr.length;i++) {
-        this.formData.append("bankstatement", this.empId_file_arr[i]);
-      }
-      for(let i=0;i<this.accStatement_file_arr.length;i++) {
-        this.formData.append("empId", this.accStatement_file_arr[i]);
-      }
+      this.formData_cancelled_cheque.append("cancelledcheck", this.checkDocFile);
+      
+      // for(let i=0;i<this.empId_file_arr.length;i++) {
+      //   this.formData_IDcard.append("empId", this.empId_file_arr[i]);
+      // }
+      // for(let i=0;i<this.accStatement_file_arr.length;i++) {
+      //   this.formData_accountStatement.append("bankstatement", this.accStatement_file_arr[i]);
+      // }
 
       let eSingData = {
           id: "619d2ed60261fc51f88c60f9",
@@ -173,14 +217,14 @@ export class PostESignComponent implements OnInit {
           account_no: this.post_esign_form.value.account_no,
           ifsc_code: this.post_esign_form.value.ifsc_code
       }
-      this.formData.append("eSingData", JSON.stringify(eSingData));
+      this.formData_cancelled_cheque.append("eSingData", JSON.stringify(eSingData));
 
 
-      this.CrudService.post(this.formData, this.cancelled_cheque_upload_url).subscribe(
+      this.CrudService.post(this.formData_cancelled_cheque, this.cancelled_cheque_upload_url).subscribe(
         (response: any) => {
           if(response.status == true) {
-
-
+            this.upload_empID();
+            this.upload_accStatement();
           } else {
             this.toaster.error(response.msg);
         }
