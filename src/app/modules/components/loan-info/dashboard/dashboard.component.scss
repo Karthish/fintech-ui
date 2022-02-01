@@ -102,12 +102,13 @@
     }
 
     .stat-row-con {
-        flex-direction: column;
+        &:nth-child(2) {
+            background-color: #ebf4f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
         .stat-row {
-            // display: flex;
-            // flex-direction: column;
-            // justify-content: center;
-
             .stat-header {
                 font-size: 1.2vw;
                 font-family: $semi-bold-font;
@@ -117,6 +118,7 @@
                 font-size: 1vw;
                 font-family: $regular-font;
                 color: $primary-grey;
+                text-transform: uppercase;
             }
             .status-txt.stat-txt {
                 font-family: $semi-bold-font;

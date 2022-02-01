@@ -14,8 +14,8 @@ export class CrudService {
         return this.http.post(this.baseurl+_api_type,postData)
     }
 
-    get(urlType?: string) {
-        return this.http.get(this.baseurl+urlType);
+    get(urlType?: string, id?: any) {
+        return this.http.get(this.baseurl+urlType+id);
     }
 
     put(Data: any, _api_type?: string, id?:any) {

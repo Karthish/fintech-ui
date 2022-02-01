@@ -13,7 +13,7 @@ import { LoaderInterceptor } from './modules/components/services/loader-intercep
 import { LoaderComponent } from './modules/components/others/loader/loader.component';
 import { HandleErrorService } from './modules/components/services/HandleErrorService';
 import {ToastrModule} from 'ngx-toastr';
-
+import { DatePipe } from '@angular/common'
 
 
 
@@ -36,7 +36,7 @@ import {ToastrModule} from 'ngx-toastr';
     })
   ],
   providers: [CrudService, LoaderService,HandleErrorService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
