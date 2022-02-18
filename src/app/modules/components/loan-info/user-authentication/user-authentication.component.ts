@@ -106,6 +106,7 @@ export class UserAuthenticationComponent implements OnInit {
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['36', Validators.required],
         mothers_maiden_name: ['', Validators.required],
+        office_pin_code: ['',Validators.required],
         salary_slips: ['',
           [Validators.required]
         ],

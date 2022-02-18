@@ -135,6 +135,18 @@
                   <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
                 </div>
               </div>
+              <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Office Pincode</label>
+                  <input type="text" class="main-input" name="office_pin_code" formControlName="office_pin_code"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.office_pin_code.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.office_pin_code.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="user_detail.office_pin_code.errors.required">Office Pincode is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div>
             </div>
 
           </div>
