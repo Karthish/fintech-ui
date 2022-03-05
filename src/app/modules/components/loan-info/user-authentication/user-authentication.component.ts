@@ -11,19 +11,6 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ['./user-authentication.component.scss']
 })
 export class UserAuthenticationComponent implements OnInit {
-  aadhar_id: any;
-  invalid_aadhar: boolean = false;
-  aadhar_length!: number;
-  AadharAuthenticateModal!: boolean;
-  AadharSuccessModal!: boolean;
-  aadhar_verification_con: boolean = false;
-  aadhar_form!: FormGroup;
-  aadhar_submitted: boolean = false;
-  otp_form!: FormGroup;
-  otp_submitted: boolean = false;
-  aadhar_verification_url_type = '/aadhar/generate/accesskey';
-  otp_verification_url_type = '/aadhar/otp/verify';
-  aadhar_verification: boolean = true;
 
   selectedValue: string = 'salaried';
   consent_value!: boolean;
@@ -36,6 +23,7 @@ export class UserAuthenticationComponent implements OnInit {
   userID;
   userdetail__url_type = '/user/details';
   filesUpload_url_type = '/payslip/upload/';
+  earlySalary_url_type = '/early/salary/token';
   formData = new FormData();
   file_names: string[] = [];
   file_arr: string[] = [];
@@ -52,15 +40,10 @@ export class UserAuthenticationComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            if(response.data.current_page == "aadhar-verification") {
-              this.aadhar_verification = false;
-              this.cust_detail_verification = true;
+            if(response.data.next_page == "cust-details") {
+              return;
             } 
-            else if(response.data.current_page == "pan-verification") {
-              this.aadhar_verification = true;
-              this.cust_detail_verification = false;
-            }
-            else if(response.data.current_page == "cust-details") {
+            else if(response.data.next_page == "loan-offer-list") {
               this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             } 
             else if(response.data.next_page == "loan-offer-details") {
@@ -77,26 +60,10 @@ export class UserAuthenticationComponent implements OnInit {
           
         })
     } else {
+      debugger
       this.router.navigate(['/loan-info/user-needs']);
     }
 
-    this.aadhar_form = this.formBuilder.group(
-      {
-        name: ['', Validators.required],
-        aadhar_no: [
-          '',
-          [
-            Validators.required,
-          ]
-        ]
-      }
-    )
-
-    this.otp_form = this.formBuilder.group(
-      {
-        otp: ['', Validators.required]
-      }
-    )
 
     this.user_details_form = this.formBuilder.group(
       {
@@ -107,6 +74,8 @@ export class UserAuthenticationComponent implements OnInit {
         loan_tenure : ['36', Validators.required],
         mothers_maiden_name: ['', Validators.required],
         office_pin_code: ['',Validators.required],
+        mobile_no: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+        email_id: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         salary_slips: ['',
           [Validators.required]
         ],
@@ -114,15 +83,6 @@ export class UserAuthenticationComponent implements OnInit {
       }
     )
 
-  }
-
-  // getter function for aadhar form
-  get aadhar(): { [key: string]: AbstractControl } {
-    return this.aadhar_form.controls;
-  }
-
-  get otp(): { [key: string]: AbstractControl } {
-    return this.otp_form.controls;
   }
 
   // getter function for user detail form
@@ -171,90 +131,15 @@ export class UserAuthenticationComponent implements OnInit {
   }
 
 
-  SubmitAadhar(): void {
-    this.aadhar_submitted = true;
-    this.aadhar_length = this.aadhar_form.value.aadhar_no.replace(/ +/g, "").split("").length;
-    let aadhar_rm_space = this.aadhar_form.value.aadhar_no.replace(/ +/g, "");
-    this.aadhar_form.value.aadhar_no = aadhar_rm_space;
-    this.otp_form.reset();
-
-    if (this.aadhar_length != 12) {
-      this.invalid_aadhar = true;
-      console.log(this.aadhar_form);
-      this.aadhar_form.setErrors({ 'invalid': true });
-      return;
-    }
-
-    if (this.aadhar_form.invalid) {
-      console.log(this.aadhar_form);
-      return;
-    } else {
-      this.aadhar_form.setErrors(null);
-      console.log(this.aadhar_form.value);
-      this.invalid_aadhar = false;
-
-      this.CrudService.post(this.aadhar_form.value, this.aadhar_verification_url_type).subscribe(
-        (response: any) => {
-          if(response.status == false) {
-            if(response.msg == 'Aadhar number is already exists') {
-              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: response.data[0]._id } });
-            }
-            this.toaster.error(response.msg);
-          } else {
-            this.toaster.success(response.msg);
-            console.log('Aadhar verification',response);
-            this.AadharAuthenticateModal = true;
-            
-            localStorage.setItem('accessKey', response?.data?.result?.accessKey);
-            localStorage.setItem('caseId', response?.data?.clientData?.caseId);
-            // localStorage.getItem('loan_type');
-            // localStorage.getItem('loan_description');
-            // localStorage.getItem('loan_ref_id');
-            localStorage.setItem('aadhar_no',this.aadhar_form.value.aadhar_no);
-          }
-            
-      })
-      
-    }
-  }
-
-  SubmitOtp(): void {
-    this.otp_submitted = true;
-    if (this.otp_form.invalid) {
-      console.log(this.otp_form);
-      return;
-    } else {
-      this.otp_form.value.accessKey = localStorage.getItem('accessKey');
-      this.otp_form.value.caseId = localStorage.getItem('caseId');
-      this.otp_form.value.id = this.userID;
-      // this.otp_form.value.aadhar_no = localStorage.getItem('aadhar_no');
-
-      console.log("otp-response",this.otp_form.value);
-      this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
-        (response:any) => {
-          if(response.status == false) {
-            this.toaster.error(response.msg.statusMessage);
-          } else {
-            this.toaster.success(response.msg);
-            console.log('otpverifyresponse',response);
-            this.userID = response?.data?._id;
-            this.AadharAuthenticateModal = false;
-            this.AadharSuccessModal = true;
-          }
-          
-      })
-    }
-
-  }
-  
-
   SubmitUserDetail(): void {
+    debugger;
     delete this.user_details_form.value.accept_terms;
     delete this.user_details_form.value.salary_slips;
     console.log('user_details_form', this.user_details_form);
     this.user_details_submitted = true;
     this.user_details_form.value.id = this.userID;
     if (this.user_details_form.invalid) {
+      console.log(this.user_details_form);
       return;
     } 
     else {
@@ -267,6 +152,14 @@ export class UserAuthenticationComponent implements OnInit {
               this.CrudService.put(this.formData,this.filesUpload_url_type,this.userID).subscribe((response: any) => {
                 if(response.status == true) {
                   this.toaster.success("User Details Submitted Successfully");
+
+                  let user_obj = {
+                    id: this.userID
+                  }
+                  this.CrudService.post(user_obj, this.earlySalary_url_type).subscribe((response: any) => {
+                    console.log(response.msg);
+                  })
+
                   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
                 } else {
                   this.toaster.error(response.msg);

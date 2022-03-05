@@ -146,12 +146,24 @@ export class UserNeedsComponent implements OnInit {
       this.CrudService.post(this.pan_form.value, this.pan_verification_url_type).subscribe(
         (response: any) => {
           if(response.status == false) {
-            this.toaster.error(response.msg);
+            if(response.msg == "PAN details already exists") {
+              let user_id = response.data._id;
+              if(response.data.next_page == "cust-details") {
+                this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: user_id } });
+              } else if (response.data.next_page == "loan-offer-list") {
+                this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: user_id } });
+              } else if (response.data.next_page == "loan-offer-details") {
+                this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: user_id } });
+              } else {
+                this.toaster.error(response.msg);
+              }
+            }
           } else {
-            this.pan_verification_con = false;
-            this.aadhar_verification_con = true;
-            localStorage.setItem('pan_name',response.data.result.name);
-            this.toaster.success(response.msg);
+              this.pan_verification_con = false;
+              this.aadhar_verification_con = true;
+              localStorage.setItem('pan_name',response.data.result.name);
+              this.toaster.success(response.msg);
+            
           }
           
         })
@@ -163,6 +175,7 @@ export class UserNeedsComponent implements OnInit {
     this.aadhar_length = this.aadhar_form.value.aadhar_no.replace(/ +/g, "").split("").length;
     let aadhar_rm_space = this.aadhar_form.value.aadhar_no.replace(/ +/g, "");
     this.aadhar_form.value.aadhar_no = aadhar_rm_space;
+    this.aadhar_form.value.pan_name = localStorage.getItem('pan_name');
     this.otp_form.reset();
 
     if (this.aadhar_length != 12) {
@@ -224,7 +237,7 @@ export class UserNeedsComponent implements OnInit {
 
       this.otp_form.value.aadhar_no = localStorage.getItem('aadhar_no');
       this.otp_form.value.pan_no = localStorage.getItem('pan_no');
-      this.otp_form.value.pan_name = localStorage.getItem('pan_name');
+      this.otp_form.value.name = localStorage.getItem('pan_name');
 
       console.log("otp-response",this.otp_form.value);
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(

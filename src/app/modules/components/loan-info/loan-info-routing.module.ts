@@ -11,7 +11,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 const routes: Routes = [
   { path: '', component: UserNeedsComponent },
   { path: 'user-needs', component: UserNeedsComponent },
-  { path: 'user-authentication', component: UserAuthenticationComponent },
+  { path: 'customer-details', component: UserAuthenticationComponent },
   { path: 'loan-offers', component: LoanOffersComponent },
   { path: 'loan-approval', component: LoanApprovalComponent },
   { path: 'post-Esign', component: PostESignComponent },
