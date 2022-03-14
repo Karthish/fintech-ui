@@ -8,6 +8,9 @@ const routes: Routes = [
   { path: 'loan-info', 
     loadChildren: () => import('./modules/components/loan-info/loan-info.module').then(m => m.LoanInfoModule) 
   },
+  { path: 'login', 
+    loadChildren: () => import('./modules/components/login/login.module').then(m => m.LoginModule) 
+  },
   {
     path: '**', component: PageNotFoundComponent, data: { title: 'Page Not Found' }
   }

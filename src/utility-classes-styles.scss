@@ -104,3 +104,7 @@ p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
     color: #dc3545;
     font-family: $regular-font;
 }
+
+.ng-invalid~.invalid-feedback {
+    display: block;
+}
