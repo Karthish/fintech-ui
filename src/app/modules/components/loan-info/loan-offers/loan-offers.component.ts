@@ -44,8 +44,8 @@ export class LoanOffersComponent implements OnInit {
               this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
             } else if(response.data.next_page == "loan-offer-details") {
               
-              // this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+              // this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             } else {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);
