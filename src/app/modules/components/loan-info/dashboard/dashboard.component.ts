@@ -11,19 +11,34 @@ import { DatePipe } from '@angular/common'
 })
 export class DashboardComponent implements OnInit {
   userID;
+  bankName;
   dashboard__url = "/user/dashboard/";
+  early_salary_status = "/early/salary/status";
   dashboard_details: any;
   next_due_date: any;
   prev_due_date: any;
   outstanding_percentage!: number;
+  status_salary_res: any;
 
   constructor(private CrudService: CrudService, private toaster: ToastrService,
     private router: Router, private activatedRoute: ActivatedRoute, public datepipe: DatePipe) {
-      // this.userID = this.activatedRoute.snapshot.queryParams.id;
-      this.userID = "619fc678692bf93788934627";
+      this.userID = this.activatedRoute.snapshot.queryParams.id;
+      this.bankName = this.activatedRoute.snapshot.queryParams.bank;
     }
 
   ngOnInit(): void {
+    
+    if(this.bankName == "earlysalary") {
+      let status_check_obj = {
+        cust_ref_id: this.userID 
+      }
+      this.CrudService.post(status_check_obj, this.early_salary_status).subscribe(
+        (response: any) => {
+          this.status_salary_res = response;
+      })
+    }
+    
+
     this.CrudService.get(this.dashboard__url, this.userID).subscribe(
       (response: any) => {
         if(response.status == true) {
@@ -41,6 +56,16 @@ export class DashboardComponent implements OnInit {
         } else {
           this.toaster.error(response.msg);
         }
+    })
+  }
+
+  checkStatus() {
+    let status_check_obj = {
+      cust_ref_id: this.userID 
+    }
+    this.CrudService.post(status_check_obj, this.early_salary_status).subscribe(
+      (response: any) => {
+        this.status_salary_res = response;
     })
   }
 

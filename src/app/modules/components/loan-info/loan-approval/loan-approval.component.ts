@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Injectable} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 import { PrimeNGConfig } from 'primeng/api';
 import { CrudService } from './../../services/crud-service';
+import { EarlySalaryService } from './../../services/EarlySalaryService';
 
+@Injectable()
 @Component({
   selector: 'app-loan-approval',
   templateUrl: './loan-approval.component.html',
@@ -32,30 +34,34 @@ export class LoanApprovalComponent implements OnInit {
   pdfSrc: any;
   esignVerified:boolean = false;
   selected_bank_details: any;
+  early_bank_details: any;
   userdetail__url_type = '/user/details/update/';
   download__url_type = '/user/sanction/download';
   send_email__url_type = '/user/sanction/attachment';
   verification__url = '/user/sanction/esign';
   get_selected_bank_detail__url = '/bank/detail';
-
-
-
+  early_salary_bank: boolean = false;
+  
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private toaster: ToastrService, private router: Router,
+    private CrudService: CrudService, private EarlySalaryService: EarlySalaryService,private toaster: ToastrService, private router: Router,
     private activatedRoute: ActivatedRoute) {
      console.log('current url', this.router.url);
       this.userID = this.activatedRoute.snapshot.queryParams.id;
+      // this.early_bank_details = EarlySalaryService.EarlySalaryDataUpdated;
+      // this.early_salary_bank = EarlySalaryService.early_salary_bank_updated;
     }
 
   ngOnInit(): void {
+    
     if(this.userID) {
+      
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            
+
             this.checkNextPg(response);
-            
+
             let selectedBankDetail = {
               bank_ref_id: response.data.bank_ref_id
             }
@@ -112,6 +118,7 @@ export class LoanApprovalComponent implements OnInit {
       this.router.navigate(['/loan-info/user-needs']);
     }
 
+
     this.primengConfig.ripple = true;
     // get loan options
     this.CrudService.getLoanList().subscribe(
@@ -166,10 +173,10 @@ export class LoanApprovalComponent implements OnInit {
       return;
     }
 
-    else if(response.data.next_page == "aadhar-verification" || "cust-details") {
-      this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+    else if(response.data.next_page == "cust-details") {
+      this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
     } else if(response.data.next_page == "loan-offer-list") {
-
+      debugger;
       this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
     } else {
       this.toaster.error(response.msg);
@@ -324,4 +331,5 @@ export class LoanApprovalComponent implements OnInit {
     this.esign_Modal = true;
   }
 }
+
 

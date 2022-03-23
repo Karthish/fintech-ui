@@ -31,7 +31,7 @@
                     <div class="option-detail-value"></div>
                   </div>
                   <div class="option-detail d-flex flex-column">
-                    <label class="option-detail-heading img-con" style="width: 150px;height: 50px;">
+                    <label class="option-detail-heading img-con" style="width: 100px;height: 50px;">
                       <img src="./../../../../../assets/images/{{funding_option_detail?.bank_name}}-logo.png" alt="">
                     </label>
                   </div>
@@ -66,7 +66,7 @@
                   </div>
                   <div class="option-detail d-flex flex-column">
                     <div class="">
-                      <button class="btn action-confirm-btn" (click)="update_bank_details(funding_option_detail?._id)">PROCEED</button>
+                      <button class="btn action-confirm-btn" (click)="update_bank_details(funding_option_detail?._id, funding_option_detail?.bank_name)">PROCEED</button>
                     </div>
                   </div>
                 </div>

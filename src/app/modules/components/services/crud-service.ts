@@ -15,6 +15,9 @@ export class CrudService {
     }
 
     get(urlType?: string, id?: any) {
+        if(id == undefined) {
+            id ='';
+        }
         return this.http.get(this.baseurl+urlType+id);
     }
 

@@ -9,6 +9,7 @@
 <div class="container loan-approval-con">
   <div class="body-row row">
       <div class="col-12 col-md-12 col-lg-5 mb-5">
+        <div>
           <div class="funding-options-level">
             <h4 class="mt-5 p-relative mb-4" style="color: #3f976c;">
               <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -40px;font-size: 2rem;"></i>
@@ -84,7 +85,51 @@
               </button>
             </div>
           </div>
+        </div>
       </div>
+
+      <!-- <div class="col-12 col-md-12 col-lg-5 mb-5" *ngIf="early_salary_bank">
+        <div>
+          <div class="funding-options-level">
+            <h4 class="mt-5 p-relative mb-4" style="color: #3f976c;">
+              <i class="fa fa-long-arrow-right p-absolute" aria-hidden="true" style="left: -40px;font-size: 2rem;"></i>
+              Congratulations!
+            </h4>
+            <div class="funding-options-box axis-funding-options-box p-4">
+              <div class="d-flex justify-content-between mb-3">
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Customer ID</label>
+                  <div class="option-detail-value"><b>{{early_bank_details?.customerid}}</b></div>
+                </div>
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Status</label>
+                  <div class="option-detail-value"><b>{{early_bank_details?.status}}</b></div>
+                </div>
+                <div class="option-detail d-flex flex-column align-items-end">
+                  <label class="option-detail-heading img-con" style="width: 50%;height: 50px;">
+                    <img class="img-fluid" src="./../../../../../assets/images/Early Salary-logo.png" alt="">
+                  </label>
+                </div>
+              </div>
+              <div class="d-flex justify-content-start mb-3">
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Reason</label>
+                  <div class="option-detail-value">{{early_bank_details?.reason}}</div>
+                </div>
+                <div class="option-detail d-flex flex-column">
+                  <label class="option-detail-heading">Sanction Limit</label>
+                  <div class="option-detail-value">{{early_bank_details?.sanctionLimit}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 text-end">
+            <button  class="btn action-confirm-btn"
+            [routerLink]="['/loan-info/dashboard']" [queryParams]="{ id: userID }">Next</button>
+          </div>
+        </div>
+      </div> -->
+
       <div class="col-12 col-md-12 offset-lg-1 col-lg-6">
         <div class="stepper-con mt-4">
           <div class="stepper-horizontal" id="stepper1">
