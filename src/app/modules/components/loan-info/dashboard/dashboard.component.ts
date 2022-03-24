@@ -31,28 +31,28 @@ export class DashboardComponent implements OnInit {
     if(this.userID) {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
-          if(response.status == true) {
-            if(response.data.next_page == "dashboard") {
-              this.userName = response.data.name;
-              return;
-            } 
-            else if(response.data.next_page == "cust-details") {
-              this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
-            } 
-            else if(response.data.next_page == "loan-offer-list") {
-              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } 
-            else if(response.data.next_page == "loan-offer-details") {
-              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            } else {
-              this.toaster.error(response.msg);
-              this.router.navigate(['/loan-info/user-needs']);
-            }
-          } 
-          else {
-            this.toaster.error(response.msg);
-            this.router.navigate(['/loan-info/user-needs']);
-          }
+          this.userName = response.data.name;
+          // if(response.status == true) {
+          //   if(response.data.next_page == "dashboard") {
+          //     return;
+          //   } 
+          //   else if(response.data.next_page == "cust-details") {
+          //     this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
+          //   } 
+          //   else if(response.data.next_page == "loan-offer-list") {
+          //     this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+          //   } 
+          //   else if(response.data.next_page == "loan-offer-details") {
+          //     this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+          //   } else {
+          //     this.toaster.error(response.msg);
+          //     this.router.navigate(['/loan-info/user-needs']);
+          //   }
+          // } 
+          // else {
+          //   this.toaster.error(response.msg);
+          //   this.router.navigate(['/loan-info/user-needs']);
+          // }
           
         })
     } else {
