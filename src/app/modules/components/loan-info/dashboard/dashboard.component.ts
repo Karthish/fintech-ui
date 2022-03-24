@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   prev_due_date: any;
   outstanding_percentage!: number;
   status_salary_res: any;
+  userName!: string;
 
   constructor(private CrudService: CrudService, private toaster: ToastrService,
     private router: Router, private activatedRoute: ActivatedRoute, public datepipe: DatePipe) {
@@ -27,7 +28,37 @@ export class DashboardComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+    if(this.userID) {
+      this.CrudService.getUserStatus(this.userID).subscribe(
+        (response: any) => {
+          if(response.status == true) {
+            if(response.data.next_page == "dashboard") {
+              this.userName = response.data.name;
+              return;
+            } 
+            else if(response.data.next_page == "cust-details") {
+              this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
+            } 
+            else if(response.data.next_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } 
+            else if(response.data.next_page == "loan-offer-details") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
+            }
+          } 
+          else {
+            this.toaster.error(response.msg);
+            this.router.navigate(['/loan-info/user-needs']);
+          }
+          
+        })
+    } else {
+      this.router.navigate(['/loan-info/user-needs']);
+    }
+
     if(this.bankName == "earlysalary") {
       let status_check_obj = {
         cust_ref_id: this.userID 

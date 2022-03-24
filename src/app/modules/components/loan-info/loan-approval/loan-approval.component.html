@@ -80,9 +80,8 @@
                 <i class="fa fa-check me-2"></i>
                 <span>E-Sign Completed</span> 
               </button>
-              <button class="btn action-confirm-btn" *ngIf="esignVerified">
-                <span>Next</span> 
-              </button>
+              <button  class="btn action-confirm-btn" *ngIf="esignVerified"
+            [routerLink]="['/loan-info/dashboard']" [queryParams]="{ id: userID }">Next</button>
             </div>
           </div>
         </div>
@@ -333,6 +332,14 @@
             </div>
         </ng-template>
       </p-dropdown>
+    </div>
+    <div class="col-6 mb-3">
+      <div class="">
+        <label for="">Phone Number</label>
+        <div>
+          {{userEnteredDetails?.mobile_no}}
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-header-con">

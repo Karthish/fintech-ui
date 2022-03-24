@@ -60,7 +60,6 @@ export class UserAuthenticationComponent implements OnInit {
           
         })
     } else {
-      debugger
       this.router.navigate(['/loan-info/user-needs']);
     }
 

@@ -80,9 +80,9 @@ export class LoanApprovalComponent implements OnInit {
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
-            if(this.userEnteredDetails.email_id != null) {
-              this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
-            }
+            // if(this.userEnteredDetails.email_id != null) {
+            //   this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
+            // }
 
             if(response.data.is_esigned == true) {
               this.esignVerified = true;
@@ -176,7 +176,6 @@ export class LoanApprovalComponent implements OnInit {
     else if(response.data.next_page == "cust-details") {
       this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
     } else if(response.data.next_page == "loan-offer-list") {
-      debugger;
       this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
     } else {
       this.toaster.error(response.msg);
