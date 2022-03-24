@@ -39,41 +39,16 @@ export class PostESignComponent implements OnInit {
   bankstatment_upload_url = "/bankstatement/upload";
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
-    private CrudService: CrudService, private activatedRoute: ActivatedRoute, private router: Router, private toaster: ToastrService) {
+    private CrudService: CrudService, private activatedRoute: ActivatedRoute, 
+    private router: Router, private toaster: ToastrService) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
   }
 
   ngOnInit(): void {
-    if(this.userID) {
-      // this.CrudService.getUserStatus(this.userID).subscribe(
-      //   (response: any) => {
-      //     if(response.status == true) {
-      //       if(response.data.next_page == "post-Esign") {
-      //         return;
-      //       } 
-      //       else if(response.data.next_page == "cust-details") {
-      //         this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
-      //       } 
-      //       else if(response.data.next_page == "loan-offer-list") {
-      //         this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-      //       } 
-      //       else if(response.data.next_page == "loan-offer-details") {
-      //         this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-      //       } else {
-      //         this.toaster.error(response.msg);
-      //         this.router.navigate(['/loan-info/user-needs']);
-      //       }
-      //     } 
-      //     else {
-      //       this.toaster.error(response.msg);
-      //       this.router.navigate(['/loan-info/user-needs']);
-      //     }
-          
-      //   })
-      return
-    } else {
+    if(!this.userID) {
       this.router.navigate(['/loan-info/user-needs']);
     }
+
     this.post_esign_form = this.formBuilder.group(
       {
         bank_name: ['', Validators.required],
@@ -84,12 +59,14 @@ export class PostESignComponent implements OnInit {
         acc_statement: ['', Validators.required],
       }
     )
+    
   }
 
   // getter function for post esign form
   get post_esign(): { [key: string]: AbstractControl } {
     return this.post_esign_form.controls;
   }
+  
 
   onFileChange_Check(event: any) {
     this.checkDocName = event.target.files[0].name;
@@ -225,6 +202,7 @@ export class PostESignComponent implements OnInit {
   }
 
   SubmitPostEsign(): void {
+    debugger;
     this.post_esign_submitted = true;
     if (this.post_esign_form.invalid) {
       return;

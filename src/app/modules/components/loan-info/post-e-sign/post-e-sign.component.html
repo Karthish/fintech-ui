@@ -55,7 +55,7 @@
                                 <div class="col-12 col-md-12">
                                     <div class="upload-box">
                                         <div class="form-group d-flex justify-content-between align-items-center p-relative">
-                                            <label for="">Cancelled Check - Document upload</label>
+                                            <label for="">Cancelled Cheque - Document upload</label>
                                             <input type="file" class="hidden-file-input" accept=".pdf" name="check"
                                                   formControlName="check" (change)="onFileChange_Check($event)"
                                                 [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.check.errors }">
@@ -64,32 +64,13 @@
                                                 <span>Upload</span>
                                             </div>
                                             <div *ngIf="post_esign_submitted && post_esign.check.errors" class="invalid-feedback">
-                                                <div *ngIf="post_esign.check.errors.required">Check is required</div>
+                                                <div *ngIf="post_esign.check.errors.required">Cheque is required</div>
                                             </div>
                                         </div>
                                         <div class="file-name-con check-file-name-con text-end">
                                             {{checkDocName}}
                                         </div>
                                     </div>
-                                    
-                                    <!-- <div class="upload-box">
-                                        <div class="pt-3 pb-3 form-group d-flex justify-content-between align-items-center p-relative">
-                                            <label for="">Employee ID Card - Document Upload</label>
-                                            <input type="file" class="hidden-file-input" accept=".pdf" name="emp_id"
-                                                multiple  formControlName="emp_id" (change)="onFileChange_emp_id($event)"
-                                                [ngClass]="{ 'is-invalid': post_esign_submitted && post_esign.emp_id.errors }">
-                                            <div class="upload-btn d-flex align-items-center">
-                                                <i class="fa fa-cloud-upload mx-2" aria-hidden="true"></i>
-                                                <span>Upload</span>
-                                            </div>
-                                            <div *ngIf="post_esign_submitted && post_esign.emp_id.errors" class="invalid-feedback">
-                                                <div *ngIf="post_esign.emp_id.errors.required">Employee ID required</div>
-                                            </div>
-                                        </div>
-                                        <div class="file-name-con check-file-name-con text-end">
-                                            {{empIdDocName}}
-                                        </div>
-                                    </div> -->
 
                                     <div class="upload-box">
                                         <div class=" form-group d-flex justify-content-between align-items-center p-relative">
