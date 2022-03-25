@@ -48,7 +48,11 @@ export class UserAuthenticationComponent implements OnInit {
             } 
             else if(response.data.next_page == "loan-offer-details") {
               this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            } else {
+            } 
+            else if (response.data.next_page == "dashboard") {
+              this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 
+            }
+            else {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);
             }
