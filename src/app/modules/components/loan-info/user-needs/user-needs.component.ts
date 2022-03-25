@@ -154,6 +154,8 @@ export class UserNeedsComponent implements OnInit {
                 this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: user_id } });
               } else if (response.data.next_page == "loan-offer-details") {
                 this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: user_id } });
+              } else if (response.data.next_page == "post-esign") {
+                this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: user_id } });
               } else if (response.data.next_page == "dashboard") {
                 this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: user_id } }); 
               }

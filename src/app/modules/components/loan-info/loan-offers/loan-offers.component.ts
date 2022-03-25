@@ -46,7 +46,11 @@ export class LoanOffersComponent implements OnInit {
               
               this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
               // this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            } else if (response.data.next_page == "dashboard") {
+            } 
+            else if (response.data.next_page == "post-esign") {
+              this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
+            }
+            else if (response.data.next_page == "dashboard") {
                 this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 
               } 
             else {

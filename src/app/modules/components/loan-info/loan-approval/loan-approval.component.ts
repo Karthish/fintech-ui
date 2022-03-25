@@ -177,7 +177,12 @@ export class LoanApprovalComponent implements OnInit {
       this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
     } else if(response.data.next_page == "loan-offer-list") {
       this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-    } else {
+    } else if (response.data.next_page == "post-esign") {
+      this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
+    } else if (response.data.next_page == "dashboard") {
+      this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 
+    }
+    else {
       this.toaster.error(response.msg);
       this.router.navigate(['/loan-info/user-needs']);
     }
