@@ -73,14 +73,26 @@ export class DashboardComponent implements OnInit {
     this.CrudService.get(this.dashboard__url, this.userID).subscribe(
       (response: any) => {
         if(response.status == true) {
-          this.dashboard_details = response.data;
-          this.next_due_date = this.dashboard_details.next_due_date;
-          this.next_due_date = this.datepipe.transform(this.next_due_date, 'MMM d, y');
+          // this.dashboard_details = response.data;
+          // this.next_due_date = this.dashboard_details.next_due_date;
+          // this.next_due_date = this.datepipe.transform(this.next_due_date, 'MMM d, y');
 
-          this.prev_due_date = this.dashboard_details.previous_due_date;
-          this.prev_due_date = this.datepipe.transform(this.prev_due_date, 'MMM d, y');
+          // this.prev_due_date = this.dashboard_details.previous_due_date;
+          // this.prev_due_date = this.datepipe.transform(this.prev_due_date, 'MMM d, y');
 
-          this.outstanding_percentage = this.dashboard_details.current_outstanding / this.dashboard_details.amount_sanctioned * 100
+          // this.outstanding_percentage = this.dashboard_details.current_outstanding / this.dashboard_details.amount_sanctioned * 100;
+
+          this.dashboard_details = {
+            loan_application: "157200568055",
+            amount_sanctioned: response.data.desired_fund_amount,
+            current_outstanding: response.data.desired_fund_amount - (response.data.desired_fund_amount/4),
+            next_due_date: "01 April 2022",
+            prev_due_date: "01 March 2022",
+            amount_due: 25000,
+            customerStatus: "DUE SOON",
+            previous_emi_amount: 25000,
+            previous_due_status: "PAID"
+          }
           
           console.log('dashboarddetails',this.dashboard_details )
           
