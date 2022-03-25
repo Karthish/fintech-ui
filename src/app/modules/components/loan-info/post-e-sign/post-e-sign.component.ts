@@ -166,9 +166,9 @@ export class PostESignComponent implements OnInit {
     }
 
     let empid_esign = {
-      id: "619d2ed60261fc51f88c60f9"
+      id: this.userID
     }
-    this.formData_accountStatement.append("empid_esign", JSON.stringify(empid_esign));
+    this.formData_IDcard.append("empid_esign", JSON.stringify(empid_esign));
 
     this.CrudService.post(this.formData_IDcard, this.empId_upload_url).subscribe(
       (response: any) => {
@@ -177,6 +177,7 @@ export class PostESignComponent implements OnInit {
 
         } else {
           this.toaster.error(response.msg);
+          return;
       }
     })
   }
@@ -186,7 +187,7 @@ export class PostESignComponent implements OnInit {
       this.formData_accountStatement.append("bankstatement", this.accStatement_file_arr[i]);
     }
     let accstatement_esign = {
-      id: "619d2ed60261fc51f88c60f9"
+      id: this.userID
      }
      this.formData_accountStatement.append("accstatement_esign", JSON.stringify(accstatement_esign));
 
@@ -197,12 +198,12 @@ export class PostESignComponent implements OnInit {
 
         } else {
           this.toaster.error(response.msg);
+          return;
       }
     })
   }
 
   SubmitPostEsign(): void {
-    debugger;
     this.post_esign_submitted = true;
     if (this.post_esign_form.invalid) {
       return;
@@ -220,7 +221,7 @@ export class PostESignComponent implements OnInit {
       // }
 
       let eSingData = {
-          id: "619d2ed60261fc51f88c60f9",
+          id: this.userID,
           bank_name: this.post_esign_form.value.bank_name,
           account_no: this.post_esign_form.value.account_no,
           ifsc_code: this.post_esign_form.value.ifsc_code
@@ -237,6 +238,7 @@ export class PostESignComponent implements OnInit {
             this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } });
           } else {
             this.toaster.error(response.msg);
+            return;
         }
       })
     }
