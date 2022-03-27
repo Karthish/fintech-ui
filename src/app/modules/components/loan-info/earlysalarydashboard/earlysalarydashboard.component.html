@@ -84,7 +84,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="funding-options-box axis-funding-options-box p-4 pb-2 mb-4">
-                        <button class="btn action-confirm-btn" (click)="checkStatus()">Check Status</button>
+                        <div class="d-flex justify-content-between flex-column mb-2">
+                            <div class="stat-row-con d-flex row justify-content-between">
+                                <div class="stat-row mb-2 col-12">
+                                    <div class="stat-header">Click Below to Check the Status</div>
+                                    <button class="btn action-confirm-btn" (click)="checkStatus()">Check Status</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12">
@@ -93,7 +100,7 @@
                             <div class="stat-row-con d-flex row justify-content-between">
                                 <div class="stat-row mb-2 col-6">
                                     <div class="stat-header">Status</div>
-                                    <div class="stat-txt">{{status_salary_res?.customerStatus}}</div>
+                                    <div class="stat-txt">{{customerStatus}}</div>
                                 </div>
                             </div>
                         </div>

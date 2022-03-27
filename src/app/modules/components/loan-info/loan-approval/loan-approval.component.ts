@@ -325,6 +325,21 @@ export class LoanApprovalComponent implements OnInit {
     })
   }
 
+  goToPostEsign() {
+    let user_target_url = "/user/target/update"
+    let id = {
+      id: this.userID
+    }
+
+    this.CrudService.post(id, user_target_url).subscribe(
+      (response: any) => {
+        if(response.status == true) {
+          this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } }); 
+        } else {
+          this.toaster.error(response.msg);
+        }
+    })
+  }
 
   showEmailModal() {
     this.email_Modal = true;

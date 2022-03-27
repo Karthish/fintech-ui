@@ -14,6 +14,7 @@ export class EarlysalarydashboardComponent implements OnInit {
   early_salary_status = "/early/salary/status";
   status_salary_res: any;
   userName!: string;
+  customerStatus!: string;
 
   constructor(private CrudService: CrudService, private toaster: ToastrService,
     private router: Router, private activatedRoute: ActivatedRoute, public datepipe: DatePipe) {
@@ -64,7 +65,12 @@ export class EarlysalarydashboardComponent implements OnInit {
     }
     this.CrudService.post(status_check_obj, this.early_salary_status).subscribe(
       (response: any) => {
-        this.status_salary_res = response;
+        if(response.status == true) {
+          this.status_salary_res = response;
+          this.customerStatus = response.customerStatus;
+        } else {
+          this.customerStatus = response.msg;
+        }
     })
   }
 
