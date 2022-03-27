@@ -15,11 +15,6 @@
                     <button ngbDropdownToggle class="" type="button" id="dropdownMenuButton1" aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>
                    </button>
-                    <!-- <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-                      <li><a ngbDropdownItem href="#">Action</a></li>
-                      <li><a ngbDropdownItem href="#">Another action</a></li>
-                      <li><a ngbDropdownItem href="#">Something else here</a></li>
-                    </ul> -->
                 </div>
             </div>
             
@@ -48,7 +43,7 @@
 
 <div class="container mt-4">
     <div class="body-row row">
-        <div class="col-12 col-md-6 col-lg-6">
+        <!-- <div class="col-12 col-md-6 col-lg-6">
             <div class="summary-con">
                 <p class="header-text">Summary</p>
                 <div class="d-flex justify-content-between loan-app-detail">
@@ -84,68 +79,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-12 col-md-6 col-lg-6 mt-3 mt-md-0 mt-lg-0">
             <div class="row">
                 <div class="col-12">
                     <div class="funding-options-box axis-funding-options-box p-4 pb-2 mb-4">
-                        <div class="d-flex align-items-center">
-                          <div class="me-3">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 3.5rem;"></i>
-                          </div>
-                          <div class="header-text" style="font-size: 1.3rem;">Sanction Letter</div>
-                        </div>
-                        <div class="btn-con mt-4 mb-3">
-                          <a class="btn action-btn-transparent" href="{{dashboard_details?.sanction_letter_singned_url}}" target="_blank" download="Sanction_Letter">Download</a>
-                        </div>
-                    </div>
-                    <!-- <div class="funding-options-box axis-funding-options-box p-4 pb-2 mb-4" *ngIf="bankName">
                         <button class="btn action-confirm-btn" (click)="checkStatus()">Check Status</button>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="col-12">
                     <div class="funding-options-box axis-funding-options-box p-4 pb-2">
-                        <div>
-                          <div class="header-text mb-3" style="font-size: 1.3rem;">Repayment Schedule</div>
-                        </div>
-                        <div class="d-flex justify-content-between flex-column">
-                            <div class="stat-row-con d-flex row justify-content-between">
-                                <div class="stat-row mb-2 col-4">
-                                    <div class="stat-header">Next Due Date</div>
-                                    <div class="stat-txt">{{dashboard_details?.next_due_date}}</div>
-                                </div>
-                                <div class="stat-row mb-2 col-4">
-                                    <div class="stat-header">Amount Due</div>
-                                    <div class="stat-txt">{{dashboard_details?.amount_due}}</div>
-                                </div>
-                                <div class="stat-row mb-2 col-4">
-                                    <div class="stat-header">Status</div>
-                                    <div class="stat-txt status-txt status-txt-due">{{dashboard_details?.current_due_status}}</div>
-                                </div>
-                                
-                            </div>
-                            <div class="stat-row-con d-flex row justify-content-between">
-                                <div class="stat-row col-4">
-                                    <div class="stat-header">Previous Due Date</div>
-                                    <div class="stat-txt">{{dashboard_details?.prev_due_date}}</div>
-                                </div>
-                                <div class="stat-row col-4">
-                                    <div class="stat-header">Previous EMI Amount</div>
-                                    <div class="stat-txt">{{dashboard_details?.previous_emi_amount}}</div>
-                                </div>
-                                <div class="stat-row col-4">
-                                    <div class="stat-header">Status</div>
-                                    <div class="stat-txt status-txt status-txt-paid">{{dashboard_details?.previous_due_status}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="btn-con mt-4 mb-3">
-                          <button class="btn action-btn-filled">Get Schedule</button>
-                        </div>
-                    </div>
-
-                    <!-- <div class="funding-options-box axis-funding-options-box p-4 pb-2" *ngIf="bankName">
                         <div class="d-flex justify-content-between flex-column mb-2">
                             <div class="stat-row-con d-flex row justify-content-between">
                                 <div class="stat-row mb-2 col-6">
@@ -166,17 +109,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-  
-  
-
-
-  
-
-  

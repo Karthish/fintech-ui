@@ -7,6 +7,7 @@ import { LoanOffersComponent } from './loan-offers/loan-offers.component';
 import { LoanApprovalComponent } from './loan-approval/loan-approval.component';
 import { PostESignComponent } from "./post-e-sign/post-e-sign.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { EarlysalarydashboardComponent } from "./earlysalarydashboard/earlysalarydashboard.component";
 
 const routes: Routes = [
   { path: '', component: UserNeedsComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'loan-offers', component: LoanOffersComponent },
   { path: 'loan-approval', component: LoanApprovalComponent },
   { path: 'post-Esign', component: PostESignComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'early-salary-dashboard', component: EarlysalarydashboardComponent}
 ];
 
 

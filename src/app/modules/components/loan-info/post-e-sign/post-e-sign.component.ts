@@ -66,6 +66,9 @@ export class PostESignComponent implements OnInit {
             else if (response.data.next_page == "dashboard") {
                 this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 
               } 
+              else if (response.data.next_page == "early-salary-dashboard") {
+                this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+              } 
             else {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);

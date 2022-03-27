@@ -159,6 +159,9 @@ export class UserNeedsComponent implements OnInit {
               } else if (response.data.next_page == "dashboard") {
                 this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: user_id } }); 
               }
+              else if (response.data.next_page == "early-salary-dashboard") {
+                this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+              } 
               else {
                 this.toaster.error(response.msg);
               }

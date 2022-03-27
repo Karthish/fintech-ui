@@ -53,6 +53,9 @@ export class LoanOffersComponent implements OnInit {
             else if (response.data.next_page == "dashboard") {
                 this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 
               } 
+              else if (response.data.next_page == "early-salary-dashboard") {
+                this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+              } 
             else {
               this.toaster.error(response.msg);
               this.router.navigate(['/loan-info/user-needs']);
@@ -88,28 +91,12 @@ export class LoanOffersComponent implements OnInit {
     this.submitDetails = true;
     (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     if(bank_name == "Early Salary") {
-    //   let earlyRes = {
-    //     mobilenumber : "3143424325",
-    //     status : "success", 
-    //     statuscode : "1234", 
-    //     customerid: "213423425", 
-    //     reason: "NA", 
-    //     product: "NA", 
-    //     sanctionLimit: "200000", 
-    //     responseDate: "12-30-2021", 
-    //     inPrincipleLimit: "NA", 
-    //     inPrincipleTenure: "NA" 
-    // }
-    // let early_salary_bank = true;
-    // this.EarlySalaryService.passEarlySalary(earlyRes, early_salary_bank);
-    // this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID, bank: "earlysalary" } });
-
       this.CrudService.post(early_salary_details, early_salary_url_type).subscribe(
         (response: any) => {
           console.log('loanoptions', response);
           if(response.status == true) {
             this.toaster.success(response.msg);
-            this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID, bank: "earlysalary" } });
+            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
             this.toaster.error(response.msg);
           }

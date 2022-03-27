@@ -24,6 +24,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PostESignComponent } from './post-e-sign/post-e-sign.component';
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EarlysalarydashboardComponent } from './earlysalarydashboard/earlysalarydashboard.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     onlyCharactersDirective,
     NumberOnlyDirective,
     PostESignComponent,
-    DashboardComponent
+    DashboardComponent,
+    EarlysalarydashboardComponent
   ],
   imports: [
     CommonModule,
