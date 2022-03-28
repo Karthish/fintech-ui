@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            response.data.name = this.userName;
+            this.userName = response.data.name;
             // if(response.data.next_page == "loan-offer-list") {
             //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             // } 
