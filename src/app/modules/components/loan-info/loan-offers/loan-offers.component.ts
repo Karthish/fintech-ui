@@ -100,6 +100,7 @@ export class LoanOffersComponent implements OnInit {
           } else {
             this.toaster.error(response.msg);
             this.submitDetails = false;
+            (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
           }
       })
       
