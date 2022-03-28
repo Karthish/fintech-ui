@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center">
-                    <button class="btn action-confirm-btn" type="button">Start New Application</button>
+                    <button class="btn action-confirm-btn" type="button" [routerLink]="['/loan-info/user-needs']">Start New Application</button>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                             <div class="stat-row-con d-flex row justify-content-between">
                                 <div class="stat-row mb-2 col-6">
                                     <div class="stat-header">Loan Application Number</div>
-                                    <div class="stat-txt">{{status_salary_res?.loan_application_number}}</div>
+                                    <div class="stat-txt">{{customer_details?.loan_application_number}}</div>
                                 </div>
                             </div>
                         </div>
