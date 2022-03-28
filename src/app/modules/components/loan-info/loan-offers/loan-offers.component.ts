@@ -99,7 +99,6 @@ export class LoanOffersComponent implements OnInit {
             this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
             this.toaster.error(response.msg);
-            debugger;
             this.submitDetails = false;
           }
       })
