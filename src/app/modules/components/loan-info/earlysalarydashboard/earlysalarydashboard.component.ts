@@ -27,8 +27,9 @@ export class EarlysalarydashboardComponent implements OnInit {
       this.CrudService.getUserStatus(this.userID).subscribe(
         (response: any) => {
           if(response.status == true) {
-            this.checkStatus();
             response.data.name = this.userName;
+            this.checkStatus();
+            
             // if(response.data.next_page == "loan-offer-list") {
             //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             // } 
