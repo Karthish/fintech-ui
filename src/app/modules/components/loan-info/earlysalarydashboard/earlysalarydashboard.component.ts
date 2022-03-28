@@ -23,41 +23,41 @@ export class EarlysalarydashboardComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // if(this.userID) {
-    //   this.CrudService.getUserStatus(this.userID).subscribe(
-    //     (response: any) => {
-    //       if(response.status == true) {
-    //         this.checkStatus();
-    //         response.data.name = this.userName;
-    //         if(response.data.next_page == "loan-offer-list") {
-    //           this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-    //         } 
-    //         else if(response.data.next_page == "cust-details") {
-    //           this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-    //         } else if(response.data.next_page == "loan-offer-details") {
-    //           this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-    //         } else if (response.data.next_page == "post-esign") {
-    //           this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
-    //         }  
-    //         else if (response.data.next_page == "dashboard") { 
-    //             this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } });
-    //           } 
-    //           else if (response.data.next_page == "early-salary-dashboard") {
-    //             return;
-    //           } 
-    //         else {
-    //           this.toaster.error(response.msg);
-    //           this.router.navigate(['/loan-info/user-needs']);
-    //         }
-    //       } else {
-    //         this.toaster.error(response.msg);
-    //         this.router.navigate(['/loan-info/user-needs']);
-    //       }
-    //     })
+    if(this.userID) {
+      this.CrudService.getUserStatus(this.userID).subscribe(
+        (response: any) => {
+          if(response.status == true) {
+            this.checkStatus();
+            response.data.name = this.userName;
+            if(response.data.next_page == "loan-offer-list") {
+              this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
+            } 
+            else if(response.data.next_page == "cust-details") {
+              this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
+            } else if(response.data.next_page == "loan-offer-details") {
+              this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
+            } else if (response.data.next_page == "post-esign") {
+              this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
+            }  
+            else if (response.data.next_page == "dashboard") { 
+                this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } });
+              } 
+              else if (response.data.next_page == "early-salary-dashboard") {
+                return;
+              } 
+            else {
+              this.toaster.error(response.msg);
+              this.router.navigate(['/loan-info/user-needs']);
+            }
+          } else {
+            this.toaster.error(response.msg);
+            this.router.navigate(['/loan-info/user-needs']);
+          }
+        })
 
-    // } else {
-    //   this.router.navigate(['/loan-info/user-needs']);
-    // }
+    } else {
+      this.router.navigate(['/loan-info/user-needs']);
+    }
   }
 
   checkStatus() {
