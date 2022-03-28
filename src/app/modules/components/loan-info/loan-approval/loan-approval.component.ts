@@ -170,6 +170,7 @@ export class LoanApprovalComponent implements OnInit {
   checkNextPg(response: any) {
     if(response.data.next_page == "loan-offer-details") {
       console.log('here')
+      debugger;
       return;
     }
 
@@ -177,7 +178,7 @@ export class LoanApprovalComponent implements OnInit {
       this.router.navigate(['/loan-info/customer-details'], { queryParams: { id: this.userID } });
     } else if(response.data.next_page == "loan-offer-list") {
       this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-    } else if (response.data.next_page == "post-esign") {
+    } else if (response.data.next_page == "post-esign-process") {
       this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
     } else if (response.data.next_page == "dashboard") {
       this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } }); 

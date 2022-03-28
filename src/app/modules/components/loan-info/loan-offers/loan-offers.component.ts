@@ -47,7 +47,7 @@ export class LoanOffersComponent implements OnInit {
               this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
               // this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             } 
-            else if (response.data.next_page == "post-esign") {
+            else if (response.data.next_page == "post-esign-process") {
               this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
             }
             else if (response.data.next_page == "dashboard") {
