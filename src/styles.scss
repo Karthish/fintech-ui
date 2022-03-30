@@ -210,10 +210,35 @@
 // Media queries
 @media only screen and (max-width: 576px) {
     body {
-        .funding-options-con button.btn {
-            margin: 4px 4px 4px 0;
-            padding: 4px;
-            font-size: 12px;
+        .header-row {
+            font-size: 3vw!important;
+        }
+        .menu-navigation-con .tabs-con ul li {
+            font-size: 3vw!important;
+        }
+        .new-app-btn {
+            font-size: 11px!important;
+            padding: 5px 10px!important;
+        }
+        .stat-con {
+            .value-txt {
+                font-size: 3vw!important;
+            }
+        }
+        .funding-options-con {
+            button.btn {
+                margin: 4px 4px 4px 0;
+                padding: 4px;
+                font-size: 12px;
+            }
+            .stat-row {
+                .stat-header {
+                    font-size: 3vw!important;
+                }
+                .stat-txt {
+                    font-size: 3vw!important;
+                }
+            }
         }
         app-stepper .stepper-con + .img-con {
             width: 85vw!important;

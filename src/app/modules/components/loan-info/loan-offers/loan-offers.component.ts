@@ -91,6 +91,7 @@ export class LoanOffersComponent implements OnInit {
     this.submitDetails = true;
     (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     if(bank_name == "Early Salary") {
+      this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
       this.CrudService.post(early_salary_details, early_salary_url_type).subscribe(
         (response: any) => {
           console.log('loanoptions', response);
@@ -101,6 +102,7 @@ export class LoanOffersComponent implements OnInit {
             this.toaster.error(response.msg);
             this.submitDetails = false;
             (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           }
       })
       
