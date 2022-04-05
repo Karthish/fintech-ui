@@ -68,7 +68,9 @@ export class LoanApprovalComponent implements OnInit {
             this.CrudService.post(selectedBankDetail, this.get_selected_bank_detail__url).subscribe(
               (response: any) => {
                 if(response.status == true) {
-                  this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+                  if(response.data.bank_name == 'Early Salary') {
+                    this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+                  }
                   this.selected_bank_details = response.data;
                 } else {
                   this.toaster.error(response.msg);
