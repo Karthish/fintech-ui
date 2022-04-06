@@ -103,6 +103,7 @@ export class LoanOffersComponent implements OnInit {
             this.submitDetails = false;
             (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
             this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           }
       })
       
