@@ -25,7 +25,7 @@
                   [(ngModel)]="selectedValue"></p-radioButton>
                 <label class="ms-3" for=""><i class="fa fa-user-o" aria-hidden="true"></i> Salaried</label>
               </div>
-              <div class="p-field-radiobutton d-flex align-items-center mx-5">
+              <div class="p-field-radiobutton d-flex align-items-center mx-5 d-none">
                 <p-radioButton name="professional_type" formControlName="professional_type" value="self employed"
                   [(ngModel)]="selectedValue"></p-radioButton>
                 <label class="ms-3" for=""><i class="fa fa-briefcase" aria-hidden="true"></i> Self Employed</label>
@@ -183,10 +183,6 @@
             <button class="btn action-confirm-btn" type="submit">Submit
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </button>
-            <label class="conditions-text">
-              We intend to ask only the relevant questions,
-              They will appear as we know about your needs
-            </label>
           </div>
 
         </form>

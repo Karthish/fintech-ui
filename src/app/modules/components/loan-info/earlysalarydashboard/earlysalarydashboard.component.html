@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center">
-                    <button class="btn action-confirm-btn new-app-btn" type="button" [routerLink]="['/loan-info/user-needs']">Start New Application</button>
+                    <button class="btn action-confirm-btn new-app-btn" type="button" (click)="checkStatus()">Check Status</button>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                         <div class="d-flex justify-content-between flex-column mb-2">
                             <div class="stat-row-con d-flex row justify-content-between">
                                 <div class="stat-row mb-2 col-6">
-                                    <div class="stat-header">Sanction Limit</div>
+                                    <div class="stat-header">Loan Applied</div>
                                     <div class="stat-txt">{{customer_details?.loan_details?.sanctionLimit}}</div>
                                 </div>
                             </div>
@@ -97,14 +97,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="funding-options-box axis-funding-options-box p-4 pb-2 mb-4">
-                        <div class="d-flex justify-content-between flex-column mb-2">
-                            <div class="stat-row-con d-flex row justify-content-between">
-                                <div class="stat-row mb-2 col-12">
-                                    <div class="stat-header">Click Below to Check the Status</div>
-                                    <button class="btn action-confirm-btn" (click)="checkStatus()">Check Status</button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex justify-content-between flex-column">
                             <div class="stat-row-con d-flex row justify-content-between">
                                 <div class="stat-row mb-2 col-6">

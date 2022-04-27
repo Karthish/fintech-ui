@@ -144,7 +144,7 @@
                   display:block;
               }
               .step-title, .step-optional {
-                  color:$stepper-active-font-color;
+                  color:$shade-green;
               }
           }
   
@@ -156,7 +156,7 @@
                 display:block;
               }
               .step-title, .step-optional {
-                  color:$shade-green;
+                  color:$stepper-active-font-color;
               }
           }
           
