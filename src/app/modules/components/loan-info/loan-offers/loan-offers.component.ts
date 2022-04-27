@@ -15,6 +15,7 @@ export class LoanOffersComponent implements OnInit {
   funding_options_list_details!: any;
   userID;
   submitDetails: boolean = false;
+  getStatusDetails! :any; 
 
 
   constructor(private CrudService: CrudService, private toaster: ToastrService, private EarlySalaryService: EarlySalaryService,
@@ -38,6 +39,7 @@ export class LoanOffersComponent implements OnInit {
         (response: any) => {
           if(response.status == true) {
             if(response.data.next_page == "loan-offer-list") {
+              this.getStatusDetails = response.data;
               return;
             } 
             else if(response.data.next_page == "cust-details") {

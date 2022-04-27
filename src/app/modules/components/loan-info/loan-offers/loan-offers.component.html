@@ -19,7 +19,12 @@
               <div *ngFor="let funding_option_detail of funding_options_list_details?.data" class="funding-options-box p-4 mb-4">
                 <div class="d-flex justify-content-between mb-4">
                   <div class="option-detail d-flex flex-column" *ngIf="funding_option_detail?.bank_name == 'Early Salary'">
-                    <label class="option-detail-heading">Early Salary</label>
+                    <label class="option-detail-heading">Applied Loan Amount</label>
+                    <div class="option-detail-value"><b>Rs {{getStatusDetails?.desired_fund_amount}}</b></div>
+                  </div>
+                  <div class="option-detail d-flex flex-column" *ngIf="funding_option_detail?.bank_name == 'Early Salary'">
+                    <label class="option-detail-heading">Loan Tenure</label>
+                    <div class="option-detail-value"><b>{{getStatusDetails?.loan_tenure}} Months</b></div>
                   </div>
                   <div class="option-detail d-flex flex-column" *ngIf="funding_option_detail?.bank_name != 'Early Salary'">
                     <label class="option-detail-heading">Max. Loan Amount</label>
@@ -34,7 +39,7 @@
                     <div class="option-detail-value"></div>
                   </div>
                   <div class="option-detail d-flex flex-column">
-                    <label class="option-detail-heading img-con" style="width: 100px;height: 50px;">
+                    <label class="option-detail-heading img-con">
                       <img src="./../../../../../assets/images/{{funding_option_detail?.bank_name}}-logo.png" alt="">
                     </label>
                   </div>
