@@ -29,27 +29,6 @@ export class EarlysalarydashboardComponent implements OnInit {
           if(response.status == true) {
             this.userName = response.data.name;
             this.checkStatus();
-            
-            // if(response.data.next_page == "loan-offer-list") {
-            //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            // } 
-            // else if(response.data.next_page == "cust-details") {
-            //   this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            // } else if(response.data.next_page == "loan-offer-details") {
-            //   this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            // } else if (response.data.next_page == "post-esign") {
-            //   this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
-            // }  
-            // else if (response.data.next_page == "dashboard") { 
-            //     this.router.navigate(['/loan-info/dashboard'], { queryParams: { id: this.userID } });
-            //   } 
-            //   else if (response.data.next_page == "early-salary-dashboard") {
-            //     return;
-            //   } 
-            // else {
-            //   this.toaster.error(response.msg);
-            //   this.router.navigate(['/loan-info/user-needs']);
-            // }
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);

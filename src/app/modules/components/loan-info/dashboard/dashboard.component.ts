@@ -29,26 +29,6 @@ export class DashboardComponent implements OnInit {
         (response: any) => {
           if(response.status == true) {
             this.userName = response.data.name;
-            // if(response.data.next_page == "loan-offer-list") {
-            //   this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
-            // } 
-            // else if(response.data.next_page == "cust-details") {
-            //   this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: this.userID } });
-            // } else if(response.data.next_page == "loan-offer-details") {
-            //   this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-            // } else if (response.data.next_page == "post-esign") {
-            //   this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
-            // }  
-            // else if (response.data.next_page == "dashboard") {
-            //     return 
-            //   } 
-            //   else if (response.data.next_page == "early-salary-dashboard") {
-            //     this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
-            //   } 
-            // else {
-            //   this.toaster.error(response.msg);
-            //   this.router.navigate(['/loan-info/user-needs']);
-            // }
           } else {
             this.toaster.error(response.msg);
             this.router.navigate(['/loan-info/user-needs']);
@@ -62,14 +42,6 @@ export class DashboardComponent implements OnInit {
     this.CrudService.get(this.dashboard__url, this.userID).subscribe(
       (response: any) => {
         if(response.status == true) {
-          // this.dashboard_details = response.data;
-          // this.next_due_date = this.dashboard_details.next_due_date;
-          // this.next_due_date = this.datepipe.transform(this.next_due_date, 'MMM d, y');
-
-          // this.prev_due_date = this.dashboard_details.previous_due_date;
-          // this.prev_due_date = this.datepipe.transform(this.prev_due_date, 'MMM d, y');
-
-          // this.outstanding_percentage = this.dashboard_details.current_outstanding / this.dashboard_details.amount_sanctioned * 100;
 
           this.dashboard_details = {
             loan_application: "157200568055",

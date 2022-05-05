@@ -48,8 +48,6 @@ export class LoanApprovalComponent implements OnInit {
     private activatedRoute: ActivatedRoute) {
      console.log('current url', this.router.url);
       this.userID = this.activatedRoute.snapshot.queryParams.id;
-      // this.early_bank_details = EarlySalaryService.EarlySalaryDataUpdated;
-      // this.early_salary_bank = EarlySalaryService.early_salary_bank_updated;
     }
 
   ngOnInit(): void {
@@ -82,9 +80,6 @@ export class LoanApprovalComponent implements OnInit {
             if(this.userEnteredDetails?.references.length > 0 ) {
               this.reference_added_mark = true;
             }
-            // if(this.userEnteredDetails.email_id != null) {
-            //   this.email_form.controls['email'].setValue(this.userEnteredDetails.email_id);
-            // }
 
             if(response.data.is_esigned == true) {
               this.esignVerified = true;
@@ -172,7 +167,6 @@ export class LoanApprovalComponent implements OnInit {
   checkNextPg(response: any) {
     if(response.data.next_page == "loan-offer-details") {
       console.log('here')
-      debugger;
       return;
     }
 
@@ -300,7 +294,6 @@ export class LoanApprovalComponent implements OnInit {
       this.CrudService.post(this.email_form.value, this.send_email__url_type).subscribe(
         (response: any) => {
           if(response.status == true) {
-            debugger;
             this.pdfSrc = response.data;
             this.toaster.success(response.msg);
             this.email_Modal = false;

@@ -14,11 +14,8 @@ export class EarlySalaryService {
    constructor() {}
 
    passEarlySalary(data: any, early_salary_bank: boolean) {
-       debugger;
        this.EarlySalaryDataUpdated = data;
        this.early_salary_bank_updated = early_salary_bank;
        return this.EarlySalaryDataUpdated;
-    // this.EarlySalaryData.next(data);
-    // return data;
    }
 }

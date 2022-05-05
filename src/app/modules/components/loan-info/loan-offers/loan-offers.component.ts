@@ -47,7 +47,6 @@ export class LoanOffersComponent implements OnInit {
             } else if(response.data.next_page == "loan-offer-details") {
               
               this.router.navigate(['/loan-info/loan-approval'], { queryParams: { id: this.userID } });
-              // this.router.navigate(['/loan-info/loan-offers'], { queryParams: { id: this.userID } });
             } 
             else if (response.data.next_page == "post-esign-process") {
               this.router.navigate(['/loan-info/post-Esign'], { queryParams: { id: this.userID } });
@@ -93,7 +92,6 @@ export class LoanOffersComponent implements OnInit {
     this.submitDetails = true;
     (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     if(bank_name == "Early Salary") {
-      // this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
       this.CrudService.post(early_salary_details, early_salary_url_type).subscribe(
         (response: any) => {
           console.log('loanoptions', response);

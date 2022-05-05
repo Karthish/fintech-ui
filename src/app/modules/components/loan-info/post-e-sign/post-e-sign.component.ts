@@ -33,7 +33,6 @@ export class PostESignComponent implements OnInit {
   formData_cancelled_cheque = new FormData();
   formData_IDcard = new FormData();
   formData_accountStatement = new FormData();
-  // post_eSign__url = "/post/esign";
   cancelled_cheque_upload_url = "/cancelledcheck/upload";
   empId_upload_url = "/empId/upload";
   bankstatment_upload_url = "/bankstatement/upload";
@@ -246,14 +245,6 @@ export class PostESignComponent implements OnInit {
       console.log('post_esign_form.value',this.post_esign_form.value);
 
       this.formData_cancelled_cheque.append("cancelledcheck", this.checkDocFile);
-      
-      // for(let i=0;i<this.empId_file_arr.length;i++) {
-      //   this.formData_IDcard.append("empId", this.empId_file_arr[i]);
-      // }
-      // for(let i=0;i<this.accStatement_file_arr.length;i++) {
-      //   this.formData_accountStatement.append("bankstatement", this.accStatement_file_arr[i]);
-      // }
-
       let eSingData = {
           id: this.userID,
           bank_name: this.post_esign_form.value.bank_name,

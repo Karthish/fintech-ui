@@ -97,7 +97,6 @@ export class UserNeedsComponent implements OnInit {
 
       this.aadhar_form = this.formBuilder.group(
         {
-          // name: ['', Validators.required],
           aadhar_no: [
             '',
             [
@@ -259,7 +258,6 @@ export class UserNeedsComponent implements OnInit {
             this.AadharAuthenticateModal = false;
             this.AadharSuccessModal = true;
             localStorage.clear();
-            // this.router.navigate(['/loan-info/user-authentication'], { queryParams: { id: response.data._id } });
           }
           
       })
