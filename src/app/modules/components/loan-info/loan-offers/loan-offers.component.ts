@@ -1,8 +1,10 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 import { CrudService } from './../../services/crud-service';
 import { EarlySalaryService } from './../../services/EarlySalaryService';
+
 
 @Injectable()
 @Component({
@@ -16,9 +18,14 @@ export class LoanOffersComponent implements OnInit {
   userID;
   submitDetails: boolean = false;
   getStatusDetails! :any; 
+  otpVerify_Modal!: boolean;
+  otp_form!: FormGroup;
+  otp_submitted: boolean = false;
+  otp_verification_url_type = '/user/uan/otp/verification';
 
 
-  constructor(private CrudService: CrudService, private toaster: ToastrService, private EarlySalaryService: EarlySalaryService,
+  constructor(private CrudService: CrudService, private toaster: ToastrService, 
+    private formBuilder: FormBuilder, private EarlySalaryService: EarlySalaryService,
     private router: Router, private activatedRoute: ActivatedRoute) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
@@ -71,7 +78,18 @@ export class LoanOffersComponent implements OnInit {
       this.router.navigate(['/loan-info/user-needs']);
     }
 
+    this.otp_form = this.formBuilder.group(
+      {
+        otp: ['', Validators.required]
+      }
+    )
+
   }
+
+  get otp(): { [key: string]: AbstractControl } {
+    return this.otp_form.controls;
+  }
+
 
   update_bank_details(bank_id: string, bank_name: string) {
     let update_bank_details = {
@@ -79,7 +97,10 @@ export class LoanOffersComponent implements OnInit {
       bank_ref_id : bank_id,
     };
     let updateDetails_url_type = '/bank/update';
-    
+
+    this.otp_form.value.cust_ref_id = this.userID;
+    this.otp_form.value.bank_ref_id = bank_id;
+
     let early_salary_details = {
       cust_ref_id: this.userID,
       bank_ref_id: bank_id
@@ -89,21 +110,27 @@ export class LoanOffersComponent implements OnInit {
 
     console.log('update_bank_details',update_bank_details);
 
-    this.submitDetails = true;
-    (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+    // this.submitDetails = true;
+    // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
     if(bank_name == "Early Salary") {
       this.CrudService.post(early_salary_details, early_salary_url_type).subscribe(
         (response: any) => {
           console.log('loanoptions', response);
           if(response.status == true) {
             this.toaster.success(response.msg);
-            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+
+            this.otpVerify_Modal = true;
+            this.otp_form.value.token = response.data.token;
+            this.otp_form.value.request_id = response.data.token;
+            
+            // this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
             this.toaster.error(response.msg);
-            this.submitDetails = false;
-            (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
-            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
-            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+            
+            // this.submitDetails = false;
+            // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+            // this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+            
           }
       })
       
@@ -124,5 +151,32 @@ export class LoanOffersComponent implements OnInit {
     
 
   }
+
+  SubmitOtp(): void {
+    this.otp_submitted = true;
+    if (this.otp_form.invalid) {
+      console.log(this.otp_form);
+      return;
+    } else {
+      this.submitDetails = true;
+      (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+      this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
+        (response:any) => {
+          if(response.status == true) {
+            this.toaster.success(response.msg);
+            this.submitDetails = false;
+            (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+            this.otpVerify_Modal = false;
+            this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
+          } else {
+            this.toaster.error(response.msg);
+
+          }
+          
+      })
+    }
+
+  }
+
 
 }
