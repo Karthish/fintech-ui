@@ -5,7 +5,6 @@ import { ToastrService } from "ngx-toastr";
 import { CrudService } from './../../services/crud-service';
 import { EarlySalaryService } from './../../services/EarlySalaryService';
 
-
 @Injectable()
 @Component({
   selector: 'app-loan-offers',
@@ -22,6 +21,9 @@ export class LoanOffersComponent implements OnInit {
   otp_form!: FormGroup;
   otp_submitted: boolean = false;
   otp_verification_url_type = '/user/uan/otp/verification';
+  token: any;
+  request_id: any;
+  bank_ref_id: any;
 
 
   constructor(private CrudService: CrudService, private toaster: ToastrService, 
@@ -98,8 +100,11 @@ export class LoanOffersComponent implements OnInit {
     };
     let updateDetails_url_type = '/bank/update';
 
-    this.otp_form.value.cust_ref_id = this.userID;
-    this.otp_form.value.bank_ref_id = bank_id;
+    // this.otp_form.value.cust_ref_id = this.userID;
+    // this.otp_form.value.bank_ref_id = bank_id;
+    console.log('this.userID;',this.userID);
+    
+    this.bank_ref_id = bank_id;
 
     let early_salary_details = {
       cust_ref_id: this.userID,
@@ -120,9 +125,11 @@ export class LoanOffersComponent implements OnInit {
             this.toaster.success(response.msg);
 
             this.otpVerify_Modal = true;
-            this.otp_form.value.token = response.data.token;
-            this.otp_form.value.request_id = response.data.token;
-            
+            // this.otp_form.value.token = response.data.token;
+            // this.otp_form.value.request_id = response.data.token;
+
+            this.token = response.data.token;
+            this.request_id = response.data.request_id;
             // this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
             this.toaster.error(response.msg);
@@ -159,6 +166,12 @@ export class LoanOffersComponent implements OnInit {
       return;
     } else {
       this.submitDetails = true;
+      this.otp_form.value.token = this.token;
+      this.otp_form.value.request_id = this.request_id;
+      this.otp_form.value.cust_ref_id = this.userID;
+      this.otp_form.value.bank_ref_id = this.bank_ref_id;
+      
+      
       (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
