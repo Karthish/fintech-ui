@@ -122,7 +122,7 @@ export class LoanOffersComponent implements OnInit {
         (response: any) => {
           console.log('loanoptions', response);
           if(response.status == true) {
-            this.toaster.success(response.msg);
+            this.toaster.success(response.data.result.message);
 
             this.otpVerify_Modal = true;
             // this.otp_form.value.token = response.data.token;
@@ -132,7 +132,7 @@ export class LoanOffersComponent implements OnInit {
             this.request_id = response.data.request_id;
             // this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
-            this.toaster.error(response.msg);
+            this.toaster.error(response.data.result.message);
             
             // this.submitDetails = false;
             // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
@@ -175,6 +175,7 @@ export class LoanOffersComponent implements OnInit {
       (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
+          debugger;
           if(response.status == true) {
             this.toaster.success(response.msg);
             this.submitDetails = false;
