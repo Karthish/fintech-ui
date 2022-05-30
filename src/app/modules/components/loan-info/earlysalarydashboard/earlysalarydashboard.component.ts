@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 import { CrudService } from './../../services/crud-service';
 import { DatePipe } from '@angular/common'
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-earlysalarydashboard',
@@ -16,9 +17,12 @@ export class EarlysalarydashboardComponent implements OnInit {
   userName!: string;
   customerStatus!: any;
   customer_details!:any;
+  earlySalary_Modal!: boolean;
+  url: string = "https://eswebportalqanew.earlysalary.com/SignUp";
+  urlSafe!: SafeResourceUrl;
 
   constructor(private CrudService: CrudService, private toaster: ToastrService,
-    private router: Router, private activatedRoute: ActivatedRoute, public datepipe: DatePipe) {
+    private router: Router, private activatedRoute: ActivatedRoute, public datepipe: DatePipe, public sanitizer: DomSanitizer) {
       this.userID = this.activatedRoute.snapshot.queryParams.id;
     }
 
@@ -38,7 +42,11 @@ export class EarlysalarydashboardComponent implements OnInit {
     } else {
       this.router.navigate(['/loan-info/user-needs']);
     }
+
+    this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
+
+  
 
   checkStatus() {
     let status_check_obj = {
@@ -55,6 +63,10 @@ export class EarlysalarydashboardComponent implements OnInit {
           this.customerStatus = response.msg;
         }
     })
+  }
+
+  open_earlySalary_modal() {
+    this.earlySalary_Modal = true;
   }
 
 }
