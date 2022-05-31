@@ -171,7 +171,6 @@ export class LoanOffersComponent implements OnInit {
       this.otp_form.value.cust_ref_id = this.userID;
       this.otp_form.value.bank_ref_id = this.bank_ref_id;
       
-      
       // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
