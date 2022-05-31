@@ -84,7 +84,7 @@ export class UserAuthenticationComponent implements OnInit {
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['36', Validators.required],
         mothers_maiden_name: ['', Validators.required],
-        father_name: ['', Validators.required],
+        // father_name: ['', Validators.required],
         marital_status: ['martial_selectedValue', Validators.required],
         address_type: ['address_selectedValue', Validators.required],
         office_pin_code: ['',Validators.required],
