@@ -250,7 +250,7 @@ export class UserNeedsComponent implements OnInit {
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
           if(response.status == false) {
-            this.toaster.error(response.msg.statusMessage);
+            this.toaster.error(response.msg);
           } else {
             this.toaster.success(response.msg);
             console.log('otpverifyresponse',response);
