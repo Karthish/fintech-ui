@@ -172,14 +172,14 @@ export class LoanOffersComponent implements OnInit {
       this.otp_form.value.bank_ref_id = this.bank_ref_id;
       
       
-      (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+      // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
           debugger;
           if(response.status == true) {
             this.toaster.success(response.msg);
             this.submitDetails = false;
-            (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
+            // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
             this.otpVerify_Modal = false;
             this.router.navigate(['/loan-info/early-salary-dashboard'], { queryParams: { id: this.userID } });
           } else {
