@@ -1,4 +1,4 @@
-<div *ngIf="submitDetails == false"> 
+<div> 
   <div class="container">
     <div class="header-row row p-2">
         <div class="img-con" style="width: 100px;">
@@ -133,11 +133,27 @@
 </div>
 </div>
 
+<p-dialog header="Enter OTP" [(visible)]="otpVerify_Modal" [modal]="true"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="otp_form" (ngSubmit)="SubmitOtp()" autocomplete="off">
+    <div class="form-group">
+      <label for="">Enter OTP</label>
+      <input type="text" name="otp" formControlName="otp" class="main-input form-control"
+        [ngClass]="{ 'is-invalid': otp_submitted && otp.otp.errors }">
+      <div *ngIf="otp_submitted && otp.otp.errors" class="invalid-feedback">
+        <div *ngIf="otp.otp.errors.required">OTP is required</div>
+      </div>
+    </div>
+    <div class="mt-4">
+      <button class="btn action-confirm-btn" type="submit" style="width: 100%;">Confirm</button>
+    </div>
+  </form>
+</p-dialog>
 
-<div *ngIf="submitDetails == true" class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh;position: fixed;top: 0;left: 0;width: 100vw;">
+<!-- <div *ngIf="submitDetails == true" class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh;position: fixed;top: 0;left: 0;width: 100vw;">
   <div class="img-con" style="width: 150px;">
     <img src="./../../../../../assets/images/sharing-info-img.png" alt="" style="width: 100%;">
   </div>
   <h5 class="text-center"><b>Sharing information <br>with Financial Institution</b></h5>
-</div>
+</div> -->
 

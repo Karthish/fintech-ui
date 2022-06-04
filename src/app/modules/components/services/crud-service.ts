@@ -1,45 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from './../../../../environments/environment';
 
 @Injectable()
 export class CrudService {
+    private API_URL= environment.apiUrl;
     http;
-    baseurl: string = "https://ec2-13-126-45-140.ap-south-1.compute.amazonaws.com/api/v1";
-    //  baseurl: string = "http://localhost:8870/api/v1";
     constructor(http: HttpClient) {
         this.http = http;
     }
 
     post(postData: any, _api_type?: string) {
-        return this.http.post(this.baseurl+_api_type,postData)
+        return this.http.post(this.API_URL+_api_type,postData)
     }
 
     get(urlType?: string, id?: any) {
         if(id == undefined) {
             id ='';
         }
-        return this.http.get(this.baseurl+urlType+id);
+        return this.http.get(this.API_URL+urlType+id);
     }
 
     put(Data: any, _api_type?: string, id?:any) {
         if(id) {
-            return this.http.put(this.baseurl+_api_type+id,Data)
+            return this.http.put(this.API_URL+_api_type+id,Data)
         } else {
-            return this.http.put(this.baseurl+_api_type,Data)
+            return this.http.put(this.API_URL+_api_type,Data)
         }
 
     }
 
     getLoanList(id?: number) {
         if(id) {
-            return this.http.get(this.baseurl+'' + id);
+            return this.http.get(this.API_URL+'' + id);
         } else {
-            return this.http.get(this.baseurl+'/loan/list');
+            return this.http.get(this.API_URL+'/loan/list');
         }
     }
 
     getUserStatus(id?: any) {
-        return this.http.get(this.baseurl+'/user/status/' + id);
+        return this.http.get(this.API_URL+'/user/status/' + id);
     }
 
 

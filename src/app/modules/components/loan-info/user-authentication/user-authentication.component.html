@@ -79,6 +79,47 @@
                 </div>
               </div>
               <div class="col-6 col-md-6">
+                <p class="p-dialog-title">Martial Status</p>
+                <div class="d-flex">
+                  <div class="p-field-radiobutton d-flex align-items-center">
+                    <p-radioButton name="marital_status" formControlName="marital_status" value="single"
+                      [(ngModel)]="martial_selectedValue"></p-radioButton>
+                    <label class="ms-3" for="">Single</label>
+                  </div>
+                  <div class="p-field-radiobutton d-flex align-items-center mx-5">
+                    <p-radioButton name="marital_status" formControlName="marital_status" value="married"
+                      [(ngModel)]="martial_selectedValue"></p-radioButton>
+                    <label class="ms-3" for="">Married</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <p class="p-dialog-title">Address Type</p>
+                <div class="d-flex">
+                  <div class="p-field-radiobutton d-flex align-items-center">
+                    <p-radioButton name="address_type" formControlName="address_type" value="owned"
+                      [(ngModel)]="address_selectedValue"></p-radioButton>
+                    <label class="ms-3" for="">Owned</label>
+                  </div>
+                  <div class="p-field-radiobutton d-flex align-items-center mx-5">
+                    <p-radioButton name="address_type" formControlName="address_type" value="rental"
+                      [(ngModel)]="address_selectedValue"></p-radioButton>
+                    <label class="ms-3" for="">Rental</label>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-6 col-md-6">
+                <div class="form-group p-relative">
+                  <label for="">Father's Name</label>
+                  <input type="text" class="main-input" name="father_name" formControlName="father_name"
+                    [ngClass]="{ 'is-invalid': user_details_submitted && user_detail.father_name.errors }">
+                  <div *ngIf="user_details_submitted && user_detail.father_name.errors" class="invalid-feedback">
+                    <div *ngIf="user_detail.father_name.errors.required">Father's name is required</div>
+                  </div>
+                  <i class="fa fa-exclamation-circle p-absolute" aria-hidden="true"></i>
+                </div>
+              </div> -->
+              <div class="col-6 col-md-6">
                 <div class="form-group p-relative">
                   <label for="">Mother's Maiden Name</label>
                   <input type="text" class="main-input" name="mothers_maiden_name" formControlName="mothers_maiden_name"

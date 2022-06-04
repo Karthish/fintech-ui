@@ -13,6 +13,8 @@ import { ToastrService } from "ngx-toastr";
 export class UserAuthenticationComponent implements OnInit {
 
   selectedValue: string = 'salaried';
+  martial_selectedValue: string = 'single';
+  address_selectedValue: string = 'owned';
   consent_value!: boolean;
   cust_detail_verification: boolean = false;
   user_details_form!: FormGroup;
@@ -82,6 +84,9 @@ export class UserAuthenticationComponent implements OnInit {
         desired_fund_amount: ['', Validators.required],
         loan_tenure : ['36', Validators.required],
         mothers_maiden_name: ['', Validators.required],
+        // father_name: ['', Validators.required],
+        marital_status: ['martial_selectedValue', Validators.required],
+        address_type: ['address_selectedValue', Validators.required],
         office_pin_code: ['',Validators.required],
         mobile_no: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         email_id: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -141,7 +146,6 @@ export class UserAuthenticationComponent implements OnInit {
 
 
   SubmitUserDetail(): void {
-    debugger;
     delete this.user_details_form.value.accept_terms;
     delete this.user_details_form.value.salary_slips;
     console.log('user_details_form', this.user_details_form);

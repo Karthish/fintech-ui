@@ -102,9 +102,9 @@
                                 <div class="stat-row mb-2 col-6">
                                     <div class="stat-header">Redirect to Early Salary</div>
                                     <div class="stat-header"> 
-                                        <a class="btn action-confirm-btn" href="https://eswebportalqanew.earlysalary.com/SignUp" style="    white-space: nowrap;">
+                                        <button class="btn action-confirm-btn" (click)="open_earlySalary_modal()" style="white-space: nowrap;">
                                             Click here
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -116,3 +116,8 @@
         </div>    
     </div>
 </div>
+
+<p-dialog header="" [(visible)]="earlySalary_Modal" [modal]="true" id="earlySalary_popup"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '90vw'}" [draggable]="false" [resizable]="false">
+  <iframe width="100%" height="100%" frameBorder="0" [src]="urlSafe"></iframe>
+</p-dialog>
