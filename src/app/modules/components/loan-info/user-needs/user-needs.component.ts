@@ -46,6 +46,7 @@ export class UserNeedsComponent implements OnInit {
   aadhar_verification_url_type = '/aadhar/generate/accesskey';
   otp_verification_url_type = '/aadhar/otp/verify';
   aadhar_verification: boolean = true;
+  requestId!: string;
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private CrudService: CrudService, private toaster: ToastrService, private activatedRoute: ActivatedRoute,
@@ -212,7 +213,7 @@ export class UserNeedsComponent implements OnInit {
             console.log('Aadhar verification',response);
             this.pan_verification_con = false;
             this.AadharAuthenticateModal = true;
-            
+            this.requestId = response.data.requestId;
             localStorage.setItem('accessKey', response?.data?.result?.accessKey);
             localStorage.setItem('caseId', response?.data?.clientData?.caseId);
             localStorage.setItem('aadhar_no',this.aadhar_form.value.aadhar_no);
@@ -229,7 +230,7 @@ export class UserNeedsComponent implements OnInit {
       console.log(this.otp_form);
       return;
     } else {
-
+      this.otp_form.value.requestId = this.requestId;
       this.otp_form.value.accessKey = localStorage.getItem('accessKey');
       this.otp_form.value.caseId = localStorage.getItem('caseId');
       this.otp_form.value.id = this.userID;
