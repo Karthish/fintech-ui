@@ -174,7 +174,6 @@ export class LoanOffersComponent implements OnInit {
       // (document.querySelector('.progress-loader') as HTMLElement).style.display = 'none';
       this.CrudService.post(this.otp_form.value, this.otp_verification_url_type).subscribe(
         (response:any) => {
-          debugger;
           if(response.status == true) {
             this.toaster.success(response.msg);
             this.submitDetails = false;
