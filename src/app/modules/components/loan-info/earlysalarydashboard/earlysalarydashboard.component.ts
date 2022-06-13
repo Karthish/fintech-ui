@@ -16,7 +16,7 @@ export class EarlysalarydashboardComponent implements OnInit {
   status_salary_res: any;
   userName!: string;
   customerStatus!: any;
-  customer_details!:any;
+  customer_details_info!:any;
   earlySalary_Modal!: boolean;
   url: string = "https://eswebportalqanew.earlysalary.com/SignUp";
   urlSafe!: SafeResourceUrl;
@@ -57,8 +57,9 @@ export class EarlysalarydashboardComponent implements OnInit {
       (response: any) => {
         if(response.status == true) {
           this.status_salary_res = response;
-          this.customerStatus = response.data?.customer_details?.loan_details?.status;
-          this.customer_details = response.data?.customer_details;
+          this.customerStatus = response.data?.customerStatus;
+          this.customer_details_info = response.data?.customer_details;
+          console.log('customer_details_info',this.customer_details_info.loan_application_number);
         } else {
           this.customerStatus = response.msg;
         }
