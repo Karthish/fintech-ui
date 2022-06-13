@@ -138,6 +138,7 @@
         padding: 0;
     }
     .p-dialog-content {
+        overflow-y: unset!important;
         height: 90vh;
     }
 }
