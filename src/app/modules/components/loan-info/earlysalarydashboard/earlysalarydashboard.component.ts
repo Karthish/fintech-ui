@@ -55,14 +55,9 @@ export class EarlysalarydashboardComponent implements OnInit {
 
     this.CrudService.post(status_check_obj, this.early_salary_status).subscribe(
       (response: any) => {
-        if(response.status == true) {
-          this.status_salary_res = response;
-          this.customerStatus = response.data?.customerStatus;
-          this.customer_details_info = response.data?.customer_details;
-          console.log('customer_details_info',this.customer_details_info.loan_application_number);
-        } else {
-          this.customerStatus = response.msg;
-        }
+        this.status_salary_res = response;
+        this.customer_details_info = response.data?.customer_details;
+        console.log('customer_details_info',this.customer_details_info.loan_application_number);
     })
   }
 
